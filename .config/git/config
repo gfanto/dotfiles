@@ -1,0 +1,46 @@
+[user]
+	name = Gianmarco Fantinuoli
+
+[credential]
+	helper = cache --timeout=604800
+
+[ui "color"]
+	ui = always
+[color]
+	ui = true
+
+[core]
+  editor = nvim
+  pager = delta
+  autocrlf = input
+  safecrlf = true
+
+[merge]
+  tool = nvim -d
+  stat = true
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
+  stat = true
+
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  last = log -1 HEAD
+  changes = diff @~..@
+  squash = rebase -i HEAD~2
+
+[push]
+  default = current
+
+[delta]
+  line-numbers = true
+  syntax-theme = gruvbox
+  side-by-side = true
+
+  file-modified-label = modified:
+
+[interactive]
+  diffFilter = delta --color-only

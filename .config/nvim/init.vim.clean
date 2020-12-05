@@ -1,0 +1,198 @@
+set shell=/usr/bin/env\ fish
+
+set nocompatible
+filetype plugin indent on
+syntax on
+
+set termguicolors
+set noerrorbells
+
+set path+=**
+set wildmenu
+set wildignore+=*.o,*~,*.pyc,__pycache__
+
+set tabstop=4 softtabstop=4 shiftwidth=4
+set autoindent
+set expandtab
+set smartindent
+set smartcase
+set showmatch
+set hidden
+
+set relativenumber
+set nu
+set guicursor=
+set signcolumn=yes
+
+set hlsearch
+set incsearch
+set ignorecase
+
+set nowrap
+set noswapfile
+set nobackup
+set nowritebackup
+set undodir=~/.config/nvim/undodir
+set undofile
+
+set mouse=a
+set clipboard+=unnamedplus
+
+set complete-=i
+set completeopt=menuone,noinsert,noselect
+set pumheight=12
+
+set scrolloff=8
+set sidescroll=0
+set cmdheight=1
+set updatetime=250
+set ttimeout
+set ttimeoutlen=100
+set shortmess+=c
+
+set foldmethod=syntax
+set nofoldenable
+set foldlevelstart=999
+
+set laststatus=2
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+
+highlight Pmenu ctermbg=238 gui=bold
+
+let g:mapleader = "\<Space>"
+
+let g:netrw_banner = 0
+let g:netrw_browse_split = 2
+let g:netrw_liststyle=3
+
+let g:floaterm_autoclose = 2
+
+com! CopyRel let @+ = expand('%')
+com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right env NOTMUX=yes fish
+
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'voldikss/vim-floaterm'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'neovim/nvim-lspconfig'
+
+call plug#end()
+
+fun! s:Tags(name)
+  let tags = taglist(a:name)
+  let qf_taglist = []
+  for entry in tags
+    call add(qf_taglist, {
+          \ 'pattern':  entry['cmd'],
+          \ 'filename': entry['filename'],
+          \ })
+  endfor
+  if len(qf_taglist) > 0
+    call setqflist(qf_taglist)
+    copen
+  else
+    echo "No tags found for ".a:name
+  endif
+endfun
+com! -nargs=1 Tags call s:Tags(<f-args>)
+
+fun! CleverTab(dir)
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+       return "\<Tab>"
+    else
+        if a:dir == 'j'
+            return "\<C-N>"
+        elseif a:dir == 'k'
+            return "\<C-P>"
+        endif
+    endif
+endfun
+inoremap <Tab> <C-R>=CleverTab('j')<CR>
+inoremap <S-Tab> <C-R>=CleverTab('k')<CR>
+
+tnoremap <Esc> <C-\><C-n>
+
+nnoremap <C-p> :FloatermNew fzf<CR>
+nnoremap <C-b> :tabprevious<CR>
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-q> :tabclose<CR>
+nnoremap <C-l> :noh<CR>
+
+nnoremap Y y$
+nnoremap S "_S
+nnoremap x "_x
+nnoremap s "_s
+vnoremap X "_d
+
+nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>q :FloatermToggle<CR>
+nnoremap <Leader>t :FloatermNew env NOTMUX=yes fish<CR>
+
+" LSP {{
+nmap <silent> gD :lua vim.lsp.buf.definition()<CR>
+nmap <silent> K  :lua vim.lsp.buf.hover()<CR>
+nmap <silent> gr :lua vim.lsp.buf.references()<CR>
+nmap <silent> gs :lua vim.lsp.buf.signature_help()<CR>
+nmap <silent> cr :lua vim.lsp.buf.rename()<CR>
+nmap <silent> gp :lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
+nmap <silent> gn :lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
+
+nnoremap <leader>r :lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <leader>w :lua vim.lsp.buf.workspace_symbol()<CR><CR>
+nnoremap <leader>a :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>d :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
+com! Format lua vim.lsp.buf.formatting()
+com! LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
+com! OpenDiagnostic lua vim.lsp.diagnostic.set_loclist()
+
+call sign_define("LspDiagnosticsSignError", {"text" : ">>", "texthl" : "LspDiagnosticsVirtualTextError"})
+call sign_define("LspDiagnosticsSignWarning", {"text" : "⚠", "texthl" : "LspDiagnosticsVirtualTextWarning"})
+call sign_define("LspDiagnosticsSignInformation", {"text" : ">>", "texthl" : "LspDiagnosticsVirtualTextInformation"})
+call sign_define("LspDiagnosticsSignHint", {"text" : ">>", "texthl" : "LspDiagnosticsVirtualTextHint"})
+
+lua << EOF
+    local lsp = require 'lspconfig'
+
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = false,
+        virtual_text = {
+          spacing = 4,
+        },
+      }
+    )
+
+    lsp.tsserver.setup{}
+    lsp.html.setup{}
+    lsp.cssls.setup{}
+    lsp.gopls.setup{}
+    lsp.clangd.setup{}
+    lsp.pyright.setup{}
+    lsp.rust_analyzer.setup{}
+EOF
+
+autocmd FileType go,typescript*,javascript,rust,python,html,css,less setlocal omnifunc=v:lua.vim.lsp.omnifunc
+" }}
+
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+autocmd BufWritePre * :call TrimWhitespace()
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'netrw') | q | endif
+autocmd TermOpen * startinsert
+autocmd TermClose * call nvim_input('<CR>')
+autocmd StdinReadPre * let s:std_in=1
+autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
+autocmd FileType python,yaml setl foldmethod=indent
+autocmd FileType markdown,rst setl spell spelllang=it,en
+
