@@ -52,6 +52,7 @@ set pumheight=12
 set mouse=a
 set clipboard+=unnamedplus
 
+set ve=block
 set scrolloff=8
 set sidescroll=0
 set cmdheight=1

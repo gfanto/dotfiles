@@ -31,9 +31,14 @@
   last = log -1 HEAD
   changes = diff @~..@
   squash = rebase -i HEAD~2
+  amend = commit -a --amend
 
 [push]
   default = current
+
+[diff]
+	algorithm = patience
+	compactionHeuristic = true
 
 [delta]
   line-numbers = true

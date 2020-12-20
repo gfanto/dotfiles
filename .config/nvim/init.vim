@@ -46,6 +46,7 @@ set pumheight=12
 set mouse=a
 set clipboard+=unnamedplus
 
+set ve=block
 set scrolloff=8
 set sidescroll=0
 set cmdheight=1
@@ -59,6 +60,10 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable
 set foldlevelstart=999
+
+set diffopt+=iwhite
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 
 " *****************************************************************************
 " variables nad comands
@@ -84,20 +89,31 @@ if executable('rg')
 endif
 let g:vrfr_rg = 'true'
 
-let g:fzf_layout = {'window': {'height': 0.8, 'width': 0.8}}
-let $FZF_DEFAULT_OPTS='--reverse'
+let g:floaterm_autoclose = 2
+
+let g:lua_tree_follow = 1
+
+let g:fzf_lsp_layout = { 'down': '30%' }
+let g:fzf_lsp_colors = 'bg+:-1'
 
 com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
 com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right fish
 com! CopyRel let @+ = expand('%')
 
-let g:floaterm_autoclose = 2
-
-let g:lua_tree_follow = 1
-let g:lua_tree_auto_close = 1
-
-let g:fzf_branch_actions = {}
-let g:fzf_tag_actions = {}
+fun! RangeSearch(direction)
+  call inputsave()
+  let g:srchstr = input(a:direction)
+  call inputrestore()
+  if strlen(g:srchstr) > 0
+    let g:srchstr = g:srchstr.
+          \ '\%>'.(line("'<")-1).'l'.
+          \ '\%<'.(line("'>")+1).'l'
+  else
+    let g:srchstr = ''
+  endif
+endfun
+vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
+vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
 " *****************************************************************************
 " Plugs
@@ -105,12 +121,12 @@ let g:fzf_tag_actions = {}
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
 Plug 'steelsojka/completion-buffers'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/completion-treesitter'
 
 Plug 'sheerun/vim-polyglot'
@@ -118,15 +134,17 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 
+Plug 'mbbill/undotree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'gfanto/fzf-lsp.nvim'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'gfanto/fzf-lsp.nvim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
@@ -157,7 +175,7 @@ vnoremap X "_d
 
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>
-nnoremap <Leader>t :FloatermNew env NOTMUX=yes fish<CR>
+nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <leader>e :LuaTreeToggle<CR>
 
@@ -165,13 +183,13 @@ nnoremap <leader>e :LuaTreeToggle<CR>
 " LSP settings
 " *****************************************************************************
 
-let g:airline#extensions#nvimlsp#enabled = 0
+let g:completion_timer_cycle = 120
 let g:completion_matching_strategy_list = ['fuzzy']
 let g:completion_matching_ignore_case = 1
 let g:completion_sorting = "none"
 let g:completion_trigger_keyword_length = 3
 let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp', 'ts', 'buffers']}
+    \{'complete_items': ['lsp', 'buffers']}
 \]
 
 function! LspStatus() abort
@@ -183,6 +201,7 @@ endfunction
 call airline#parts#define_function('lsp_status', 'LspStatus')
 call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
 let g:airline_section_c = airline#section#create(['%<', 'file', g:airline_symbols.space, 'readonly', 'lsp_status'])
+let g:airline#extensions#nvimlsp#enabled = 0
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -202,33 +221,32 @@ call sign_define('LspDiagnosticsSignWarning', {'text' : '⚠', 'texthl' : 'LspDi
 call sign_define('LspDiagnosticsSignInformation', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextInformation'})
 call sign_define('LspDiagnosticsSignHint', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextHint'})
 
-com! Format lua vim.lsp.buf.formatting()
+com! Format lua vim.lsp.buf.formatting_sync(nil, 5000)
 com! LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
 com! LspRestart lua vim.lsp.stop_client(vim.lsp.get_active_clients());vim.api.nvim_command('e')
-com! OpenDiagnostic lua vim.lsp.diagnostic.set_loclist()
 
-nmap <silent> gd :Definitions<CR>
-nmap <silent> K  :lua vim.lsp.buf.hover()<CR>
-nmap <silent> gr :References<CR>
-nmap <silent> cr :lua vim.lsp.buf.rename()<CR>
-nmap <silent> gp :lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
-nmap <silent> gn :lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
+nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nmap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> cr <cmd>lua vim.lsp.buf.rename()<CR>
+nmap <silent> gp <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
+nmap <silent> gn <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
 
-nnoremap <leader>r :DocumentSymbols<CR>
-nnoremap <leader>w :WorkspaceSymbols<CR>
-nnoremap <leader>a :CodeActions<CR>
-nnoremap <leader>d :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR><CR>
+nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 lua << EOF
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = "all",
-      highlight = {
-        enable = true,
-        disable = {},
-      },
+    require'fzf_lsp'.setup()
+
+    require"nvim-treesitter.configs".setup {
+      ensure_installed = "maintained",
+      highlight = { enable = true },
+      indent = { enable = true },
     }
 
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = false,
         virtual_text = {
@@ -237,16 +255,19 @@ lua << EOF
       }
     )
 
-    local lsp = require 'lspconfig'
-    local lsp_status = require('lsp-status')
+    local lsp = require "lspconfig"
+    local lsp_status = require("lsp-status")
     lsp_status.register_progress()
     lsp_status.config({
         status_symbol = "",
     })
 
     local on_attach = function(client, bufnr)
-      require'completion'.on_attach(client, bufnr)
-      require'lsp-status'.on_attach(client, bufnr)
+      if client.config.flags then
+        client.config.flags.allow_incremental_sync = true
+      end
+      --require"completion".on_attach(client, bufnr)
+      require"lsp-status".on_attach(client, bufnr)
     end
 
     lsp.tsserver.setup{ on_attach = on_attach }
@@ -254,6 +275,8 @@ lua << EOF
     lsp.cssls.setup{ on_attach = on_attach }
     lsp.gopls.setup{ on_attach = on_attach }
     lsp.clangd.setup{ on_attach = on_attach }
+    lsp.vimls.setup{ on_attach = on_attach }
+    lsp.sumneko_lua.setup{ on_attach = on_attach }
     lsp.pyls.setup{
       on_attach = on_attach,
       capabilities = vim.tbl_extend("keep", lsp.pyls.capabilities or {}, lsp_status.capabilities),
@@ -282,6 +305,7 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{
   \ highlight = 'NonText'
   \ }
 autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd BufEnter * lua require'completion'.on_attach()
 
 " *****************************************************************************
 " autocmd
@@ -295,6 +319,4 @@ endfun
 
 autocmd BufWritePre * :call TrimWhitespace()
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-"autocmd FileType yaml,python setl foldmethod=indent
 autocmd FileType markdown,rst setl spell spelllang=it,en
-
