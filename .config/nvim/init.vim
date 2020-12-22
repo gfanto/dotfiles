@@ -30,6 +30,7 @@ set signcolumn=yes
 
 set hlsearch
 set incsearch
+set inccommand=split
 set ignorecase
 
 set nowrap
