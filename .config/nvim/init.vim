@@ -78,12 +78,13 @@ else
   let g:python3_host_prog = systemlist('which python3')[0]
 endif
 
-let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
-let g:gruvbox_invert_selection='0'
+
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
 
 if executable('rg')
   let g:rg_derive_root='true'
@@ -305,7 +306,7 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{
   \ prefix = '     » ',
   \ highlight = 'NonText'
   \ }
-autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim.lua setlocal omnifunc=v:lua.vim.lsp.omnifunc
 autocmd BufEnter * lua require'completion'.on_attach()
 
 " *****************************************************************************
