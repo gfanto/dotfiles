@@ -281,6 +281,7 @@ set -x GOPATH "$HOME/.go"
 set -x GOROOT "/opt/go"
 set -x CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -x PYTHONBREAKPOINT "ipdb.set_trace"
+set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
 set -g PATH "$PATH:/usr/local/bin"
 set -g PATH "$PATH:/opt/node/bin"
@@ -306,10 +307,10 @@ bind '$' __history_previous_command_arguments
 
 # IMPORTANT: this must be the last one
 if test -d ~/.python3
-    source ~/.python3/bin/activate.fish
+  source ~/.python3/bin/activate.fish
 end
 # END
 
 if test -f ~/.config/fish/personal.fish
-    source ~/.config/fish/personal.fish
+  source ~/.config/fish/personal.fish
 end
