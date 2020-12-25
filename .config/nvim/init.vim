@@ -322,3 +322,12 @@ endfun
 autocmd BufWritePre * :call TrimWhitespace()
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
 autocmd FileType markdown,rst setl spell spelllang=it,en
+
+" *****************************************************************************
+" load current system settings
+" *****************************************************************************
+
+let sys_config = expand('<sfile>:p:h').'/sys_init.vim'
+if filereadable(sys_config)
+  execute 'source '.sys_config
+endif
