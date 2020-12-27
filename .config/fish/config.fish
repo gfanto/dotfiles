@@ -54,18 +54,6 @@ if type -q fdfind > /dev/null ^ /dev/null
   alias fd "fdfind"
 end
 
-alias grep 'grep --color=auto'
-alias fgrep 'fgrep --color=auto'
-alias egrep 'egrep --color=auto'
-
-if type -q delta > /dev/null ^ /dev/null
-  alias delta 'delta --syntax-theme=gruvbox'
-end
-if type -q bat > /dev/null ^ /dev/null
-  alias bat 'bat --theme=gruvbox'
-  alias batcat 'bat --theme=gruvbox --style=plain'
-end
-
 function alert -d "Alert alias for long running commands. Use like so: sleep 10; alert"
   set icon (test $status = 0 && echo terminal || echo error)
   set summary (history --reverse | tail -n1)
@@ -101,8 +89,6 @@ alias listfiles "ll -p | grep -v /"
 alias serve "python -m http.server --bind 0.0.0.0"
 alias sha1 "sha1sum | awk '{print \$1}'"
 alias c2c "xclip -selection c"
-alias bluec "btc connect"
-alias blued "btc disconnect"
 alias dkc "docker-compose"
 alias krmdang "docker rmi (docker images --filter 'dangling=true' -q --no-trunc)"
 alias lua "rlwrap lua"
@@ -311,6 +297,6 @@ if test -d ~/.python3
 end
 # END
 
-if test -f ~/.config/fish/personal.fish
-  source ~/.config/fish/personal.fish
+if test -f ~/.config/fish/sys_config.fish
+  source ~/.config/fish/sys_config.fish
 end

@@ -10,6 +10,7 @@ syntax on
 
 set noerrorbells
 set termguicolors
+set lazyredraw
 
 set path+=**
 set wildmenu
@@ -179,7 +180,7 @@ nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
-nnoremap <leader>e :LuaTreeToggle<CR>
+nnoremap <leader>e :NvimTreeToggle<CR>
 
 " *****************************************************************************
 " LSP settings
@@ -219,7 +220,7 @@ inoremap <silent><expr> <TAB>
   \ completion#trigger_completion()
 
 call sign_define('LspDiagnosticsSignError', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextError'})
-call sign_define('LspDiagnosticsSignWarning', {'text' : '⚠', 'texthl' : 'LspDiagnosticsVirtualTextWarning'})
+call sign_define('LspDiagnosticsSignWarning', {'text' : '', 'texthl' : 'LspDiagnosticsVirtualTextWarning'})
 call sign_define('LspDiagnosticsSignInformation', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextInformation'})
 call sign_define('LspDiagnosticsSignHint', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextHint'})
 
@@ -268,7 +269,7 @@ lua << EOF
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
-      --require"completion".on_attach(client, bufnr)
+      require"completion".on_attach(client, bufnr)
       require"lsp-status".on_attach(client, bufnr)
     end
 
@@ -307,7 +308,6 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{
   \ highlight = 'NonText'
   \ }
 autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim.lua setlocal omnifunc=v:lua.vim.lsp.omnifunc
-autocmd BufEnter * lua require'completion'.on_attach()
 
 " *****************************************************************************
 " autocmd

@@ -6,6 +6,7 @@ syntax on
 
 set termguicolors
 set noerrorbells
+set lazyredraw
 
 set path+=**
 set wildmenu
