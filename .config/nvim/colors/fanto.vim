@@ -73,7 +73,7 @@ hi! IncSearch guifg=#fe8019 guibg=#1d2021 gui=reverse
 " Code comments
 hi! Comment guifg=#7c6f64 gui=italic
 hi! Todo guifg=#ebdbb2 guibg=#1d2021 gui=none
-hi! Error guifg=#cc241d gui=bold,inverse
+hi! Error guifg=#cc241d guibg=#1d2021 gui=bold,inverse
 
 hi! CursorLineNr guifg=#fabd2f
 " Line number for :number and :# commands
