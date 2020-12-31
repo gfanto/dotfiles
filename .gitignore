@@ -2,3 +2,5 @@
 .config/nvim/undodir/
 .config/nvim/sys_init.vim
 .config/nvim/.netrwhist
+.config/fish/fish_variables
+.config/nvim/autoload/
