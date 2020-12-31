@@ -4,3 +4,4 @@
 .config/nvim/.netrwhist
 .config/fish/fish_variables
 .config/nvim/autoload/
+.config/fish/sys_config.fish
