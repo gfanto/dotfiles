@@ -93,6 +93,7 @@ alias dkc "docker-compose"
 alias krmdang "docker rmi (docker images --filter 'dangling=true' -q --no-trunc)"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
+alias weather "curl wttr.in"
 
 abbr s "sudo"
 
