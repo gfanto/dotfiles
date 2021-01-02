@@ -27,7 +27,7 @@ set hidden
 set relativenumber
 set nu
 set guicursor=
-set signcolumn=yes
+set signcolumn=no
 
 set hlsearch
 set incsearch
