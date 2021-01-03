@@ -104,8 +104,14 @@ com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=ri
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-	 	\ | wincmd p | diffthis
+function! s:DiffWithOrig()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffOrig call s:DiffWithOrig()
 
 fun! RangeSearch(direction)
   call inputsave()

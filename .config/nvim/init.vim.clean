@@ -83,8 +83,14 @@ let g:undotree_WindowLayout = 2
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-	 	\ | wincmd p | diffthis
+function! s:DiffWithOrig()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffOrig call s:DiffWithOrig()
 
 call plug#begin('~/.config/nvim/plugged')
 
