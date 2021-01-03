@@ -82,7 +82,9 @@ let g:floaterm_autoclose = 2
 let g:undotree_WindowLayout = 2
 
 com! CopyRel let @+ = expand('%')
-com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right env fish
+com! CopyAbs let @+ = expand('%:p')
+com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+	 	\ | wincmd p | diffthis
 
 call plug#begin('~/.config/nvim/plugged')
 

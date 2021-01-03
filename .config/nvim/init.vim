@@ -101,7 +101,11 @@ let g:fzf_lsp_colors = 'bg+:-1'
 
 com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
 com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right fish
+
 com! CopyRel let @+ = expand('%')
+com! CopyAbs let @+ = expand('%:p')
+com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+	 	\ | wincmd p | diffthis
 
 fun! RangeSearch(direction)
   call inputsave()

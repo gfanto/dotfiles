@@ -99,7 +99,10 @@ let g:floaterm_autoclose = 2
 
 com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
 com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right env NOTMUX=yes fish
-command! CopyRel let @+ = expand('%')
+com! CopyRel let @+ = expand('%')
+com! CopyAbs let @+ = expand('%:p')
+com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+	 	\ | wincmd p | diffthis
 
 " *****************************************************************************
 " Plugs
