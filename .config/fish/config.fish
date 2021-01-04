@@ -114,6 +114,10 @@ abbr gco "git checkout"
 abbr gcl "git clean -fxfd"
 abbr gd "git diff"
 abbr gdr "git push origin --delete"
+abbr gds "git stash && git stash drop"
+abbr gh "git stash"
+abbr ghp "git stash pop"
+abbr ghu "git stash --include-untracked"
 abbr gl "git lg"
 abbr gm "git merge"
 abbr gp "git pull"
@@ -186,27 +190,16 @@ function search -d "Search string into path with fuzzy"
   end
 end
 
-function glog -d "Git commit history"
-  if count $argv > /dev/null
-    set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -- $argv | fzf --preview="glog_view {} $argv" | re "\w+")
-  else
-    set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | fzf --preview="glog_view {}" | re "\w+")
-  end
-
-  if test -n commit
-    if count $argv > /dev/null
-      git diff $commit -- $argv
-    else
-      git diff $commit
-    end
-  end
-end
-
 function fs -d "Switch tmux session"
   tmux list-sessions -F "#{session_name}" | fzf | read -l result; and tmux switch-client -t "$result"
 end
 
 # FZF GIT commands {{{
+
+function flg -d "Git commit history"
+  set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | fzf --preview="glg_preview {}")
+  echo $commit | awk '{print $1}' | xargs git show
+end
 
 function fco -d "Fuzzy-find and checkout a branch"
   git branch --all | grep -v HEAD | string trim | fzf | read -l result; and git checkout "$result"
