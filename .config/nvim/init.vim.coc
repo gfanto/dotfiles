@@ -96,6 +96,7 @@ let g:fzf_layout = {'window': {'height': 0.8, 'width': 0.8}}
 let $FZF_DEFAULT_OPTS='--reverse'
 
 let g:floaterm_autoclose = 2
+hi! link FloatermBorder Normal
 
 com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
 com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right env NOTMUX=yes fish

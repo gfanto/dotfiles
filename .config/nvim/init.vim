@@ -93,8 +93,9 @@ endif
 let g:vrfr_rg = 'true'
 
 let g:floaterm_autoclose = 2
+hi! link FloatermBorder Normal
 
-let g:lua_tree_follow = 1
+let g:nvim_tree_follow = 1
 
 let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_colors = 'bg+:-1'
