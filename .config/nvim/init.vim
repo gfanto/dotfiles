@@ -57,10 +57,8 @@ set ttimeout
 set ttimeoutlen=100
 set shortmess+=c
 
-"set foldmethod=syntax
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set nofoldenable
 set foldlevelstart=999
 
 set diffopt+=iwhite

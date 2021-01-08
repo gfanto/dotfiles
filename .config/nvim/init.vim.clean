@@ -217,7 +217,7 @@ lua << EOF
     lsp.sumneko_lua.setup{}
     lsp.gopls.setup{}
     lsp.clangd.setup{}
-    lsp.pyright.setup{}
+    lsp.pyright.setup{ python = { analysis = { diagnosticMode = 'workspace' }}}
     lsp.rust_analyzer.setup{}
 EOF
 
