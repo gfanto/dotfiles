@@ -285,11 +285,9 @@ end
 bind ! __history_previous_command
 bind '$' __history_previous_command_arguments
 
-# IMPORTANT: this must be the last one
 if test -d ~/.python3
   source ~/.python3/bin/activate.fish
 end
-# END
 
 if test -f ~/.config/fish/sys_config.fish
   source ~/.config/fish/sys_config.fish
