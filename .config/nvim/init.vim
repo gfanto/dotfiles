@@ -22,6 +22,7 @@ set expandtab
 set smartindent
 set smartcase
 set showmatch
+set nojoinspaces
 set hidden
 
 set relativenumber
@@ -31,7 +32,7 @@ set signcolumn=no
 
 set hlsearch
 set incsearch
-set inccommand=split
+set inccommand=nosplit
 set ignorecase
 
 set nowrap
@@ -53,8 +54,9 @@ set scrolloff=8
 set sidescroll=0
 set cmdheight=1
 set updatetime=250
+set notimeout
 set ttimeout
-set ttimeoutlen=100
+set ttimeoutlen=10
 set shortmess+=c
 
 set foldmethod=expr
@@ -128,6 +130,8 @@ endfun
 vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
 vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
+packadd cfilter
+
 " *****************************************************************************
 " Plugs
 " *****************************************************************************
@@ -180,17 +184,27 @@ nnoremap <C-t> :tabnew<CR>
 nnoremap <C-q> :tabclose<CR>
 nnoremap <C-l> :noh<CR>
 
-nnoremap Y y$
-nnoremap S "_S
-nnoremap x "_x
-nnoremap s "_s
-vnoremap X "_d
+nnoremap <silent> Y y$
+nnoremap <silent> S "_S
+nnoremap <silent> x "_x
+nnoremap <silent> s "_s
+vnoremap <silent> X "_d
+
+nnoremap k gk
+nnoremap j gj
+
+vnoremap $ $h
 
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
+
+map <silent> <A-h> <C-w><
+map <silent> <A-j> <C-W>-
+map <silent> <A-k> <C-W>+
+map <silent> <A-l> <C-w>>
 
 " *****************************************************************************
 " LSP settings
@@ -331,7 +345,7 @@ endfun
 
 autocmd BufWritePre * :call TrimWhitespace()
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-autocmd FileType markdown,rst setl spell spelllang=it,en
+autocmd FileType markdown,rst setl wrap textwidth=80 spell spelllang=it,en
 
 " *****************************************************************************
 " load current system settings
