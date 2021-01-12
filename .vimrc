@@ -4,12 +4,6 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
-if !has('gui_running')
-  set t_Co=256
-endif
-if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
-  set termguicolors
-endif
 set noerrorbells
 
 set lazyredraw
@@ -74,14 +68,7 @@ let g:netrw_liststyle=3
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-function! s:DiffWithOrig()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffOrig call s:DiffWithOrig()
+com! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
 fun! CleverTab(dir)
     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
