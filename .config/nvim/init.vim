@@ -130,8 +130,6 @@ endfun
 vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
 vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
-packadd cfilter
-
 " *****************************************************************************
 " Plugs
 " *****************************************************************************
@@ -192,7 +190,8 @@ vnoremap <silent> X "_d
 
 nnoremap k gk
 nnoremap j gj
-
+xnoremap < <gv
+xnoremap > >gv
 vnoremap $ $h
 
 nnoremap <leader>g :Rg<CR>
@@ -207,6 +206,7 @@ map <silent> <A-j> <C-W>+
 map <silent> <A-l> <C-w>>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
+map <silent> <A-q> :q<CR>
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-b> <C-w><S-w>
 
