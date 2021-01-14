@@ -56,7 +56,6 @@ set ttimeoutlen=10
 set shortmess+=c
 
 set foldmethod=syntax
-set nofoldenable
 set foldlevelstart=999
 
 set diffopt+=iwhite
