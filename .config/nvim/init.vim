@@ -206,7 +206,7 @@ map <silent> <A-j> <C-W>+
 map <silent> <A-l> <C-w>>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
-map <silent> <A-q> :q<CR>
+map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-b> <C-w><S-w>
 
