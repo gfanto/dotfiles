@@ -93,7 +93,6 @@ alias dkc "docker-compose"
 alias krmdang "docker rmi (docker images --filter 'dangling=true' -q --no-trunc)"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
-alias weather "curl wttr.in"
 
 abbr s "sudo"
 
@@ -121,9 +120,17 @@ abbr ghu "git stash --include-untracked"
 abbr gl "git lg"
 abbr gm "git merge"
 abbr gp "git pull"
-abbr gr "git rebase"
+abbr gr "git rebase -i"
 abbr gs "git status"
 abbr gsp "git squash"
+
+function weather -d"Get weather prevision"
+  if count $argv > /dev/null
+    curl "wttr.in/(string join $argv)"
+  else
+    curl "wttr.in"
+  end
+end
 
 function copyfull -d"copy file path to clipboard"
   set file (fzf)
@@ -215,14 +222,10 @@ function fcoc -d "Fuzzy-find and checkout a commit"
 end
 
 function snag -d "Pick desired files from a chosen branch"
-  # use fzf to choose source branch to snag files FROM
   set branch (git for-each-ref --format='%(refname:short)' refs/heads | fzf --height 20% --layout=reverse --border)
-  # avoid doing work if branch isn't set
   if test -n "$branch"
-    # use fzf to choose files that differ from current branch
     set files (git diff --name-only $branch | fzf --height 20% --layout=reverse --border --multi)
   end
-  # avoid checking out branch if files aren't specified
   if test -n "$files"
     git checkout $branch $files
   end
@@ -260,7 +263,6 @@ set -x FZF_DEFAULT_OPTS "--reverse --height=90%"
 set -x GOPATH "$HOME/.go"
 set -x GOROOT "/opt/go"
 set -x CARGO_TARGET_DIR "$HOME/.cache/cargo"
-set -x PYTHONBREAKPOINT "ipdb.set_trace"
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
 set -g PATH "$PATH:/usr/local/bin"

@@ -1,8 +1,8 @@
-set shell=/usr/bin/env\ fish
-
 set nocompatible
 filetype plugin indent on
 syntax on
+
+set shell=/usr/bin/env\ fish
 
 set termguicolors
 set noerrorbells
@@ -77,6 +77,10 @@ let g:mapleader = "\<Space>"
 let g:floaterm_autoclose = 2
 hi! link FloatermBorder Normal
 
+let g:netrw_liststyle=3
+let g:netrw_browse_split = 2
+let g:netrw_winsize = 25
+
 let g:undotree_WindowLayout = 2
 
 com! CopyRel let @+ = expand('%')
@@ -94,6 +98,7 @@ packadd cfilter
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -184,11 +189,6 @@ map <silent> <A-h> <C-w><
 map <silent> <A-k> <C-W>-
 map <silent> <A-j> <C-W>+
 map <silent> <A-l> <C-w>>
-map <silent> <A-s> :split<CR>
-map <silent> <A-v> :vsplit<CR>
-map <silent> <A-q> :q<CR>
-map <silent> <A-n> <C-w><C-w>
-map <silent> <A-b> <C-w><S-w>
 
 " LSP {{
 nmap <silent> gD :lua vim.lsp.buf.definition()<CR>
@@ -232,8 +232,8 @@ lua << EOF
     lsp.sumneko_lua.setup{}
     lsp.gopls.setup{}
     lsp.clangd.setup{}
-    lsp.pyright.setup{ python = { analysis = { diagnosticMode = 'workspace' }}}
     lsp.rust_analyzer.setup{}
+    lsp.pyright.setup{}
 EOF
 
 autocmd FileType go,typescript*,javascript,rust,python,html,css,less setlocal omnifunc=v:lua.vim.lsp.omnifunc
