@@ -146,9 +146,11 @@ Plug 'nvim-treesitter/completion-treesitter'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 
