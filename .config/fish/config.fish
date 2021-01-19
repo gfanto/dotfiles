@@ -126,7 +126,8 @@ abbr gsp "git squash"
 
 function weather -d"Get weather prevision"
   if count $argv > /dev/null
-    curl "wttr.in/(string join $argv)"
+    set location (string join "+" $argv)
+    curl "wttr.in/$location"
   else
     curl "wttr.in"
   end
@@ -143,10 +144,9 @@ function copyrel -d"copy relative file path to clipboard"
 end
 
 function ctrlp -d "ctrlp for shell"
-  if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
-    if test -n $file
-      bat --style=header $file
-    end
+  set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
+  if test -n $file
+    bat --style=header $file
   end
 end
 
