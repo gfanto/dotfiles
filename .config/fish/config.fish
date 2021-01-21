@@ -150,19 +150,6 @@ function ctrlp -d "ctrlp for shell"
   end
 end
 
-function lc -d "Load file to copy clipborad"
-  if count $argv > /dev/null
-    if test -f $argv
-      cat $argv | c2c
-      echo $argv copied to clipboard
-    else
-      echo $argv not a file
-    end
-  else
-    echo not enought arguments
-  end
-end
-
 function cd -d "Change director set up for jump back"
   if test -d $argv
     set -g __last_directory (pwd)
@@ -185,16 +172,6 @@ end
 function j -d "Autojump set up for jump back"
   set -g __last_directory (pwd)
   command j $argv
-end
-
-function search -d "Search string into path with fuzzy"
-  if count $argv > /dev/null
-    set fileline (rg -i $argv | fzf)
-    set filesplit (string split ':' $fileline)
-    if test -n $filesplit[1]
-      bat --style=plain $filesplit[1]
-    end
-  end
 end
 
 function fs -d "Switch tmux session"
@@ -229,13 +206,6 @@ function snag -d "Pick desired files from a chosen branch"
   if test -n "$files"
     git checkout $branch $files
   end
-end
-
-function fzum -d "View all unmerged commits across all local branches"
-  set viewUnmergedCommits "echo {} | head -1 | xargs -I BRANCH sh -c 'git log master..BRANCH --no-merges --color --format=\"%C(auto)%h - %C(green)%ad%Creset - %s\" --date=format:\'%b %d %Y\''"
-
-  git branch --no-merged master --format "%(refname:short)" | fzf --no-sort --reverse --tiebreak=index --no-multi \
-    --ansi --preview="$viewUnmergedCommits"
 end
 
 # }}}
