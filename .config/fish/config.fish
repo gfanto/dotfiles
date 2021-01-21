@@ -133,6 +133,16 @@ function weather -d"Get weather prevision"
   end
 end
 
+function cht -d"Call cht.sh"
+  if test (count $argv) -lt 2
+    curl "cht.sh/$argv"
+  else
+    set topic $argv[1]
+    set query (string join "+" $argv[2..-1])
+    curl "cht.sh/$topic/$query"
+  end
+end
+
 function copyfull -d"copy file path to clipboard"
   set file (fzf)
   echo (pwd)/$file | c2c
@@ -172,6 +182,13 @@ end
 function j -d "Autojump set up for jump back"
   set -g __last_directory (pwd)
   command j $argv
+end
+
+function fcs -d"cheat.sh with fzf topic"
+  set topic (curl "cht.sh/:list" ^ /dev/null | fzf)
+  if test -n topic
+    cht $topic $argv
+  end
 end
 
 function fs -d "Switch tmux session"
