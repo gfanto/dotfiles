@@ -132,6 +132,32 @@ endfun
 vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
 vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
+function! SmartWindowResize(direction) abort
+  let l:window_resize_count = 1
+  let l:current_window_is_last_window = (winnr() == winnr('$'))
+
+  if a:direction == 'h'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '+', '-']
+  elseif a:direction == 'k'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '+', '-']
+  elseif a:direction == 'j'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '-', '+']
+  elseif a:direction == 'l'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '-', '+']
+  else
+    echoerr 'Unexpected direction'
+    return
+  endif
+
+  let l:modifier = l:current_window_is_last_window ? l:modifier_1 : l:modifier_2
+  let l:command = l:modifier_0 . ' resize ' . l:modifier . l:window_resize_count . '<CR>'
+  execute l:command
+endfunction
+nnoremap <silent> <A-h> :call SmartWindowResize('h')<cr>
+nnoremap <silent> <A-j> :call SmartWindowResize('j')<cr>
+nnoremap <silent> <A-k> :call SmartWindowResize('k')<cr>
+nnoremap <silent> <A-l> :call SmartWindowResize('l')<cr>
+
 " *****************************************************************************
 " Plugs
 " *****************************************************************************
@@ -204,10 +230,6 @@ nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
 
-map <silent> <A-h> <C-w><
-map <silent> <A-k> <C-W>-
-map <silent> <A-j> <C-W>+
-map <silent> <A-l> <C-w>>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
 map <silent> <A-o> <C-w>o

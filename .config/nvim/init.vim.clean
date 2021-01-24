@@ -103,6 +103,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 Plug 'michaeljsmith/vim-indent-object'
+
 Plug 'mbbill/undotree'
 Plug 'voldikss/vim-floaterm'
 
@@ -158,15 +159,36 @@ endfun
 vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
 vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
 
+function! SmartWindowResize(direction) abort
+  let l:window_resize_count = 1
+  let l:current_window_is_last_window = (winnr() == winnr('$'))
+
+  if a:direction == 'h'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '+', '-']
+  elseif a:direction == 'k'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '+', '-']
+  elseif a:direction == 'j'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '-', '+']
+  elseif a:direction == 'l'
+    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '-', '+']
+  else
+    echoerr 'Unexpected direction'
+    return
+  endif
+
+  let l:modifier = l:current_window_is_last_window ? l:modifier_1 : l:modifier_2
+  let l:command = l:modifier_0 . ' resize ' . l:modifier . l:window_resize_count . '<CR>'
+  execute l:command
+endfunction
+nnoremap <silent> <A-h> :call SmartWindowResize('h')<cr>
+nnoremap <silent> <A-j> :call SmartWindowResize('j')<cr>
+nnoremap <silent> <A-k> :call SmartWindowResize('k')<cr>
+nnoremap <silent> <A-l> :call SmartWindowResize('l')<cr>
+
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap <C-p> :FloatermNew fzf<CR>
 nnoremap <C-l> :noh<CR>
-
-map <silent> <A-h> <C-w><
-map <silent> <A-k> <C-W>-
-map <silent> <A-j> <C-W>+
-map <silent> <A-l> <C-w>>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -180,6 +202,7 @@ xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
+nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
@@ -238,7 +261,6 @@ autocmd BufWritePre * :call TrimWhitespace()
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'netrw') | q | endif
 autocmd TermOpen * startinsert
 autocmd TermClose * call nvim_input('<CR>')
-autocmd StdinReadPre * let s:std_in=1
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
 autocmd FileType python,yaml setl foldmethod=indent
 autocmd FileType markdown,rst setl wrap textwidth=80 spell spelllang=it,en
