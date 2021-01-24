@@ -100,18 +100,8 @@ let $FZF_DEFAULT_OPTS='--reverse'
 let g:floaterm_autoclose = 2
 hi! link FloatermBorder Normal
 
-com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
-com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right env NOTMUX=yes fish
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-function! s:DiffWithOrig()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffOrig call s:DiffWithOrig()
 
 " *****************************************************************************
 " Plugs
@@ -162,7 +152,7 @@ vnoremap $ $h
 
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>
-nnoremap <Leader>t :FloatermNew env NOTMUX=yes fish<CR>
+nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 
 map <silent> <A-h> <C-w><
