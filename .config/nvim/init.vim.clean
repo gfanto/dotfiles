@@ -202,7 +202,7 @@ xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
-nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>

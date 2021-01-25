@@ -228,6 +228,7 @@ nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
+nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
 
 map <silent> <A-s> :split<CR>
