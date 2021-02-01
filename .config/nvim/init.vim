@@ -291,7 +291,7 @@ nmap <silent> gp <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })
 nmap <silent> gn <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
 
 nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR><CR>
+nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
