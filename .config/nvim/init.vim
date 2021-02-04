@@ -293,7 +293,7 @@ nmap <silent> cr <cmd>lua vim.lsp.buf.rename()<CR>
 nmap <silent> gp <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
 nmap <silent> gn <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
 
-nnoremap <leader>r <cmd>Telescope lsp_ducument_symbols<CR>
+nnoremap <leader>r <cmd>Telescope lsp_document_symbols<CR>
 nnoremap <leader>w <cmd>Telescope lsp_workspace_symbols<CR>
 nnoremap <leader>a <cmd>Telescope lsp_code_actions<CR>
 nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
