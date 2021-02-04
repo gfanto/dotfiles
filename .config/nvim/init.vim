@@ -95,13 +95,9 @@ endif
 let g:vrfr_rg = 'true'
 
 let g:floaterm_autoclose = 2
-hi! link FloatermBorder Normal
 
 let g:nvim_tree_follow = 1
 let g:nvim_tree_auto_close = 1
-
-let g:fzf_lsp_layout = { 'down': '30%' }
-let g:fzf_lsp_colors = 'bg+:-1'
 
 com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
 com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right fish
@@ -174,6 +170,8 @@ Plug 'nvim-treesitter/completion-treesitter'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'voldikss/vim-floaterm'
+
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -183,13 +181,13 @@ Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
+
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'voldikss/vim-floaterm'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'gfanto/fzf-lsp.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
@@ -199,13 +197,16 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 
+hi! TelescopeBorder guifg=#a89984 guibg=none gui=none
+hi! FloatermBorder guifg=#a89984 guibg=none gui=none
+
 " *****************************************************************************
 " Personal key bindings
 " *****************************************************************************
 
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Telescope git_files<CR>
 nnoremap <C-b> :tabprevious<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
@@ -224,8 +225,8 @@ xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
-nnoremap <leader>g :Rg<CR>
-nnoremap <leader>f :BLines<CR>
+nnoremap <leader>g :Telescope grep_string<CR>
+nnoremap <leader>f :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
@@ -283,20 +284,43 @@ com! Format lua vim.lsp.buf.formatting_sync(nil, 5000)
 com! LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
 com! LspRestart lua vim.lsp.stop_client(vim.lsp.get_active_clients());vim.api.nvim_command('e')
 
+com! Diagnostics lua require'telescope'.module_addons.show_diagnostics()
+
 nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nmap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> gr <cmd>Telescope lsp_references<CR>
 nmap <silent> cr <cmd>lua vim.lsp.buf.rename()<CR>
 nmap <silent> gp <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
 nmap <silent> gn <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
 
-nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>r <cmd>Telescope lsp_ducument_symbols<CR>
+nnoremap <leader>w <cmd>Telescope lsp_workspace_symbols<CR>
+nnoremap <leader>a <cmd>Telescope lsp_code_actions<CR>
 nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 lua << EOF
-    require'fzf_lsp'.setup()
+    local telescope_actions = require("telescope.actions")
+    require"telescope".setup {
+      defaults = {
+        sorting_strategy = "ascending",
+        border = {},
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+        mappings = {
+          i = {
+            ["<C-j>"] = telescope_actions.move_selection_next,
+            ["<C-k>"] = telescope_actions.move_selection_previous,
+          }
+        }
+      }
+    }
+    require"telescope".load_extension("fzy_native")
+    local telescope = require('telescope')
+    telescope.module_addons = {}
+    telescope.module_addons.show_diagnostics = function(opts)
+      opts = opts or {}
+      vim.lsp.diagnostic.set_loclist({open_loclist = false})
+      require'telescope.builtin'.loclist(opts)
+    end
 
     require"nvim-treesitter.configs".setup {
       ensure_installed = "maintained",
