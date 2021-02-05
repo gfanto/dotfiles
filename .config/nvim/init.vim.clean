@@ -56,7 +56,7 @@ set ttimeoutlen=10
 set shortmess+=c
 
 set foldmethod=syntax
-set foldlevelstart=999
+set foldlevelstart=99
 
 set diffopt+=iwhite
 set diffopt+=algorithm:patience
@@ -70,12 +70,13 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-colorscheme fanto
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
 
 let g:mapleader = "\<Space>"
 
 let g:floaterm_autoclose = 2
-hi! link FloatermBorder Normal
 
 let g:netrw_liststyle=3
 let g:netrw_browse_split = 2
@@ -83,14 +84,6 @@ let g:netrw_winsize = 25
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-function! s:DiffWithOrig()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffOrig call s:DiffWithOrig()
 
 packadd cfilter
 
@@ -112,25 +105,10 @@ Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 
-fun! s:Tags(name)
-  let tags = taglist(a:name)
-  let qf_taglist = []
-  for entry in tags
-    call add(qf_taglist, {
-          \ 'pattern':  entry['cmd'],
-          \ 'filename': entry['filename'],
-          \ })
-  endfor
-  if len(qf_taglist) > 0
-    call setqflist(qf_taglist)
-    copen
-  else
-    echo "No tags found for ".a:name
-  endif
-endfun
-com! -nargs=1 Tags call s:Tags(<f-args>)
+colorscheme fanto
+hi FloatermBorder guifg=#a89984 guibg=none gui=none
 
-fun! CleverTab(dir)
+fun CleverTab(dir)
     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
        return "\<Tab>"
     else
@@ -144,51 +122,11 @@ endfun
 inoremap <Tab> <C-R>=CleverTab('j')<CR>
 inoremap <S-Tab> <C-R>=CleverTab('k')<CR>
 
-fun! RangeSearch(direction)
-  call inputsave()
-  let g:srchstr = input(a:direction)
-  call inputrestore()
-  if strlen(g:srchstr) > 0
-    let g:srchstr = g:srchstr.
-          \ '\%>'.(line("'<")-1).'l'.
-          \ '\%<'.(line("'>")+1).'l'
-  else
-    let g:srchstr = ''
-  endif
-endfun
-vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
-vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
-
-function! SmartWindowResize(direction) abort
-  let l:window_resize_count = 1
-  let l:current_window_is_last_window = (winnr() == winnr('$'))
-
-  if a:direction == 'h'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '+', '-']
-  elseif a:direction == 'k'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '+', '-']
-  elseif a:direction == 'j'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '-', '+']
-  elseif a:direction == 'l'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '-', '+']
-  else
-    echoerr 'Unexpected direction'
-    return
-  endif
-
-  let l:modifier = l:current_window_is_last_window ? l:modifier_1 : l:modifier_2
-  let l:command = l:modifier_0 . ' resize ' . l:modifier . l:window_resize_count . '<CR>'
-  execute l:command
-endfunction
-nnoremap <silent> <A-h> :call SmartWindowResize('h')<cr>
-nnoremap <silent> <A-j> :call SmartWindowResize('j')<cr>
-nnoremap <silent> <A-k> :call SmartWindowResize('k')<cr>
-nnoremap <silent> <A-l> :call SmartWindowResize('l')<cr>
-
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap <C-p> :FloatermNew fzf<CR>
-nnoremap <C-l> :noh<CR>
+if executable('fzf')
+  nnoremap <C-p> :FloatermNew fzf<CR>
+end
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -207,57 +145,10 @@ nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 
-" LSP {{
-nmap <silent> gD :lua vim.lsp.buf.definition()<CR>
-nmap <silent> K  :lua vim.lsp.buf.hover()<CR>
-nmap <silent> gr :lua vim.lsp.buf.references()<CR>
-nmap <silent> gs :lua vim.lsp.buf.signature_help()<CR>
-nmap <silent> cr :lua vim.lsp.buf.rename()<CR>
-nmap <silent> gp :lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
-nmap <silent> gn :lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
+" *****************************************************************************
+" autocmds
+" *****************************************************************************
 
-nnoremap <leader>r :lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <leader>w :lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <leader>a :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>d :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
-com! Format lua vim.lsp.buf.formatting_sync(nil, 1000)
-com! LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-com! Diagnostic lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
-
-lua << EOF
-    local lsp = require 'lspconfig'
-
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false,
-        virtual_text = {
-          spacing = 4,
-        },
-      }
-    )
-
-    lsp.vimls.setup{}
-    lsp.tsserver.setup{}
-    lsp.html.setup{}
-    lsp.cssls.setup{}
-    lsp.sumneko_lua.setup{}
-    lsp.gopls.setup{}
-    lsp.clangd.setup{}
-    lsp.rust_analyzer.setup{}
-    lsp.pyright.setup{}
-EOF
-
-autocmd FileType go,typescript*,javascript,rust,python,html,css,less setlocal omnifunc=v:lua.vim.lsp.omnifunc
-" }}
-
-fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
-
-autocmd BufWritePre * :call TrimWhitespace()
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'netrw') | q | endif
 autocmd TermOpen * startinsert
 autocmd TermClose * call nvim_input('<CR>')

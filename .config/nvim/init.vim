@@ -61,7 +61,7 @@ set shortmess+=c
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set foldlevelstart=999
+set foldlevelstart=99
 
 set diffopt+=iwhite
 set diffopt+=algorithm:patience
@@ -90,12 +90,12 @@ let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 
 if executable('rg')
+  set grepprg=rg\ --vimgrep
   let g:rg_derive_root='true'
 endif
 let g:vrfr_rg = 'true'
 
 let g:floaterm_autoclose = 2
-hi! link FloatermBorder Normal
 
 let g:nvim_tree_follow = 1
 let g:nvim_tree_auto_close = 1
@@ -103,60 +103,21 @@ let g:nvim_tree_auto_close = 1
 let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_colors = 'bg+:-1'
 
-com! OpenPython FloatermNew --width=0.5 --wintype=normal --name=ipython --position=right ipython -i --no-autoindent
-com! OpenTerm FloatermNew --width=0.5 --wintype=normal --name=term --position=right fish
+let g:completion_timer_cycle = 120
+let g:completion_matching_strategy_list = ['fuzzy']
+let g:completion_matching_ignore_case = 1
+let g:completion_trigger_on_delete = 1
+let g:completion_sorting = "none"
+let g:completion_trigger_keyword_length = 3
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp', 'buffers']}
+\]
+
+com! OpenPython FloatermNew --width=0.5 --wintype=vsplit --name=ipython --position=right ipython -i --no-autoindent
+com! OpenTerm FloatermNew --width=0.5 --wintype=vsplit --name=term --position=right fish
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-function! s:DiffWithOrig()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffOrig call s:DiffWithOrig()
-
-fun! RangeSearch(direction)
-  call inputsave()
-  let g:srchstr = input(a:direction)
-  call inputrestore()
-  if strlen(g:srchstr) > 0
-    let g:srchstr = g:srchstr.
-          \ '\%>'.(line("'<")-1).'l'.
-          \ '\%<'.(line("'>")+1).'l'
-  else
-    let g:srchstr = ''
-  endif
-endfun
-vnoremap <silent> / :<C-U>call RangeSearch('/')<CR>:if strlen(g:srchstr) > 0\|exec '/'.g:srchstr\|endif<CR>
-vnoremap <silent> ? :<C-U>call RangeSearch('?')<CR>:if strlen(g:srchstr) > 0\|exec '?'.g:srchstr\|endif<CR>
-
-function! SmartWindowResize(direction) abort
-  let l:window_resize_count = 1
-  let l:current_window_is_last_window = (winnr() == winnr('$'))
-
-  if a:direction == 'h'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '+', '-']
-  elseif a:direction == 'k'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '+', '-']
-  elseif a:direction == 'j'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['', '-', '+']
-  elseif a:direction == 'l'
-    let [l:modifier_0, l:modifier_1, l:modifier_2] = ['vertical', '-', '+']
-  else
-    echoerr 'Unexpected direction'
-    return
-  endif
-
-  let l:modifier = l:current_window_is_last_window ? l:modifier_1 : l:modifier_2
-  let l:command = l:modifier_0 . ' resize ' . l:modifier . l:window_resize_count . '<CR>'
-  execute l:command
-endfunction
-nnoremap <silent> <A-h> :call SmartWindowResize('h')<cr>
-nnoremap <silent> <A-j> :call SmartWindowResize('j')<cr>
-nnoremap <silent> <A-k> :call SmartWindowResize('k')<cr>
-nnoremap <silent> <A-l> :call SmartWindowResize('l')<cr>
 
 " *****************************************************************************
 " Plugs
@@ -198,6 +159,7 @@ call plug#end()
 
 set background=dark
 colorscheme gruvbox
+hi link FloatermBorder GruvboxFg4
 
 " *****************************************************************************
 " Personal key bindings
@@ -210,7 +172,6 @@ nnoremap <C-b> :tabprevious<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-q> :tabclose<CR>
-nnoremap <C-l> :noh<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -237,144 +198,13 @@ map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-b> <C-w><S-w>
 
-" *****************************************************************************
-" LSP settings
-" *****************************************************************************
-
-let g:completion_timer_cycle = 120
-let g:completion_matching_strategy_list = ['fuzzy']
-let g:completion_matching_ignore_case = 1
-let g:completion_sorting = "none"
-let g:completion_trigger_keyword_length = 3
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp', 'buffers']}
-\]
-
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-      return airline#util#shorten(luaeval("require('lsp-status').status()"), 91, 9)
-  endif
-  return ''
-endfunction
-call airline#parts#define_function('lsp_status', 'LspStatus')
-call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
-let g:airline_section_c = airline#section#create(['%<', 'file', g:airline_symbols.space, 'readonly', 'lsp_status'])
-let g:airline#extensions#nvimlsp#enabled = 0
-
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
-
-call sign_define('LspDiagnosticsSignError', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextError'})
-call sign_define('LspDiagnosticsSignWarning', {'text' : '', 'texthl' : 'LspDiagnosticsVirtualTextWarning'})
-call sign_define('LspDiagnosticsSignInformation', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextInformation'})
-call sign_define('LspDiagnosticsSignHint', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextHint'})
-
-com! Format lua vim.lsp.buf.formatting_sync(nil, 5000)
-com! LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-com! LspRestart lua vim.lsp.stop_client(vim.lsp.get_active_clients());vim.api.nvim_command('e')
-
-nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nmap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nmap <silent> cr <cmd>lua vim.lsp.buf.rename()<CR>
-nmap <silent> gp <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
-nmap <silent> gn <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
-
-nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
-lua << EOF
-    require'fzf_lsp'.setup()
-
-    require"nvim-treesitter.configs".setup {
-      ensure_installed = "maintained",
-      highlight = { enable = true },
-      indent = { enable = true },
-    }
-
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false,
-        virtual_text = {
-          spacing = 4,
-        },
-      }
-    )
-
-    local lsp = require "lspconfig"
-    local lsp_status = require("lsp-status")
-    lsp_status.register_progress()
-    lsp_status.config({
-        status_symbol = "",
-    })
-
-    local on_attach = function(client, bufnr)
-      if client.config.flags then
-        client.config.flags.allow_incremental_sync = true
-      end
-      require"completion".on_attach(client, bufnr)
-      require"lsp-status".on_attach(client, bufnr)
-    end
-
-    lsp.tsserver.setup{ on_attach = on_attach }
-    lsp.html.setup{ on_attach = on_attach }
-    lsp.cssls.setup{ on_attach = on_attach }
-    lsp.gopls.setup{ on_attach = on_attach }
-    lsp.clangd.setup{ on_attach = on_attach }
-    lsp.vimls.setup{ on_attach = on_attach }
-    lsp.sumneko_lua.setup{ on_attach = on_attach }
-    lsp.pyls.setup{
-      on_attach = on_attach,
-      capabilities = vim.tbl_extend("keep", lsp.pyls.capabilities or {}, lsp_status.capabilities),
-      settings = {
-        python = { workspaceSymbols = { enabled = true }},
-        pyls = {
-            plugins = {
-              pycodestyle = { enabled = false },
-              pyls_mypy = { enabled = true, live_mode = false },
-              pyls_black = { enabled = true },
-              rope = { enabled = true },
-            }
-        }
-      }
-    }
-    lsp.rust_analyzer.setup{
-      on_attach = on_attach,
-      capabilities = vim.tbl_extend("keep", lsp.rust_analyzer.capabilities or {}, lsp_status.capabilities),
-    }
-EOF
-
-autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{
-  \ aligned = flase,
-  \ only_current_line = true,
-  \ prefix = '     » ',
-  \ highlight = 'NonText'
-  \ }
-autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim.lua setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
 " *****************************************************************************
-" autocmd
+" autocmds
 " *****************************************************************************
 
-fun! TrimWhitespace()
-  let l:save = winsaveview()
-  keeppatterns %s/\s\+$//e
-  call winrestview(l:save)
-endfun
-
-autocmd BufWritePre * :call TrimWhitespace()
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
 autocmd FileType markdown,rst setl wrap textwidth=80 spell spelllang=it,en
 
