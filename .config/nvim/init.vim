@@ -1,7 +1,4 @@
-" *****************************************************************************
-" Editor settings
-" *****************************************************************************
-
+" Editor settings {{{
 set shell=/bin/bash
 
 set nocompatible
@@ -10,67 +7,122 @@ syntax on
 
 set noerrorbells
 set termguicolors
-set lazyredraw
+
+set mouse=a
+set clipboard& clipboard+=unnamedplus
 
 set path+=**
 set wildmenu
-set wildignore+=*.o,*~,*.pyc,__pycache__
+set wildignorecase
+set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
+set wildcharm=<C-z>
 
-set tabstop=4 softtabstop=4 shiftwidth=4
-set autoindent
-set expandtab
-set smartindent
-set smartcase
-set showmatch
-set nojoinspaces
+set isfname-==
+
 set hidden
+set lazyredraw
 
+set jumpoptions=stack
+set switchbuf=useopen,vsplit
+" }}}
+
+" Editor Layout {{{
+set number
 set relativenumber
-set nu
 set guicursor=
 set signcolumn=no
+set scrolloff=8
+set sidescroll=0
+set cmdheight=1
+set title
+" set shortmess+=c
+set shortmess=aFc
+set noequalalways
 
-set hlsearch
-set incsearch
-set inccommand=nosplit
-set ignorecase
+set pumblend=7
+set winblend=10
+" }}}
+
+" Text edit configs {{{
+set textwidth=80
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=-1
+set smarttab
+set autoindent
+set smartindent
+set shiftround
 
 set nowrap
-set noswapfile
+set breakindentopt=shift:4,min:20
+
+set ve=block
+
+set showmatch
+set matchpairs+=<:>
+set matchtime=1
+
+set conceallevel=2
+set concealcursor=niv
+" }}}
+
+" Search {{{
+set ignorecase
+set smartcase
+set infercase
+set incsearch
+set wrapscan
+set hlsearch
+
+set inccommand=nosplit
+" }}}
+
+" Dirs and temp data {{{
 set nobackup
 set nowritebackup
+set undofile noswapfile
+set directory=~/.config/nvim/swapdir
 set undodir=~/.config/nvim/undodir
-set undofile
+set backupdir=~/.config/nvim/backupdir
+set viewdir=~/.config/nvim/viewdir
+set shada=!,'300,<50,@100,s10,h
+" }}}
 
+" Completion {{{
 set complete-=i
 set completeopt=menuone,noinsert,noselect
 set pumheight=12
 
-set mouse=a
-set clipboard+=unnamedplus
+set helpheight=12
+set previewheight=12
+" }}}
 
-set ve=block
-set scrolloff=8
-set sidescroll=0
-set cmdheight=1
-set updatetime=250
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-set shortmess+=c
+" Times {{{
+set timeout ttimeout
+set timeoutlen=500   " Time out on mappings
+set ttimeoutlen=10   " Time out on key codes
+set updatetime=100   " Idle time to write swap and trigger CursorHold
+" }}}
 
+" Folds {{{
+set foldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
+" }}}
 
+" Diffs {{{
 set diffopt+=iwhite
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
+" }}}
 
-" *****************************************************************************
-" variables nad comands
-" *****************************************************************************
-
+" Globals {{{
 let g:mapleader = "\<Space>"
 
 if glob('~/.python3') != ''
@@ -90,7 +142,8 @@ let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 
 if executable('rg')
-  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%m
+  let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
   let g:rg_derive_root='true'
 endif
 let g:vrfr_rg = 'true'
@@ -118,11 +171,9 @@ com! OpenTerm FloatermNew --width=0.5 --wintype=vsplit --name=term --position=ri
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
+" }}}
 
-" *****************************************************************************
-" Plugs
-" *****************************************************************************
-
+" Plugs {{{
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
@@ -156,15 +207,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
+" }}}
 
+" Colors {{{
 set background=dark
 colorscheme gruvbox
 hi link FloatermBorder GruvboxFg4
+" }}}
 
-" *****************************************************************************
-" Personal key bindings
-" *****************************************************************************
-
+" Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap <C-p> :GFiles<CR>
@@ -200,19 +251,16 @@ map <silent> <A-b> <C-w><S-w>
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" }}}
 
-" *****************************************************************************
-" autocmds
-" *****************************************************************************
-
+" Autocommands {{{
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-autocmd FileType markdown,rst setl wrap textwidth=80 spell spelllang=it,en
+autocmd FileType markdown,rst setl wrap spell spelllang=it,en
+" }}}
 
-" *****************************************************************************
-" load current system settings
-" *****************************************************************************
-
+" Load system settings {{{
 let sys_config = expand('<sfile>:p:h').'/sys_init.vim'
 if filereadable(sys_config)
   execute 'source '.sys_config
 endif
+" }}}
