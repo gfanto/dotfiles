@@ -1,52 +1,66 @@
 [user]
-	name = Gianmarco Fantinuoli
-	email = fanto-dev@hotmail.com
+    name = Gianmarco Fantinuoli
+    email = fanto-dev@hotmail.com
 
 [credential]
-	helper = cache --timeout=604800
+    helper = cache --timeout=604800
 
 [ui "color"]
-	ui = always
+    ui = always
 [color]
-	ui = true
+    ui = true
 
 [core]
-  editor = nvim
-  pager = delta
-  autocrlf = input
-  safecrlf = true
-
-[merge]
-  tool = nvim -d
-  stat = true
-
-[pull]
-  rebase = true
-
-[rebase]
-  autoStash = true
-  stat = true
-
-[alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  last = log -1 HEAD
-  changes = diff @~..@
-  squash = rebase -i HEAD~2
-  amend = commit -a --amend
-
-[push]
-  default = current
+    editor = nvim
+    pager = delta
+    autocrlf = input
+    safecrlf = true
 
 [diff]
-	algorithm = patience
-	compactionHeuristic = true
+    tool = nvimdiff
+    algorithm = patience
+    compactionHeuristic = true
+
+[difftool]
+    prompt = false
+
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[merge]
+    stat = true
+    tool = nvimdiff
+
+[mergetool]
+    prompt = true
+
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+    stat = true
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    last = log -1 HEAD
+    changes = diff @~..@
+    squash = rebase -i HEAD~2
+    amend = commit -a --amend
+
+[push]
+    default = current
 
 [delta]
-  line-numbers = true
-  syntax-theme = gruvbox
-  side-by-side = true
+    line-numbers = true
+    syntax-theme = gruvbox
+    side-by-side = true
 
-  file-modified-label = modified:
+    file-modified-label = modified:
 
 [interactive]
-  diffFilter = delta --color-only
+    diffFilter = delta --color-only
+
