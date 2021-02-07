@@ -141,7 +141,6 @@ if executable('rg')
   let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
   let g:rg_derive_root='true'
 endif
-let g:vrfr_rg = 'true'
 
 let g:floaterm_autoclose = 2
 
