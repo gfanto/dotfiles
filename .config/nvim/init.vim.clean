@@ -1,90 +1,155 @@
+" Editor settings {{{
 set shell=/bin/bash
 
 set nocompatible
 filetype plugin indent on
 syntax on
 
-set termguicolors
 set noerrorbells
+set termguicolors
+
+set hidden
 set lazyredraw
+
+set jumpoptions=stack
+set switchbuf=useopen,vsplit
+
+set mouse=a
+set clipboard& clipboard+=unnamedplus
 
 set path+=**
 set wildmenu
-set wildignore+=*.o,*~,*.pyc,__pycache__
+set wildignorecase
+set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
+set wildcharm=<C-z>
 
-set tabstop=4 softtabstop=4 shiftwidth=4
-set autoindent
-set expandtab
-set smartindent
-set smartcase
-set showmatch
-set nojoinspaces
-set hidden
+set isfname-==
+" }}}
 
+" Editor Layout {{{
+set number
 set relativenumber
-set nu
 set guicursor=
 set signcolumn=no
+set scrolloff=8
+set sidescroll=0
+" set shortmess+=c
+set shortmess=aFc
+set noequalalways
 
-set hlsearch
-set incsearch
-set inccommand=nosplit
-set ignorecase
+set pumblend=7
+set winblend=10
+" }}}
+
+" Text edit configs {{{
+set textwidth=80
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=-1
+set smarttab
+set autoindent
+set smartindent
+set shiftround
 
 set nowrap
-set noswapfile
+set breakindentopt=shift:4,min:20
+
+set ve=block
+
+set showmatch
+set matchpairs+=<:>
+set matchtime=1
+
+set conceallevel=2
+set concealcursor=niv
+" }}}
+
+" Search {{{
+set ignorecase
+set smartcase
+set infercase
+set incsearch
+set wrapscan
+set hlsearch
+
+set inccommand=nosplit
+" }}}
+
+" Dirs and temp data {{{
 set nobackup
 set nowritebackup
+set undofile noswapfile
+set directory=~/.config/nvim/swapdir
 set undodir=~/.config/nvim/undodir
-set undofile
+set backupdir=~/.config/nvim/backupdir
+set viewdir=~/.config/nvim/viewdir
+set shada=!,'300,<50,@100,s10,h
+" }}}
 
-set mouse=a
-set clipboard+=unnamedplus
-
+" Completion {{{
 set complete-=i
 set completeopt=menuone,noinsert,noselect
 set pumheight=12
+" }}}
 
-set ve=block
-set scrolloff=8
-set sidescroll=0
-set cmdheight=1
-set updatetime=250
-set notimeout
-set ttimeout
+" Times {{{
+set timeout ttimeout
+set timeoutlen=500
 set ttimeoutlen=10
-set shortmess+=c
+set updatetime=100
+" }}}
 
+" Folds {{{
+set foldenable
 set foldmethod=syntax
 set foldlevelstart=99
+" }}}
 
+" Diffs {{{
 set diffopt+=iwhite
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
+" }}}
 
-set laststatus=2
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+" Globals {{{
+let g:mapleader = "\<Space>"
 
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_italic = 1
+let g:gruvbox_italicize_comments = 1
+
 if executable('rg')
-  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%m
+  let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+  let g:rg_derive_root='true'
 endif
-
-let g:mapleader = "\<Space>"
-
-let g:floaterm_autoclose = 2
+let g:vrfr_rg = 'true'
 
 let g:netrw_liststyle=3
 let g:netrw_browse_split = 2
 let g:netrw_winsize = 25
 
+let g:floaterm_autoclose = 2
+
+com! OpenTerm FloatermNew --width=0.5 --wintype=vsplit --name=term --position=right fish
+
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
+" }}}
 
+
+" Plugins {{{
 packadd cfilter
 
 call plug#begin('~/.config/nvim/plugged')
@@ -103,30 +168,31 @@ Plug 'voldikss/vim-floaterm'
 Plug 'sheerun/vim-polyglot'
 Plug 'neovim/nvim-lspconfig'
 
+Plug 'gruvbox-community/gruvbox'
+
 call plug#end()
+" }}}
 
-colorscheme fanto
-hi FloatermBorder guifg=#a89984 guibg=none gui=none
+" Colors {{{
+set background=dark
+colorscheme gruvbox
+hi link FloatermBorder GruvboxFg4
+" }}}
 
-fun CleverTab(dir)
-    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-       return "\<Tab>"
-    else
-        if a:dir == 'j'
-            return "\<C-N>"
-        elseif a:dir == 'k'
-            return "\<C-P>"
-        endif
-    endif
-endfun
-inoremap <Tab> <C-R>=CleverTab('j')<CR>
-inoremap <S-Tab> <C-R>=CleverTab('k')<CR>
-
+" Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
 if executable('fzf')
   nnoremap <C-p> :FloatermNew fzf<CR>
 end
+if executable('rg')
+  nnoremap <leader>g :FloatermNew rg<CR>
+end
+
+nnoremap <C-b> :tabprevious<CR>
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-q> :tabclose<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -145,22 +211,39 @@ nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 
-" *****************************************************************************
-" autocmds
-" *****************************************************************************
+map <silent> <A-s> :split<CR>
+map <silent> <A-v> :vsplit<CR>
+map <silent> <A-o> <C-w>o
+map <silent> <A-n> <C-w><C-w>
+map <silent> <A-b> <C-w><S-w>
 
+fun CleverTab(dir)
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+       return "\<Tab>"
+    else
+        if a:dir == 'j'
+            return "\<C-N>"
+        elseif a:dir == 'k'
+            return "\<C-P>"
+        endif
+    endif
+endfun
+inoremap <Tab> <C-R>=CleverTab('j')<CR>
+inoremap <S-Tab> <C-R>=CleverTab('k')<CR>
+" }}}
+
+" Autocommands {{{
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'netrw') | q | endif
 autocmd TermOpen * startinsert
 autocmd TermClose * call nvim_input('<CR>')
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
 autocmd FileType python,yaml setl foldmethod=indent
-autocmd FileType markdown,rst setl wrap textwidth=80 spell spelllang=it,en
+autocmd FileType markdown,rst setl wrap spell spelllang=it,en
+" }}}
 
-" *****************************************************************************
-" load system settings
-" *****************************************************************************
-
+" Load system settings {{{
 let sys_config = expand('<sfile>:p:h').'/sys_init.vim'
 if filereadable(sys_config)
   execute 'source '.sys_config
 endif
+" }}}

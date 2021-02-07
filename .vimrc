@@ -8,41 +8,38 @@ set ttyfast
 
 set path+=**
 set wildmenu
-set wildignore+=*.o,*~,*.pyc,__pycache__
 
-set tabstop=4 softtabstop=4 shiftwidth=4
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=-1
+set smarttab
 set autoindent
-set expandtab
 set smartindent
-set smartcase
-set showmatch
-set nojoinspaces
-set hidden
+set shiftround
 
-set hlsearch
-set incsearch
 set ignorecase
+set smartcase
+set infercase
+set incsearch
+set wrapscan
+set hlsearch
 
-set nowrap
 set noswapfile
 
 set mouse=a
 
-set complete-=i
-
 set ve=block
 set scrolloff=8
 set sidescroll=0
-set cmdheight=1
-set updatetime=250
-set notimeout
-set ttimeout
-set ttimeoutlen=10
 
+set foldenable
 set foldmethod=syntax
 set foldlevelstart=99
 
 set laststatus=2
+
+let g:mapleader = "\<Space>"
 
 let g:netrw_banner = 0
 let g:netrw_browse_split = 2
@@ -50,3 +47,5 @@ let g:netrw_liststyle=3
 
 autocmd InsertLeave * set nopaste
 autocmd FileType python,yaml setl foldmethod=indent
+
+nnoremap <C-l> :noh<CR>

@@ -4,6 +4,10 @@ endif
 let g:loaded_bufresize = 1
 
 fun! SmartWindowResize(direction) abort
+  if winnr('$') == 1
+    return
+  endif
+
   let l:window_resize_count = 1
   let l:current_window_is_last_window = (winnr() == winnr('$'))
 

@@ -8,6 +8,12 @@ syntax on
 set noerrorbells
 set termguicolors
 
+set hidden
+set lazyredraw
+
+set jumpoptions=stack
+set switchbuf=useopen,vsplit
+
 set mouse=a
 set clipboard& clipboard+=unnamedplus
 
@@ -22,12 +28,6 @@ set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
 set wildcharm=<C-z>
 
 set isfname-==
-
-set hidden
-set lazyredraw
-
-set jumpoptions=stack
-set switchbuf=useopen,vsplit
 " }}}
 
 " Editor Layout {{{
@@ -37,8 +37,6 @@ set guicursor=
 set signcolumn=no
 set scrolloff=8
 set sidescroll=0
-set cmdheight=1
-set title
 " set shortmess+=c
 set shortmess=aFc
 set noequalalways
@@ -97,16 +95,13 @@ set shada=!,'300,<50,@100,s10,h
 set complete-=i
 set completeopt=menuone,noinsert,noselect
 set pumheight=12
-
-set helpheight=12
-set previewheight=12
 " }}}
 
 " Times {{{
 set timeout ttimeout
-set timeoutlen=500   " Time out on mappings
-set ttimeoutlen=10   " Time out on key codes
-set updatetime=100   " Idle time to write swap and trigger CursorHold
+set timeoutlen=500
+set ttimeoutlen=10
+set updatetime=100
 " }}}
 
 " Folds {{{
@@ -173,7 +168,7 @@ com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
 " }}}
 
-" Plugs {{{
+" Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
