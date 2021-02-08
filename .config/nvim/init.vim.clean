@@ -46,7 +46,6 @@ set winblend=10
 " }}}
 
 " Text edit configs {{{
-set textwidth=80
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
@@ -237,7 +236,7 @@ autocmd TermOpen * startinsert
 autocmd TermClose * call nvim_input('<CR>')
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
 autocmd FileType python,yaml setl foldmethod=indent
-autocmd FileType markdown,rst setl wrap spell spelllang=it,en
+autocmd FileType markdown,rst setl textwidth=80 wrap spell spelllang=it,en
 " }}}
 
 " Load system settings {{{

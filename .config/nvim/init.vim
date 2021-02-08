@@ -46,7 +46,6 @@ set winblend=10
 " }}}
 
 " Text edit configs {{{
-set textwidth=80
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
@@ -58,6 +57,7 @@ set shiftround
 
 set nowrap
 set breakindentopt=shift:4,min:20
+set formatoptions+=j
 
 set ve=block
 
@@ -249,7 +249,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Autocommands {{{
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-autocmd FileType markdown,rst setl wrap spell spelllang=it,en
+autocmd FileType markdown,rst setl textwidth=80 wrap spell spelllang=it,en
 " }}}
 
 " Load system settings {{{
