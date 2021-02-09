@@ -148,6 +148,7 @@ let g:nvim_tree_follow = 1
 let g:nvim_tree_auto_close = 1
 
 let g:fzf_lsp_layout = { 'down': '30%' }
+let g:fzf_lsp_preview_window = 'right:50%:noborder'
 let g:fzf_lsp_colors = 'bg+:-1'
 
 let g:completion_timer_cycle = 120
