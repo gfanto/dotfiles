@@ -17,7 +17,7 @@ set switchbuf=useopen,vsplit
 set mouse=a
 set clipboard& clipboard+=unnamedplus
 
-set path+=**
+set path=.,**
 set wildmenu
 set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
@@ -37,8 +37,7 @@ set guicursor=
 set signcolumn=no
 set scrolloff=8
 set sidescroll=0
-" set shortmess+=c
-set shortmess=aFc
+set shortmess+=c
 set noequalalways
 
 set pumblend=7
@@ -236,8 +235,6 @@ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'netrw') | q | endif
 autocmd TermOpen * startinsert
 autocmd TermClose * call nvim_input('<CR>')
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-autocmd FileType python,yaml setl foldmethod=indent
-autocmd FileType markdown,rst setl textwidth=80 wrap spell spelllang=it,en
 " }}}
 
 " Load system settings {{{

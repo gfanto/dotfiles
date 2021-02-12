@@ -17,7 +17,7 @@ set switchbuf=useopen,vsplit
 set mouse=a
 set clipboard& clipboard+=unnamedplus
 
-set path+=**
+set path=.,**
 set wildmenu
 set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
@@ -37,8 +37,7 @@ set guicursor=
 set signcolumn=no
 set scrolloff=8
 set sidescroll=0
-" set shortmess+=c
-set shortmess=aFc
+set shortmess+=c
 set noequalalways
 
 set pumblend=7
@@ -151,7 +150,7 @@ let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
 let g:fzf_lsp_colors = 'bg+:-1'
 
-let g:completion_timer_cycle = 120
+let g:completion_timer_cycle = 80
 let g:completion_matching_strategy_list = ['fuzzy']
 let g:completion_matching_ignore_case = 1
 let g:completion_trigger_on_delete = 1
@@ -169,6 +168,8 @@ com! CopyAbs let @+ = expand('%:p')
 " }}}
 
 " Plugins {{{
+packadd cfilter
+
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
@@ -250,7 +251,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Autocommands {{{
 autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
-autocmd FileType markdown,rst setl textwidth=80 wrap spell spelllang=it,en
 " }}}
 
 " Load system settings {{{
