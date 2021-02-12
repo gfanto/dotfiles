@@ -154,8 +154,7 @@ function copyrel -d"copy relative file path to clipboard"
 end
 
 function ctrlp -d "ctrlp for shell"
-  set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
-  if test -n $file
+  if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
     bat --style=header $file
   end
 end
