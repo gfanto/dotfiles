@@ -8,4 +8,4 @@ if exists(":CompilerSet") != 2
 endif
 
 CompilerSet makeprg=mypy\ --ignore-missing-imports\ --show-column-numbers\ --no-error-summary\ --no-color-output\ %
-CompilerSet errorformat=%f:%l%c:%m
+CompilerSet errorformat=%f:%l:%c:%m
