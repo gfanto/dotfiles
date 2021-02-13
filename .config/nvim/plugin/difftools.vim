@@ -54,7 +54,7 @@ function! s:open_diff()
 	0d_
 	diffthis
 	setlocal readonly
-	wincmd p
+	" wincmd p
 	let b:diff_bnr = l:diff_bnr
 	nnoremap <buffer><silent> q :execute bufwinnr(b:diff_bnr) . 'q'<CR>
 	diffthis
