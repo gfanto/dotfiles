@@ -62,13 +62,13 @@ fun! s:lsink(nr, lines) abort
   call s:sink('l', a:nr, a:lines)
 endfun
 
-com! -bang Quickfix call fzf#run(fzf#wrap('copen', {
+com! -bang Quickfix call fzf#run(fzf#wrap('quickfix', {
     \ 'source': map(getqflist(), function('<sid>cline')),
     \ 'sink*': function('<sid>csink'),
     \ 'options': ['--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
     \ }, <bang>0))
 
-com! -bang Location call fzf#run(fzf#wrap('copen', {
+com! -bang Location call fzf#run(fzf#wrap('location', {
     \ 'source': map(getloclist(bufnr()), function('<sid>cline')),
     \ 'sink*': function('<sid>lsink', [bufnr(0)]),
     \ 'options': ['--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
