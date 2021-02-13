@@ -8,9 +8,9 @@ fun s:CTags(name)
   let qf_taglist = []
   for entry in tags
     call add(qf_taglist, {
-          \ 'pattern':  entry['cmd'],
-          \ 'filename': entry['filename'],
-          \ })
+      \ 'pattern':  entry['cmd'],
+      \ 'filename': entry['filename'],
+      \ })
   endfor
   if len(qf_taglist) > 0
     call setqflist(qf_taglist)

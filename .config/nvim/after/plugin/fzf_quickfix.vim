@@ -33,7 +33,7 @@ fun! s:cline(key, line) abort
   return l:filepath . ':' . a:line.lnum . ':' . a:line.col . ':' . a:line.text
 endfun
 
-fun! s:csink(lines) abort
+fun! s:sink(type, nr, lines) abort
   if len(a:lines) == 1
     let l:entry = s:centry(a:lines[0])
 
@@ -42,23 +42,24 @@ fun! s:csink(lines) abort
     normal! zz
     echo l:entry['text']
   elseif len(a:lines) > 1
-    call setqflist(map(a:lines, 's:centry(v:val)'))
-    copen
+    if a:type == 'c'
+      call setqflist(map(a:lines, 's:centry(v:val)'))
+      copen
+    elseif a:type == 'l'
+      call setloclist(a:nr, map(a:lines, 's:centry(v:val)'))
+      lopen
+    else
+      echoerr 'Invalid type ' . a:type
+    endif
   endif
 endfun
 
-fun! s:lsink(nr, lines) abort
-  if len(a:lines) == 1
-    let l:entry = s:centry(a:lines[0])
+fun! s:csink(lines) abort
+  call s:sink('c', 0, a:lines)
+endfun
 
-    call s:open('edit', l:entry['filename'])
-    call cursor(l:entry['lnum'], l:entry['col'])
-    normal! zz
-    echo l:entry['text']
-  elseif len(a:lines) > 1
-    call setloclist(a:nr, map(a:lines, 's:centry(v:val)'))
-    copen
-  endif
+fun! s:lsink(nr, lines) abort
+  call s:sink('l', a:nr, a:lines)
 endfun
 
 com! -bang Quickfix call fzf#run(fzf#wrap('copen', {
