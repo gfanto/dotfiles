@@ -188,6 +188,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
