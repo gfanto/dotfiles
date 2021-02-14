@@ -215,6 +215,13 @@ hi link FloatermBorder GruvboxFg4
 " Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+nnoremap [A :first<CR>
+nnoremap ]A :last<CR>
+
+nnoremap <C-s> :buffer#<CR>
+
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-b> :tabprevious<CR>
 nnoremap <C-n> :tabnext<CR>
