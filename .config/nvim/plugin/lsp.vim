@@ -100,18 +100,19 @@ lua << EOF
     lsp.clangd.setup{ on_attach = on_attach }
     lsp.vimls.setup{ on_attach = on_attach }
     lsp.sumneko_lua.setup{ on_attach = on_attach }
-    lsp.pyls.setup{
+    lsp.pyright.setup{
       on_attach = on_attach,
-      capabilities = vim.tbl_extend("keep", lsp.pyls.capabilities or {}, lsp_status.capabilities or {}),
       settings = {
-        python = { workspaceSymbols = { enabled = true }},
-        pyls = {
-            plugins = {
-              pycodestyle = { enabled = false },
-              pyls_mypy = { enabled = true, live_mode = false },
-              pyls_black = { enabled = true },
-              rope = { enabled = true },
-            }
+        python = {
+          formatting = { provider = "black" },
+          linting = { enabled = true, mypyEnabled = true, },
+          analysis = {
+            autoImportCompletions = true,
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            typeCheckingMode = "basic",
+            useLibraryCodeForTypes = true,
+          }
         }
       }
     }
