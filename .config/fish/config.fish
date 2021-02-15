@@ -1,13 +1,13 @@
  # ~/.config/fish/config.fish
 
-set -x LANG "en_US.UTF-8"
-set -x LC_ALL "en_US.UTF-8"
+set -gx LANG "en_US.UTF-8"
+set -gx LC_ALL "en_US.UTF-8"
 
-set -x HISTCONTROL ignoreboth
-set -x HISTSIZE 1000
-set -x HISTFILESIZE 2000
+set -gx HISTCONTROL ignoreboth
+set -gx HISTSIZE 1000
+set -gx HISTFILESIZE 2000
 
-set -x EDITOR nvim
+set -gx EDITOR nvim
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 switch $TERM
@@ -52,6 +52,10 @@ end
 
 if type -q fdfind > /dev/null ^ /dev/null
   alias fd "fdfind"
+end
+
+if type -q fzf > /dev/null ^ /dev/null
+  alias fzf "env SHELL=/bin/bash fzf"
 end
 
 function alert -d "Alert alias for long running commands. Use like so: sleep 10; alert"

@@ -117,6 +117,8 @@ set diffopt+=indent-heuristic
 " }}}
 
 " Globals {{{
+let $SHELL = '/bin/bash'
+
 let g:mapleader = "\<Space>"
 
 if glob('~/.python3') != ''

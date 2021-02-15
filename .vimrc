@@ -1,3 +1,5 @@
+set shell=/bin/bash
+
 set nocompatible
 filetype indent on
 syntax on
@@ -38,6 +40,8 @@ set foldmethod=syntax
 set foldlevelstart=99
 
 set laststatus=2
+
+let $SHELL = '/bin/bash'
 
 let g:mapleader = "\<Space>"
 
