@@ -189,6 +189,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-unimpaired'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
@@ -215,13 +216,6 @@ hi link FloatermBorder GruvboxFg4
 " Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
-nnoremap [A :first<CR>
-nnoremap ]A :last<CR>
-
-nnoremap <C-s> :buffer#<CR>
-
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-b> :tabprevious<CR>
 nnoremap <C-n> :tabnext<CR>
@@ -239,6 +233,8 @@ nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
+
+nnoremap gs :buffer#<CR>
 
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>f :BLines<CR>

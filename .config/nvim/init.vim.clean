@@ -159,6 +159,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-unimpaired'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
@@ -188,13 +189,6 @@ if executable('rg')
   nnoremap <leader>g :FloatermNew rg<CR>
 end
 
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
-nnoremap [A :first<CR>
-nnoremap ]A :last<CR>
-
-nnoremap <C-s> :buffer#<CR>
-
 nnoremap <C-b> :tabprevious<CR>
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
@@ -211,6 +205,8 @@ nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
+
+nnoremap gs :buffer#<CR>
 
 nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
