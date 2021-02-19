@@ -19,7 +19,6 @@ set clipboard& clipboard+=unnamedplus
 
 set path=.,**
 set wildmenu
-set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
@@ -56,6 +55,8 @@ set shiftround
 
 set nowrap
 set breakindentopt=shift:4,min:20
+set formatoptions+=1
+set formatoptions-=o
 set formatoptions+=j
 
 set ve=block
@@ -117,6 +118,7 @@ set diffopt+=indent-heuristic
 
 " Globals {{{
 let $SHELL = '/bin/bash'
+let $FZF_DEFAULT_OPTS = '--reverse'
 
 let g:mapleader = "\<Space>"
 
@@ -137,8 +139,6 @@ if executable('rg')
 endif
 
 let g:netrw_liststyle=3
-let g:netrw_browse_split = 2
-let g:netrw_winsize = 25
 
 let g:floaterm_autoclose = 2
 
@@ -211,7 +211,7 @@ vnoremap $ $h
 nnoremap gs :buffer#<CR>
 
 nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
-nnoremap <leader>e :Sex! <bar> :vertical resize 30<CR>
+nnoremap <leader>e :Sex!<CR>
 nnoremap <Leader>q :FloatermToggle<CR>
 nnoremap <Leader>t :FloatermNew env fish<CR>
 

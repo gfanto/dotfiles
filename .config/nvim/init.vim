@@ -19,7 +19,6 @@ set clipboard& clipboard+=unnamedplus
 
 set path=.,**
 set wildmenu
-set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
@@ -56,6 +55,8 @@ set shiftround
 
 set nowrap
 set breakindentopt=shift:4,min:20
+set formatoptions+=1
+set formatoptions-=o
 set formatoptions+=j
 
 set ve=block
@@ -118,6 +119,7 @@ set diffopt+=indent-heuristic
 
 " Globals {{{
 let $SHELL = '/bin/bash'
+let $FZF_DEFAULT_OPTS = '--reverse'
 
 let g:mapleader = "\<Space>"
 

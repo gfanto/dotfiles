@@ -14,7 +14,7 @@ if get(g:, 'loaded_airline')
   call airline#parts#define_function('lsp_status', 'LspStatus')
   call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
   let g:airline_section_c = airline#section#create(['%<', 'file', g:airline_symbols.space, 'readonly', 'lsp_status'])
-  let g:airline#extensions#nvimlsp#enabled = 0
+  let g:airline#extensions#nvimlsp#enabled = 1
 endif
 
 call sign_define('LspDiagnosticsSignError', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextError'})
@@ -102,6 +102,9 @@ lua << EOF
     lsp.sumneko_lua.setup{ on_attach = on_attach }
     lsp.pyright.setup{
       on_attach = on_attach,
+      root_dir = function(fname)
+        return vim.fn.getcwd()
+      end,
       settings = {
         python = {
           formatting = { provider = "black" },
@@ -132,6 +135,8 @@ fun! s:lsp_extensions()
   \ end
 endfun
 
-autocmd CursorHold,CursorHoldI *.rs call s:lsp_extensions()
-autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim,lua
-  \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
+augroup plugin_lsp
+  autocmd CursorHold,CursorHoldI *.rs call s:lsp_extensions()
+  autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim,lua
+    \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
+augroup END
