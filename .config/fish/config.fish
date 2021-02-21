@@ -201,8 +201,9 @@ end
 # FZF GIT commands {{{
 
 function flg -d "Git commit history"
-  set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | fzf --preview="glg_preview {}")
-  echo $commit | awk '{print $1}' | xargs git show
+  if set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | fzf --preview="glg_preview {}")
+    echo $commit | awk '{print $1}' | xargs git show
+  end
 end
 
 function fco -d "Fuzzy-find and checkout a branch"
