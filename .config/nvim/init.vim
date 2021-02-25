@@ -194,6 +194,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
