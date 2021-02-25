@@ -166,6 +166,26 @@ function ctrlp -d "ctrlp for shell"
   end
 end
 
+function ctrlf -d "ripgrep search across files"
+  set __old__INITIAL_QUERY $INITIAL_QUERY
+  set __old__RG_PREFIX $RG_PREFIX
+  set __old__FZF_DEFAULT_COMMAND $FZF_DEFAULT_COMMAND
+
+  set -gx INITIAL_QUERY ""
+  set -gx RG_PREFIX "rg --column --line-number --no-heading --color=always --smart-case "
+  set -gx FZF_DEFAULT_COMMAND "$RG_PREFIX '$INITIAL_QUERY'"
+
+  if set entry (fzf --bind "change:reload:$RG_PREFIX {q} || true" --ansi --disabled --query "$INITIAL_QUERY" --delimiter=":" --preview-window="+{2}-/2" --preview="bat --color=always --style=plain -H {2} {1}")
+    set filename (echo $entry | awk -F ":" '{print $1}')
+    set highlight (echo $entry | awk -F ":" '{print $2}')
+    echo $entry | awk -F ":" '{print $2} {print $1}' | xargs bat --style=header -H
+  end
+
+  set -gx INITIAL_QUERY $__old__INITIAL_QUERY
+  set -gx RG_PREFIX $__old__RG_PREFIX
+  set -gx FZF_DEFAULT_COMMAND $__old__FZF_DEFAULT_COMMAND
+end
+
 function cd -d "Change director set up for jump back"
   if test -d $argv
     set -g __last_directory (pwd)
@@ -282,6 +302,11 @@ end
 bind \cp ctrlp
 if bind -M insert > /dev/null 2>&1
   bind -M insert \cp ctrlp
+end
+
+bind \cf ctrlf
+if bind -M insert > /dev/null 2>&1
+  bind -M insert \cp ctrlf
 end
 
 bind ! __history_previous_command
