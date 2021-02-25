@@ -8,6 +8,9 @@ set -gx HISTSIZE 1000
 set -gx HISTFILESIZE 2000
 
 set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+set -gx PYTHONSTARTUP ~/.pythonrc
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 switch $TERM
@@ -256,20 +259,20 @@ function __history_previous_command_arguments
   end
 end
 
-set -x FZF_DEFAULT_OPTS "--reverse --height=90%"
-set -x GOPATH "$HOME/.go"
-set -x GOROOT "/opt/go"
-set -x CARGO_TARGET_DIR "$HOME/.cache/cargo"
-set -x VIRTUAL_ENV_DISABLE_PROMPT 1
+set -gx FZF_DEFAULT_OPTS "--reverse --height=90%"
+set -gx GOPATH "$HOME/.go"
+set -gx GOROOT "/opt/go"
+set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-set -g PATH "$PATH:/usr/local/bin"
-set -g PATH "$PATH:/opt/node/bin"
-set -g PATH "$PATH:$HOME/.local/bin"
-set -g PATH "$PATH:$HOME/.cargo/bin"
-set -g PATH "$PATH:$HOME/.poetry/bin"
-set -g PATH "$PATH:$HOME/.bin"
-set -g PATH "$PATH:$GOPATH/bin"
-set -x PATH "$PATH"
+set PATH "$PATH:/usr/local/bin"
+set PATH "$PATH:/opt/node/bin"
+set PATH "$PATH:$HOME/.local/bin"
+set PATH "$PATH:$HOME/.cargo/bin"
+set PATH "$PATH:$HOME/.poetry/bin"
+set PATH "$PATH:$HOME/.bin"
+set PATH "$PATH:$GOPATH/bin"
+set -gx PATH "$PATH"
 
 if test -f ~/.autojump/share/autojump/autojump.fish; . ~/.autojump/share/autojump/autojump.fish; end
 if type -q starship > /dev/null ^ /dev/null

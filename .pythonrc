@@ -1,0 +1,7 @@
+import readline
+import rlcompleter
+
+from pprint import pprint as pp
+
+readline.parse_and_bind('tab: complete')
+del readline, rlcompleter
