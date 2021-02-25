@@ -63,7 +63,7 @@ fun! s:lsink(nr, lines) abort
 endfun
 
 fun! s:quickfix(bang) abort
-  if winnr() > 1
+  if winnr('$') > 1
     cclose
   endif
 
@@ -75,7 +75,7 @@ fun! s:quickfix(bang) abort
 endfun
 
 fun! s:location(bang) abort
-  if winnr() > 1
+  if winnr('$') > 1
     cclose
   endif
 
@@ -91,7 +91,7 @@ com! -bang Location call s:location(<bang>0)
 
 if get(g:, 'loaded_fzf_vim')
   fun! s:fquickfix(bang) abort
-    if winnr() > 1
+    if winnr('$') > 1
       cclose
     endif
 
@@ -103,7 +103,7 @@ if get(g:, 'loaded_fzf_vim')
   endfun
 
   fun! s:flocation(bang) abort
-    if winnr() > 1
+    if winnr('$') > 1
       cclose
     endif
 
