@@ -65,8 +65,8 @@ set showmatch
 set matchpairs+=<:>
 set matchtime=1
 
-set conceallevel=2
-set concealcursor=niv
+" set conceallevel=2
+" set concealcursor=niv
 " }}}
 
 " Search {{{
@@ -172,6 +172,8 @@ com! CopyAbs let @+ = expand('%:p')
 " }}}
 
 " Plugins {{{
+runtime macros/matchit.vim
+
 packadd cfilter
 
 call plug#begin('~/.config/nvim/plugged')
