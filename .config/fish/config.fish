@@ -223,13 +223,13 @@ end
 
 # FZF GIT commands {{{
 
-function flg -d "Git commit history"
+function fgl -d "Git commit history"
   if set commit (git log --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative | fzf --preview="git show {1} | delta --no-gitconfig")
     echo $commit | awk '{print $1}' | xargs git show
   end
 end
 
-function fhg -d "Git stashes"
+function fgh -d "Git stashes"
   if set stash (git stash list | fzf --delimiter=":" --preview="git stash show -p {1} | delta --no-gitconfig")
     echo $stash | awk -F ":" '{print $1}' | xargs | git stash show -p
   end
