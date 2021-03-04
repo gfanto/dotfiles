@@ -208,6 +208,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
 
+Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
 
