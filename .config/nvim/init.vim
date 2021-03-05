@@ -139,6 +139,8 @@ let g:gruvbox_invert_selection = 0
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 
+let g:indentLine_bufTypeExclude = ['terminal', 'help']
+
 if executable('rg')
   set grepformat=%f:%l:%m
   let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
