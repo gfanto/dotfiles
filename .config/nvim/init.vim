@@ -238,11 +238,17 @@ nnoremap <silent> x "_x
 nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
+nnoremap Q <NOP>
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
+
+xnoremap <TAB> >gv|
+xnoremap <S-TAB> <gv
+nnoremap <TAB> >>_
+nnoremap <S-TAB> <<_
 
 nnoremap gs :buffer#<CR>
 
