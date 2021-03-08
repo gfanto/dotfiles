@@ -77,6 +77,8 @@ set incsearch
 set wrapscan
 set hlsearch
 
+set gdefault
+
 set inccommand=nosplit
 " }}}
 
