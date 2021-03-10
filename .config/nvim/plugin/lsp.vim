@@ -69,11 +69,6 @@ lua << EOF
     end
 
     local on_attach = function(client, bufnr)
-      local ok, completion = pcall(require, "completion")
-      if ok then
-        require"completion".on_attach(client, bufnr)
-      end
-
       local ok, lsp_status = pcall(require, "lsp-status")
       if ok then
         lsp_status.on_attach(client, bufnr)
@@ -125,7 +120,12 @@ fun! s:lsp_extensions()
   \ end
 endfun
 
+fun! s:lsp_completion()
+  lua local ok, completion = pcall(require, "completion"); if ok then completion.on_attach() end
+endfun
+
 augroup plugin_lsp
+  autocmd BufEnter * call s:lsp_completion()
   autocmd CursorHold,CursorHoldI *.rs call s:lsp_extensions()
   autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim,lua
     \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
