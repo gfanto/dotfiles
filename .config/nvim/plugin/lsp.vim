@@ -62,12 +62,6 @@ lua << EOF
       lsp_status = {}
     end
 
-    local on_init = function(client, initialize_result)
-      if client.config.flags then
-        client.config.flags.allow_incremental_sync = true
-      end
-    end
-
     local on_attach = function(client, bufnr)
       local ok, lsp_status = pcall(require, "lsp-status")
       if ok then
@@ -76,15 +70,14 @@ lua << EOF
     end
 
     local lsp = require"lspconfig"
-    lsp.tsserver.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.html.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.cssls.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.gopls.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.clangd.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.vimls.setup{ on_attach = on_attach, on_init = on_init }
-    lsp.sumneko_lua.setup{ on_attach = on_attach, on_init = on_init }
+    lsp.tsserver.setup{ on_attach = on_attach }
+    lsp.html.setup{ on_attach = on_attach }
+    lsp.cssls.setup{ on_attach = on_attach }
+    lsp.gopls.setup{ on_attach = on_attach }
+    lsp.clangd.setup{ on_attach = on_attach }
+    lsp.vimls.setup{ on_attach = on_attach }
+    lsp.sumneko_lua.setup{ on_attach = on_attach }
     lsp.pyright.setup{
-      on_init = on_init,
       on_attach = on_attach,
       root_dir = function(fname)
         return vim.fn.getcwd()
@@ -104,7 +97,6 @@ lua << EOF
       }
     }
     lsp.rust_analyzer.setup{
-      on_init = on_init,
       on_attach = on_attach,
       capabilities = vim.tbl_extend("keep", lsp.rust_analyzer.capabilities or {}, lsp_status.capabilities or {}),
     }
