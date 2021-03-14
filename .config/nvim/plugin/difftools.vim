@@ -44,17 +44,18 @@ augroup END
 
 function! s:open_diff()
 	" Open diff window and start comparison
+	let filetype=&ft
 	let l:bnr = bufnr('%')
 	call setwinvar(winnr(), 'diff_origin', l:bnr)
 	vertical new __diff
 	let l:diff_bnr = bufnr('%')
 	nnoremap <buffer><silent> q :quit<CR>
-	setlocal buftype=nofile bufhidden=wipe
+	exec 'setlocal buftype=nofile bufhidden=wipe filetype='.filetype
 	r ++edit #
 	0d_
 	diffthis
 	setlocal readonly
-	" wincmd p
+	wincmd p
 	let b:diff_bnr = l:diff_bnr
 	nnoremap <buffer><silent> q :execute bufwinnr(b:diff_bnr) . 'q'<CR>
 	diffthis
