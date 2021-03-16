@@ -95,7 +95,7 @@ set shada=!,'300,<50,@100,s10,h
 
 " Completion {{{
 set complete-=i
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 set pumheight=12
 " }}}
 

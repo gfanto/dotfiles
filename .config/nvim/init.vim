@@ -95,7 +95,7 @@ set shada=!,'300,<50,@100,s10,h
 
 " Completion {{{
 set complete-=i
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 set pumheight=12
 " }}}
 
@@ -158,18 +158,18 @@ let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
 let g:fzf_lsp_colors = 'bg+:-1'
 
-let g:completion_timer_cycle = 80
-let g:completion_matching_strategy_list = ['fuzzy']
-let g:completion_matching_ignore_case = 1
-let g:completion_trigger_on_delete = 1
-let g:completion_sorting = "none"
-let g:completion_trigger_keyword_length = 3
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp', 'buffers']}
-\]
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+" let g:compe.min_length = 1
+let g:compe.documentation = v:true
 
-com! OpenPython FloatermNew --width=0.5 --wintype=vsplit --name=ipython --position=right ipython -i --no-autoindent
-com! OpenTerm FloatermNew --width=0.5 --wintype=vsplit --name=term --position=right fish
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.omni = v:true
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
@@ -183,12 +183,11 @@ packadd cfilter
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'steelsojka/completion-buffers'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/completion-treesitter'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
 
 Plug 'sheerun/vim-polyglot'
 
@@ -246,11 +245,6 @@ nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
-
-xnoremap <TAB> >gv|
-xnoremap <S-TAB> <gv
-nnoremap <TAB> >>_
-nnoremap <S-TAB> <<_
 
 nnoremap gs :buffer#<CR>
 
