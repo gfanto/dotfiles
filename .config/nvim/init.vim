@@ -169,7 +169,6 @@ let g:compe.source.path = v:true
 let g:compe.source.buffer = v:true
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
-let g:compe.source.omni = v:true
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
