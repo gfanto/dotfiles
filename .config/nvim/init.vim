@@ -226,11 +226,11 @@ hi link FloatermBorder GruvboxFg4
 " Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap <C-p> :GFiles<CR>
-nnoremap <C-b> :tabprevious<CR>
-nnoremap <C-n> :tabnext<CR>
-nnoremap <C-t> :tabnew<CR>
-nnoremap <C-q> :tabclose<CR>
+nnoremap <C-p> <cmd>call execute(isdirectory('.git') ? ':GFiles' : ':Files')<CR>
+nnoremap <C-b> <cmd>tabprevious<CR>
+nnoremap <C-n> <cmd>tabnext<CR>
+nnoremap <C-t> <cmd>tabnew<CR>
+nnoremap <C-q> <cmd>tabclose<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -245,17 +245,17 @@ xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
-nnoremap gs :buffer#<CR>
+nnoremap gs <cmd>buffer#<CR>
 
-nnoremap <leader>g :Rg<CR>
-nnoremap <leader>f :BLines<CR>
-nnoremap <Leader>t :FloatermNew env fish<CR>
-nnoremap <Leader>q :FloatermToggle<CR>
-nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
-nnoremap <leader>e :NvimTreeToggle<CR>
+nnoremap <leader>g <cmd>Rg<CR>
+nnoremap <leader>f <cmd>BLines<CR>
+nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
+nnoremap <Leader>q <cmd>FloatermToggle<CR>
+nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
+nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 
-map <silent> <A-s> :split<CR>
-map <silent> <A-v> :vsplit<CR>
+map <silent> <A-s> <cmd>split<CR>
+map <silent> <A-v> <cmd>vsplit<CR>
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-b> <C-w><S-w>

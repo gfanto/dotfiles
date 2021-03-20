@@ -191,16 +191,16 @@ hi link FloatermBorder GruvboxFg4
 tnoremap <Esc> <C-\><C-n>
 
 if executable('fzf')
-  nnoremap <C-p> :FloatermNew fzf<CR>
+  nnoremap <C-p> <cmd>FloatermNew fzf<CR>
 end
 if executable('rg')
-  nnoremap <leader>g :FloatermNew rg<CR>
+  nnoremap <leader>g <cmd>FloatermNew rg<CR>
 end
 
-nnoremap <C-b> :tabprevious<CR>
-nnoremap <C-n> :tabnext<CR>
-nnoremap <C-t> :tabnew<CR>
-nnoremap <C-q> :tabclose<CR>
+nnoremap <C-b> <cmd>tabprevious<CR>
+nnoremap <C-n> <cmd>tabnext<CR>
+nnoremap <C-t> <cmd>tabnew<CR>
+nnoremap <C-q> <cmd>tabclose<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -220,15 +220,15 @@ xnoremap <S-TAB> <gv
 nnoremap <TAB> >>_
 nnoremap <S-TAB> <<_
 
-nnoremap gs :buffer#<CR>
+nnoremap gs <cmd>buffer#<CR>
 
-nnoremap <leader>u :UndotreeToggle<BAR>wincmd p<CR>
-nnoremap <leader>e :Lex<CR>
-nnoremap <Leader>q :FloatermToggle<CR>
-nnoremap <Leader>t :FloatermNew env fish<CR>
+nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
+nnoremap <leader>e <cmd>Lex<CR>
+nnoremap <Leader>q <cmd>FloatermToggle<CR>
+nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
 
-map <silent> <A-s> :split<CR>
-map <silent> <A-v> :vsplit<CR>
+map <silent> <A-s> <cmd>split<CR>
+map <silent> <A-v> <cmd>vsplit<CR>
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-b> <C-w><S-w>
