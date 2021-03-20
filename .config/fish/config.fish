@@ -61,6 +61,10 @@ if type -q fzf > /dev/null ^ /dev/null
   alias fzf "env SHELL=/bin/bash fzf"
 end
 
+if type -q glow > /dev/null ^ /dev/null
+  alias glow "glow --pager"
+end
+
 function alert -d "Alert alias for long running commands. Use like so: sleep 10; alert"
   set icon (test $status = 0 && echo terminal || echo error)
   set summary (history --reverse | tail -n1)
@@ -163,7 +167,16 @@ end
 
 function ctrlp -d "ctrlp for shell"
   if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
-    bat --style=header $file
+    switch $file
+      case '*.md'
+        if type -q glow > /dev/null ^ /dev/null
+          command glow --pager $file
+        else
+          bat --style=header $file
+        end
+      case '*'
+        bat --style=header $file
+    end
   end
 end
 
