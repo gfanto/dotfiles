@@ -34,6 +34,7 @@ lua << EOF
         underline = false,
         virtual_text = {
           spacing = 4,
+          -- prefix = "»",
         },
       }
     )
@@ -71,6 +72,16 @@ lua << EOF
       local ok, lsp_status = pcall(require, "lsp-status")
       if ok then
         lsp_status.on_attach(client, bufnr)
+      end
+
+      local ok, lsp_signature = pcall(require, "lsp_signature")
+      if ok then
+        lsp_signature.on_attach(client, bufnr)
+      end
+
+      local ok, saga = pcall(require, "lspsaga")
+      if ok then
+        client.handlers['textDocument/signatureHelp'] = require("lspsaga.signaturehelp").signature_help
       end
     end
 
