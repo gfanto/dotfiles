@@ -79,10 +79,10 @@ lua << EOF
         lsp_signature.on_attach(client, bufnr)
       end
 
-      local ok, saga = pcall(require, "lspsaga")
-      if ok then
-        client.handlers['textDocument/signatureHelp'] = require("lspsaga.signaturehelp").signature_help
-      end
+      -- local ok, saga = pcall(require, "lspsaga")
+      -- if ok then
+      --   client.handlers['textDocument/signatureHelp'] = require("lspsaga.signaturehelp").signature_help
+      -- end
     end
 
     local lsp = require"lspconfig"
