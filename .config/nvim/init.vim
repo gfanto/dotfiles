@@ -12,7 +12,7 @@ set hidden
 set lazyredraw
 
 set jumpoptions=stack
-set switchbuf=useopen,vsplit
+set switchbuf=useopen
 
 set mouse=a
 set clipboard& clipboard+=unnamedplus
