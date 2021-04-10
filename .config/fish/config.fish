@@ -71,7 +71,6 @@ function alert -d "Alert alias for long running commands. Use like so: sleep 10;
   notify-send --urgency=low -i "$icon" "$summary"
 end
 
-alias new "touch"
 alias mv "mv -v -i"
 alias cp "cp -v -r -i"
 alias rm "rm -v -rf"
@@ -152,6 +151,15 @@ function cht -d"Call cht.sh"
     set topic $argv[1]
     set query (string join "+" $argv[2..-1])
     curl "cht.sh/$topic/$query"
+  end
+end
+
+function new -d"Create new file"
+  if count $argv > /dev/null
+    mkdir -p (dirname $argv[1])
+    touch $argv
+  else
+    echo "Not enought arguments, you must specify the file name"
   end
 end
 

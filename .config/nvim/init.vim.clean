@@ -215,11 +215,6 @@ xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
-xnoremap <TAB> >gv|
-xnoremap <S-TAB> <gv
-nnoremap <TAB> >>_
-nnoremap <S-TAB> <<_
-
 nnoremap gs <cmd>buffer#<CR>
 
 nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
