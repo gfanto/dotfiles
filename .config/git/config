@@ -14,7 +14,7 @@
     editor = nvim
     pager = delta
     autocrlf = input
-    safecrlf = true
+    ;safecrlf = warn
 
 [diff]
     tool = nvimdiff
@@ -57,7 +57,7 @@
 [delta]
     line-numbers = true
     syntax-theme = gruvbox
-    side-by-side = true
+    side-by-side = false
 
     file-modified-label = modified:
 
