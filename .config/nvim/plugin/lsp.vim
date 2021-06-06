@@ -76,7 +76,7 @@ lua << EOF
 
       local ok, lsp_signature = pcall(require, "lsp_signature")
       if ok then
-        lsp_signature.on_attach(client, bufnr)
+        lsp_signature.on_attach({ bind = false, })
       end
     end
 
