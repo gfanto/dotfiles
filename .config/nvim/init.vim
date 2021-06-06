@@ -178,6 +178,7 @@ com! CopyAbs let @+ = expand('%:p')
 runtime macros/matchit.vim
 
 packadd cfilter
+packadd termdebug
 
 call plug#begin('~/.config/nvim/plugged')
 
