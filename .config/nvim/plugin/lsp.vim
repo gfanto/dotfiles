@@ -29,88 +29,88 @@ nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 lua << EOF
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false,
-        virtual_text = {
-          spacing = 4,
-          -- prefix = "»",
-        },
-      }
-    )
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      underline = false,
+      virtual_text = {
+        spacing = 4,
+        -- prefix = "»",
+      },
+    }
+  )
 
-    local ok, fzf_lsp = pcall(require, "fzf_lsp")
-    if ok then
-      fzf_lsp.setup()
-    end
+  local ok, fzf_lsp = pcall(require, "fzf_lsp")
+  if ok then
+    fzf_lsp.setup()
+  end
 
-    local ok, treesitter_config = pcall(require, "nvim-treesitter.configs")
-    if ok then
-      treesitter_config.setup {
-        ensure_installed = "maintained",
-        highlight = { enable = true },
-        indent = { enable = true },
-      }
-    end
+  local ok, treesitter_config = pcall(require, "nvim-treesitter.configs")
+  if ok then
+    treesitter_config.setup {
+      ensure_installed = "maintained",
+      highlight = { enable = true },
+      indent = { enable = true },
+    }
+  end
 
-    -- local ok, saga = pcall(require, "lspsaga")
-    -- if ok then
-    --   saga.init_lsp_saga()
-    -- end
+  -- local ok, saga = pcall(require, "lspsaga")
+  -- if ok then
+  --   saga.init_lsp_saga()
+  -- end
 
+  local ok, lsp_status = pcall(require, "lsp-status")
+  if ok then
+    lsp_status.register_progress()
+    lsp_status.config({
+        status_symbol = "",
+    })
+  else
+    lsp_status = {}
+  end
+
+  local on_attach = function(client, bufnr)
     local ok, lsp_status = pcall(require, "lsp-status")
     if ok then
-      lsp_status.register_progress()
-      lsp_status.config({
-          status_symbol = "",
-      })
-    else
-      lsp_status = {}
+      lsp_status.on_attach(client, bufnr)
     end
 
-    local on_attach = function(client, bufnr)
-      local ok, lsp_status = pcall(require, "lsp-status")
-      if ok then
-        lsp_status.on_attach(client, bufnr)
-      end
-
-      local ok, lsp_signature = pcall(require, "lsp_signature")
-      if ok then
-        lsp_signature.on_attach({ bind = false, })
-      end
+    local ok, lsp_signature = pcall(require, "lsp_signature")
+    if ok then
+      lsp_signature.on_attach({ bind = false, })
     end
+  end
 
-    local lsp = require"lspconfig"
-    lsp.tsserver.setup{ on_attach = on_attach }
-    lsp.html.setup{ on_attach = on_attach }
-    lsp.cssls.setup{ on_attach = on_attach }
-    lsp.gopls.setup{ on_attach = on_attach }
-    lsp.clangd.setup{ on_attach = on_attach }
-    lsp.vimls.setup{ on_attach = on_attach }
-    lsp.sumneko_lua.setup{ on_attach = on_attach }
-    lsp.pyright.setup{
-      on_attach = on_attach,
-      root_dir = function(fname)
-        return vim.fn.getcwd()
-      end,
-      settings = {
-        python = {
-          formatting = { provider = "black" },
-          linting = { enabled = true, mypyEnabled = true, },
-          analysis = {
-            autoImportCompletions = true,
-            autoSearchPaths = true,
-            diagnosticMode = "openFilesOnly",
-            typeCheckingMode = "basic",
-            useLibraryCodeForTypes = true,
-          }
+  local lsp = require"lspconfig"
+  lsp.tsserver.setup{ on_attach = on_attach }
+  lsp.html.setup{ on_attach = on_attach }
+  lsp.cssls.setup{ on_attach = on_attach }
+  lsp.gopls.setup{ on_attach = on_attach }
+  lsp.clangd.setup{ on_attach = on_attach }
+  lsp.vimls.setup{ on_attach = on_attach }
+  lsp.sumneko_lua.setup{ on_attach = on_attach }
+  lsp.pyright.setup{
+    on_attach = on_attach,
+    root_dir = function(fname)
+      return vim.fn.getcwd()
+    end,
+    settings = {
+      python = {
+        formatting = { provider = "black" },
+        linting = { enabled = true, mypyEnabled = true, },
+        analysis = {
+          autoImportCompletions = true,
+          autoSearchPaths = true,
+          diagnosticMode = "openFilesOnly",
+          typeCheckingMode = "basic",
+          useLibraryCodeForTypes = true,
         }
       }
     }
-    lsp.rust_analyzer.setup{
-      on_attach = on_attach,
-      capabilities = vim.tbl_extend("keep", lsp.rust_analyzer.capabilities or {}, lsp_status.capabilities or {}),
-    }
+  }
+  lsp.rust_analyzer.setup{
+    on_attach = on_attach,
+    capabilities = vim.tbl_extend("keep", lsp.rust_analyzer.capabilities or {}, lsp_status.capabilities or {}),
+  }
 EOF
 
 fun! s:lsp_extensions()
