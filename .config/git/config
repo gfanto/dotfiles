@@ -47,7 +47,6 @@
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     last = log -1 HEAD
-    lastl = log -1 HEAD --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
     changes = diff @~..@
     squash = rebase -i HEAD~2
     amend = commit -a --amend
