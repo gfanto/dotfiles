@@ -1,1 +1,1 @@
-compiler go
+compiler gopls

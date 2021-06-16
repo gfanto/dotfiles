@@ -1,8 +1,12 @@
 set nocompatible
 syntax on
 
-let $SHELL = '/bin/bash'
-set shell=/bin/bash
+let g:mapleader = "\<Space>"
+
+let g:netrw_banner = 0
+let g:netrw_liststyle=3
+
+let g:gruvbox_contrast_dark = 'hard'
 
 set path=.,**
 set wildmenu
@@ -25,8 +29,6 @@ set shiftround
 set ignorecase
 set noswapfile
 
-set mouse=a
-
 set ve=block
 set scrolloff=8
 set sidescroll=0
@@ -37,16 +39,30 @@ set ttimeoutlen=10
 set foldmethod=manual
 set foldlevelstart=99
 
-colorscheme desert
-hi Visual ctermbg=237 cterm=none
+set background=dark
 
-let g:netrw_banner = 0
-let g:netrw_liststyle=3
-
-autocmd InsertLeave * set nopaste
+colorscheme gruvbox
+hi Normal ctermbg=334
+hi Visual cterm=none
+" colorscheme desert
+" hi Visual ctermbg=237 cterm=none
+" hi Search ctermfg=000
 
 nnoremap <C-l> :noh<CR>
 nnoremap K <NOP>
+
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+nnoremap [A :first<CR>
+nnoremap ]A :last<CR>
+
+nnoremap [q :cp<CR>
+nnoremap ]q :cn<CR>
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 6/5)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 5/6)<CR>
+nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
+nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 5/6)<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -62,3 +78,5 @@ xnoremap > >gv
 vnoremap $ $h
 
 nnoremap gs :buffer#<CR>
+
+autocmd InsertLeave * set nopaste
