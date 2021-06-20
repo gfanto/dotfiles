@@ -108,7 +108,7 @@ alias lcargo "env CARGO_TARGET_DIR=./target cargo"
 abbr s "sudo"
 
 abbr k "docker"
-abbr kps "docker ps"
+abbr kps "docker ps -a"
 abbr krun "docker run --rm -it"
 abbr kexc "docker exec -it"
 abbr klog "docker logs"
@@ -317,26 +317,29 @@ set PATH "$PATH:$HOME/.bin"
 set PATH "$PATH:$GOPATH/bin"
 set -gx PATH "$PATH"
 
-if test -f ~/.autojump/share/autojump/autojump.fish; . ~/.autojump/share/autojump/autojump.fish; end
-if type -q starship > /dev/null ^ /dev/null
-    starship init fish | source
-end
-
-bind \cp ctrlp
-if bind -M insert > /dev/null 2>&1
-  bind -M insert \cp ctrlp
-end
-
-bind \cf ctrlf
-if bind -M insert > /dev/null 2>&1
-  bind -M insert \cp ctrlf
-end
-
-bind ! __history_previous_command
-bind '$' __history_previous_command_arguments
-
 if test -d ~/.python3
   source ~/.python3/bin/activate.fish
+end
+
+if status --is-interactive
+  if test -f ~/.autojump/share/autojump/autojump.fish; . ~/.autojump/share/autojump/autojump.fish; end
+
+  if type -q starship > /dev/null ^ /dev/null
+      starship init fish | source
+  end
+
+  bind \cp ctrlp
+  if bind -M insert > /dev/null 2>&1
+    bind -M insert \cp ctrlp
+  end
+
+  bind \cf ctrlf
+  if bind -M insert > /dev/null 2>&1
+    bind -M insert \cp ctrlf
+  end
+
+  bind ! __history_previous_command
+  bind '$' __history_previous_command_arguments
 end
 
 if test -f ~/.config/fish/sys_config.fish

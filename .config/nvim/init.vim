@@ -260,7 +260,7 @@ map <silent> <A-s> <cmd>split<CR>
 map <silent> <A-v> <cmd>vsplit<CR>
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
-map <silent> <A-b> <C-w><S-w>
+map <silent> <A-p> <C-w><S-w>
 
 inoremap <silent><expr> <CR> compe#confirm('<CR>')
 

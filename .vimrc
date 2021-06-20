@@ -2,10 +2,8 @@ set nocompatible
 syntax on
 
 let g:mapleader = "\<Space>"
-
 let g:netrw_banner = 0
 let g:netrw_liststyle=3
-
 let g:gruvbox_contrast_dark = 'hard'
 
 set path=.,**
@@ -17,6 +15,7 @@ set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
 set wildcharm=<C-z>
 
+set autoread
 set noerrorbells
 set lazyredraw
 set ttyfast
@@ -43,26 +42,18 @@ set background=dark
 
 colorscheme gruvbox
 hi Normal ctermbg=334
-hi Visual cterm=none
+hi Visual ctermbg=237 cterm=none
 " colorscheme desert
+" hi Search ctermfg=0
 " hi Visual ctermbg=237 cterm=none
-" hi Search ctermfg=000
 
 nnoremap <C-l> :noh<CR>
 nnoremap K <NOP>
 
 nnoremap [a :previous<CR>
 nnoremap ]a :next<CR>
-nnoremap [A :first<CR>
-nnoremap ]A :last<CR>
-
 nnoremap [q :cp<CR>
 nnoremap ]q :cn<CR>
-
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 6/5)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 5/6)<CR>
-nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
-nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 5/6)<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
