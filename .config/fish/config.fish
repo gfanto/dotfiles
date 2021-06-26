@@ -135,6 +135,7 @@ abbr gp "git pull"
 abbr gr "git rebase -i"
 abbr gs "git status"
 abbr gsp "git squash"
+abbr gsq "git rebase -i @~"
 
 function weather -d"Get weather prevision"
   if count $argv > /dev/null

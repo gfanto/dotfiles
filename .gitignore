@@ -6,3 +6,5 @@
 .config/nvim/autoload/
 .config/fish/sys_config.fish
 .vim/.netrwhist
+.vim/sys_init.vim
+.config/tmux/sys_tmux.conf

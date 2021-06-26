@@ -172,6 +172,7 @@ let g:compe.source.nvim_lsp = v:true
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
+"com! Term FloatermNew --width=0.5 --wintype=vsplit --name=term --position=right fish
 " }}}
 
 " Plugins {{{
@@ -256,8 +257,8 @@ nnoremap <Leader>q <cmd>FloatermToggle<CR>
 nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 
-map <silent> <A-s> <cmd>split<CR>
-map <silent> <A-v> <cmd>vsplit<CR>
+map <silent> <A--> <cmd>split<CR>
+map <silent> <A-\> <cmd>vsplit<CR>
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>

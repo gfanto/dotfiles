@@ -41,7 +41,7 @@ set foldlevelstart=99
 set background=dark
 
 colorscheme gruvbox
-hi Normal ctermbg=334
+hi Normal ctermbg=none
 hi Visual ctermbg=237 cterm=none
 " colorscheme desert
 " hi Search ctermfg=0
@@ -71,3 +71,8 @@ vnoremap $ $h
 nnoremap gs :buffer#<CR>
 
 autocmd InsertLeave * set nopaste
+
+let sys_config = split(&rtp, ",")[0].'/sys_init.vim'
+if filereadable(sys_config)
+  execute 'source '.sys_config
+endif
