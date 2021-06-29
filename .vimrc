@@ -15,7 +15,6 @@ set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
 set wildcharm=<C-z>
 
-set autoread
 set noerrorbells
 set lazyredraw
 set ttyfast
@@ -43,9 +42,6 @@ set background=dark
 colorscheme gruvbox
 hi Normal ctermbg=none
 hi Visual ctermbg=237 cterm=none
-" colorscheme desert
-" hi Search ctermfg=0
-" hi Visual ctermbg=237 cterm=none
 
 nnoremap <C-l> :noh<CR>
 nnoremap K <NOP>
