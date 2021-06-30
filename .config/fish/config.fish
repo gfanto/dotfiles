@@ -39,7 +39,9 @@ end
 # colored GCC warnings and errors
 set -x GCC_COLORS 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if type -q lsd > /dev/null ^ /dev/null
+if set -q __HAS_LSD || type -q lsd > /dev/null ^ /dev/null
+  set -gx __HAS_LSD 1
+
   alias ls "lsd"
   alias ll 'lsd -ahl'
   alias l 'lsd'
@@ -53,15 +55,21 @@ else
   alias vdir 'vdir --color=auto'
 end
 
-if type -q fdfind > /dev/null ^ /dev/null
+if set -q __HAS_FDFIND || type -q fdfind > /dev/null ^ /dev/null
+  set -gx __HAS_FDFIND 1
+
   alias fd "fdfind"
 end
 
-if type -q fzf > /dev/null ^ /dev/null
+if set -q __HAS_FZF || type -q fzf > /dev/null ^ /dev/null
+  set -gx __HAS_FZF 1
+
   alias fzf "env SHELL=/bin/bash fzf"
 end
 
-if type -q glow > /dev/null ^ /dev/null
+if set -q __HAS_GLOW || type -q glow > /dev/null ^ /dev/null
+  set -gx __HAS_GLOW 1
+
   alias glow "glow --pager"
 end
 
@@ -179,7 +187,7 @@ function ctrlp -d "ctrlp for shell"
   if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
     switch $file
       case '*.md'
-        if type -q glow > /dev/null ^ /dev/null
+        if set -q __HAS_GLOW || type -q glow > /dev/null ^ /dev/null
           command glow --pager $file
         else
           bat --style=header $file
@@ -309,24 +317,30 @@ set -gx GOROOT "/opt/go"
 set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-set PATH "$PATH:/usr/local/bin"
-set PATH "$PATH:/opt/node/bin"
-set PATH "$PATH:$HOME/.local/bin"
-set PATH "$PATH:$HOME/.cargo/bin"
-set PATH "$PATH:$HOME/.poetry/bin"
-set PATH "$PATH:$HOME/.bin"
-set PATH "$PATH:$GOPATH/bin"
-set -gx PATH "$PATH"
+set PATH $PATH /usr/local/bin
+set PATH $PATH /opt/node/bin
+set PATH $PATH $HOME/.local/bin
+set PATH $PATH $HOME/.cargo/bin
+set PATH $PATH $HOME/.poetry/bin
+set PATH $PATH $HOME/.bin
+set PATH $PATH $GOPATH/bin
+set -gx PATH $PATH
 
 if test -d ~/.python3
   source ~/.python3/bin/activate.fish
 end
 
 if status --is-interactive
-  if test -f ~/.autojump/share/autojump/autojump.fish; . ~/.autojump/share/autojump/autojump.fish; end
+  if set -q __HAS_AUTOJUMP || test -f ~/.autojump/share/autojump/autojump.fish
+    set -gx __HAS_AUTOJUMP 1
 
-  if type -q starship > /dev/null ^ /dev/null
-      starship init fish | source
+    . ~/.autojump/share/autojump/autojump.fish
+  end
+
+  if set -q __HAS_STARSHIP || type -q starship > /dev/null ^ /dev/null
+    set -gx __HAS_STARSHIP 1
+
+    starship init fish | source
   end
 
   bind \cp ctrlp
