@@ -87,7 +87,7 @@ lua << EOF
   lsp.gopls.setup{ on_attach = on_attach }
   lsp.clangd.setup{ on_attach = on_attach }
   lsp.vimls.setup{ on_attach = on_attach }
-  lsp.sumneko_lua.setup{ on_attach = on_attach }
+  lsp.sumneko_lua.setup{ on_attach = on_attach, cmd = { "lua-language-server" } }
   lsp.pyright.setup{
     on_attach = on_attach,
     root_dir = function(fname)
