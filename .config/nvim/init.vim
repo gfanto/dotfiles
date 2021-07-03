@@ -249,6 +249,7 @@ xnoremap > >gv
 vnoremap $ $h
 
 nnoremap gs <cmd>buffer#<CR>
+nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>f <cmd>BLines<CR>

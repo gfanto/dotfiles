@@ -66,6 +66,7 @@ xnoremap > >gv
 vnoremap $ $h
 
 nnoremap gs :buffer#<CR>
+nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 autocmd InsertLeave * set nopaste
 
