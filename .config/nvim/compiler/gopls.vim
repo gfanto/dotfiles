@@ -7,5 +7,5 @@ if exists(":CompilerSet") != 2
   command -nargs=* CompilerSet setlocal <args>
 endif
 
-CompilerSet makeprg=gopls\ check\ %
+CompilerSet makeprg=gopls\ check\ $*
 CompilerSet errorformat=%E%f:%l%c:%m
