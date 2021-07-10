@@ -24,6 +24,7 @@ set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
+set wildignorecase
 set wildcharm=<C-z>
 
 set isfname-==
@@ -197,7 +198,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
