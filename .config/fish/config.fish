@@ -26,7 +26,7 @@ end
 set -g force_color_prompt "yes"
 
 if test -n "$force_color_prompt"
-  if test -x /usr/bin/tput && tput setaf 1 > /dev/null ^ /dev/null
+  if test -x /usr/bin/tput && tput setaf 1 > /dev/null 2> /dev/null
     # We have color support; assume it's compliant with Ecma-48
     # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
     # a case would tend to support setf rather than setaf.)
@@ -39,7 +39,7 @@ end
 # colored GCC warnings and errors
 set -x GCC_COLORS 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if set -q __HAS_LSD || type -q lsd > /dev/null ^ /dev/null
+if set -q __HAS_LSD || type -q lsd > /dev/null 2> /dev/null
   set -gx __HAS_LSD 1
 
   alias ls "lsd"
@@ -55,19 +55,19 @@ else
   alias vdir 'vdir --color=auto'
 end
 
-if set -q __HAS_FDFIND || type -q fdfind > /dev/null ^ /dev/null
+if set -q __HAS_FDFIND || type -q fdfind > /dev/null 2> /dev/null
   set -gx __HAS_FDFIND 1
 
   alias fd "fdfind"
 end
 
-if set -q __HAS_FZF || type -q fzf > /dev/null ^ /dev/null
+if set -q __HAS_FZF || type -q fzf > /dev/null 2> /dev/null
   set -gx __HAS_FZF 1
 
   alias fzf "env SHELL=/bin/bash fzf"
 end
 
-if set -q __HAS_GLOW || type -q glow > /dev/null ^ /dev/null
+if set -q __HAS_GLOW || type -q glow > /dev/null 2> /dev/null
   set -gx __HAS_GLOW 1
 
   alias glow "glow --pager"
@@ -98,7 +98,7 @@ alias install "sudo apt-get install -y"
 alias uninstall "sudo apt-get remove -y"
 alias purge "sudo apt-get purge -y"
 alias autoremove "sudo apt-get autoremove -y"
-alias freeze "apt list --installed ^ /dev/null"
+alias freeze "apt list --installed 2> /dev/null"
 alias why "apt-cache show"
 alias package "apt-cache search"
 alias about "lsb_release -a"
@@ -189,7 +189,7 @@ function ctrlp -d "ctrlp for shell"
   if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
     switch $file
       case '*.md'
-        if set -q __HAS_GLOW || type -q glow > /dev/null ^ /dev/null
+        if set -q __HAS_GLOW || type -q glow > /dev/null 2> /dev/null
           command glow --pager $file
         else
           bat --style=header $file
@@ -245,7 +245,7 @@ function j -d "Autojump set up for jump back"
 end
 
 function fcs -d"cheat.sh with fzf topic"
-  set topic (curl "cht.sh/:list" ^ /dev/null | fzf)
+  set topic (curl "cht.sh/:list" 2> /dev/null | fzf)
   if test -n topic
     cht $topic $argv
   end
@@ -339,7 +339,7 @@ if status --is-interactive
     . ~/.autojump/share/autojump/autojump.fish
   end
 
-  if set -q __HAS_STARSHIP || type -q starship > /dev/null ^ /dev/null
+  if set -q __HAS_STARSHIP || type -q starship > /dev/null 2> /dev/null
     set -gx __HAS_STARSHIP 1
 
     starship init fish | source
