@@ -173,7 +173,12 @@ let g:compe.source.nvim_lsp = v:true
 
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
-com! Term FloatermNew --width=0.5 --wintype=vsplit --name=term --position=right fish
+com! CopyNam let @+ = expand('%:t')
+com! -bang Term execute (<bang>0 ?
+  \ 'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
+  \ :
+  \ 'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
+  \)
 " }}}
 
 " Plugins {{{

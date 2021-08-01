@@ -111,6 +111,7 @@ alias dkc "docker-compose"
 alias krmdang "docker rmi (docker images --filter 'dangling=true' -q --no-trunc)"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
+alias cargo "env CARGO_NET_GIT_FETCH_WITH_CLI=true cargo"
 alias lcargo "env CARGO_TARGET_DIR=./target cargo"
 
 abbr s "sudo"
