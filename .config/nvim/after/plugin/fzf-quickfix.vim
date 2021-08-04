@@ -68,8 +68,8 @@ fun! s:quickfix(bang) abort
   endif
 
   call fzf#run(fzf#wrap('quickfix', {
-    \ 'source': map(getqflist(), function('<sid>cline')),
-    \ 'sink*': function('<sid>csink'),
+    \ 'source': map(getqflist(), function('s:cline')),
+    \ 'sink*': function('s:csink'),
     \ 'options': ['--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
     \ }, a:bang))
 endfun
@@ -80,8 +80,8 @@ fun! s:location(bang) abort
   endif
 
   call fzf#run(fzf#wrap('location', {
-    \ 'source': map(getloclist(bufnr()), function('<sid>cline')),
-    \ 'sink*': function('<sid>lsink', [bufnr(0)]),
+    \ 'source': map(getloclist(bufnr()), function('s:cline')),
+    \ 'sink*': function('s:lsink', [bufnr(0)]),
     \ 'options': ['--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
     \ }, a:bang))
 endfun
@@ -96,8 +96,8 @@ if get(g:, 'loaded_fzf_vim')
     endif
 
     call fzf#run(fzf#vim#with_preview(fzf#wrap('quickfix', {
-      \ 'source': map(getqflist(), function('<sid>cline')),
-      \ 'sink*': function('<sid>csink'),
+      \ 'source': map(getqflist(), function('s:cline')),
+      \ 'sink*': function('s:csink'),
       \ 'options': ['--delimiter', ':', '--preview-window', '+{2}-/2', '--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
       \ }, a:bang)))
   endfun
@@ -108,8 +108,8 @@ if get(g:, 'loaded_fzf_vim')
     endif
 
     call fzf#run(fzf#vim#with_preview(fzf#wrap('location', {
-      \ 'source': map(getloclist(bufnr()), function('<sid>cline')),
-      \ 'sink*': function('<sid>lsink', [bufnr(0)]),
+      \ 'source': map(getloclist(bufnr()), function('s:cline')),
+      \ 'sink*': function('s:lsink', [bufnr(0)]),
       \ 'options': ['--delimiter', ':', '--preview-window', '+{2}-/2', '--multi', '--bind', 'ctrl-a:select-all,ctrl-d:deselect-all']
       \ }, a:bang)))
   endfun
