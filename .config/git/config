@@ -17,7 +17,6 @@
     ;safecrlf = warn
 
 [diff]
-    tool = nvimdiff
     algorithm = patience
     compactionHeuristic = true
 
@@ -29,13 +28,24 @@
 
 [merge]
     stat = true
-    tool = nvimdiff
+    ; tool = nvimdiff
+    tool = fugitive
 
 [mergetool]
     prompt = true
+    keepBackup = false
+
+[mergetool "fugitive"]
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+
+[mergetool "fugitive!"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 
 [mergetool "nvimdiff"]
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
+    cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd l'"
+
+[mergetool "vimdiff"]
+    cmd = "vimdiff \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd l'"
 
 [pull]
     rebase = true

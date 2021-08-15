@@ -277,7 +277,14 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 
 " Autocommands {{{
-autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 120})
+augroup InitAutoCommand
+  autocmd!
+  autocmd TermOpen * startinsert
+  autocmd TermOpen * setlocal norelativenumber nonumber
+  autocmd TermClose * call nvim_input('<CR>')
+  autocmd TextYankPost *
+    \ silent! lua require'vim.highlight'.on_yank {timeout = 120}
+augroup end
 " }}}
 
 " Load system settings {{{
