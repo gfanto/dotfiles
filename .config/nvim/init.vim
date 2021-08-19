@@ -68,6 +68,8 @@ set matchtime=1
 
 " set conceallevel=2
 " set concealcursor=niv
+" set list
+" set listchars=eol:↲,tab:»\ ,trail:·,conceal:┊,nbsp:␣
 " }}}
 
 " Search {{{
@@ -163,6 +165,7 @@ let g:compe = {}
 let g:compe.enabled = v:true
 let g:compe.autocomplete = v:true
 " let g:compe.min_length = 1
+" let g:compe.preselect = 'disable'
 let g:compe.documentation = v:true
 
 let g:compe.source = {}
