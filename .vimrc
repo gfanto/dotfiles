@@ -1,9 +1,10 @@
-set nocompatible
-syntax on
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
 
 let g:mapleader = "\<Space>"
 let g:netrw_banner = 0
-let g:netrw_liststyle=3
+let g:netrw_liststyle = 3
+let g:netrw_keepj = ""
 let g:gruvbox_contrast_dark = 'hard'
 
 set path=.,**
@@ -58,7 +59,6 @@ nnoremap <silent> x "_x
 nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
-nnoremap Q <NOP>
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv

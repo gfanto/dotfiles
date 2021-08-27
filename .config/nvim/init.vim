@@ -154,8 +154,8 @@ endif
 
 let g:floaterm_autoclose = 2
 
-let g:nvim_tree_follow = 1
-let g:nvim_tree_auto_close = 1
+let g:nvim_tree_follow = 0
+let g:nvim_tree_auto_close = 0
 
 let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
@@ -266,9 +266,12 @@ nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>
 nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
+nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
 
-map <silent> <A--> <cmd>split<CR>
-map <silent> <A-\> <cmd>vsplit<CR>
+map <C-w>+ <NOP>
+map <C-w>- <cmd>split<CR>
+map <C-w>\ <cmd>vsplit<CR>
+
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>
