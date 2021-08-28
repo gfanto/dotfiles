@@ -161,19 +161,6 @@ let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
 let g:fzf_lsp_colors = 'bg+:-1'
 
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-" let g:compe.min_length = 1
-" let g:compe.preselect = 'disable'
-let g:compe.documentation = v:true
-
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.nvim_lsp = v:true
-
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
 com! CopyNam let @+ = expand('%:t')
@@ -197,7 +184,13 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'glepnir/lspsaga.nvim'
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-emoji'
+Plug 'hrsh7th/cmp-calc'
+Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
 
 Plug 'sheerun/vim-polyglot'
@@ -276,10 +269,8 @@ map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>
 
-inoremap <silent><expr> <CR> compe#confirm('<CR>')
-
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 
 " Autocommands {{{
