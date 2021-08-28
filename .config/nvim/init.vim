@@ -204,6 +204,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-obsession'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
