@@ -6,6 +6,14 @@ let g:loaded_completion = 1
 lua << EOF
 local ok, cmp = pcall(require, "cmp")
 if ok then
+  local check_back_space = function()
+    local col = vim.fn.col '.' - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
+  end
+  local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  end
+
   cmp.setup {
     mapping = {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -18,22 +26,24 @@ if ok then
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-  	-- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
-  	-- ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
-      ["<Tab>"] = function(fallback)
+  	  -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+  	  -- ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
+      ["<Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+          vim.fn.feedkeys(t("<C-n>"), "n")
+        elseif check_back_space() then
+          vim.fn.feedkeys(t("<Tab>"), "n")
         else
           fallback()
         end
-      end,
-      ["<S-Tab>"] = function(fallback)
+      end, {"i", "s"}),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+          vim.fn.feedkeys(t("<C-p>"), "n")
         else
           fallback()
         end
-      end,
+      end, {"i", "s"}),
     },
     sources = {
       { name = "nvim_lsp" },
