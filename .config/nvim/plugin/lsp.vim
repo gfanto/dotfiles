@@ -9,8 +9,6 @@ call sign_define('LspDiagnosticsSignInformation', {'text' : '>>', 'texthl' : 'Ls
 call sign_define('LspDiagnosticsSignHint', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextHint'})
 
 com Format lua vim.lsp.buf.formatting_sync(nil, 5000)
-com LspStop lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-com LspRestart lua vim.lsp.stop_client(vim.lsp.get_active_clients());vim.api.nvim_command('e')
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
 
 nmap <silent> gd <cmd>lua if #vim.lsp.buf_get_clients() > 0 then
@@ -76,7 +74,11 @@ lua << EOF
 
     local ok, lsp_signature = pcall(require, "lsp_signature")
     if ok then
-      lsp_signature.on_attach({ bind = false, })
+      lsp_signature.on_attach({
+        handler_opts = {
+          border = "none"
+        },
+      }, bufnr)
     end
   end
 
