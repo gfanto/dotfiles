@@ -185,6 +185,7 @@ Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -244,16 +245,23 @@ nnoremap <silent> x "_x
 nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
-nnoremap Q <NOP>
+" nnoremap Q <NOP>
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
+nnoremap H ^
+nnoremap L $
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 nnoremap gs <cmd>buffer#<CR>
+nnoremap Q <cmd>exec 'bdelete ' . bufnr()<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+nnoremap <leader>gr <cmd>gr! <C-r><C-w><CR>
 nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
@@ -262,13 +270,14 @@ nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
 
-map <C-w>+ <NOP>
-map <C-w>- <cmd>split<CR>
-map <C-w>\ <cmd>vsplit<CR>
-
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>
+map <silent> <A-s> <cmd>split<CR>
+map <silent> <A-v> <cmd>vsplit<CR>
+
+nnoremap <right> <cmd>diffget //2<CR>
+nnoremap <left> <cmd>diffget //3<CR>
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
