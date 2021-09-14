@@ -233,11 +233,11 @@ hi link FloatermBorder GruvboxFg4
 " Key bindings {{{
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap <C-p> <cmd>call execute(isdirectory('.git') ? ':GFiles' : ':Files')<CR>
-nnoremap <C-b> <cmd>tabprevious<CR>
-nnoremap <C-n> <cmd>tabnext<CR>
-nnoremap <C-t> <cmd>tabnew<CR>
-nnoremap <C-q> <cmd>tabclose<CR>
+nnoremap <C-p> :call execute(isdirectory('.git') ? ':GFiles' : ':Files')<CR>
+nnoremap <C-b> :tabprevious<CR>
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-q> :tabclose<CR>
 
 nnoremap <silent> Y y$
 nnoremap <silent> S "_S
@@ -257,11 +257,11 @@ nnoremap L $
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-nnoremap gs <cmd>buffer#<CR>
-nnoremap Q <cmd>exec 'bdelete ' . bufnr()<CR>
+nnoremap gs :buffer#<CR>
+nnoremap Q :exec 'bdelete ' . bufnr()<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-nnoremap <leader>gr <cmd>gr! <C-r><C-w><CR>
+nnoremap <leader>G :gr! <C-r><C-w><CR>
 nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
@@ -273,11 +273,11 @@ nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>
-map <silent> <A-s> <cmd>split<CR>
-map <silent> <A-v> <cmd>vsplit<CR>
+map <silent> <A-s> :split<CR>
+map <silent> <A-v> :vsplit<CR>
 
-nnoremap <right> <cmd>diffget //2<CR>
-nnoremap <left> <cmd>diffget //3<CR>
+nnoremap <right> :diffget //2<CR>
+nnoremap <left> :diffget //3<CR>
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
