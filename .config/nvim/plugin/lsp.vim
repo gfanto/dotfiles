@@ -42,15 +42,6 @@ lua << EOF
     fzf_lsp.setup()
   end
 
-  local ok, treesitter_config = pcall(require, "nvim-treesitter.configs")
-  if ok then
-    treesitter_config.setup {
-      ensure_installed = "maintained",
-      highlight = { enable = true },
-      indent = { enable = true },
-    }
-  end
-
   -- local ok, saga = pcall(require, "lspsaga")
   -- if ok then
   --   saga.init_lsp_saga()
