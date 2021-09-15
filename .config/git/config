@@ -60,6 +60,10 @@
     changes = diff @~..@
     squash = rebase -i HEAD~2
     amend = commit -a --amend
+    cleanall = clean -fxfd
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
 
 [push]
     default = current
