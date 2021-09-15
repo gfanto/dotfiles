@@ -257,8 +257,8 @@ nnoremap L $
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-nnoremap gs :buffer#<CR>
-nnoremap Q :exec 'bdelete ' . bufnr()<CR>
+nnoremap <silent> gs :buffer#<CR>
+nnoremap <silent> Q :exec 'bdelete ' . bufnr()<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap <leader>G :gr! <C-r><C-w><CR>
