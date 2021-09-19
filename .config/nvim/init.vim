@@ -220,7 +220,6 @@ Plug 'gfanto/fzf-lsp.nvim'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
-
 call plug#end()
 " }}}
 
@@ -246,16 +245,16 @@ nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
 " nnoremap Q <NOP>
+nnoremap H ^
+nnoremap L $
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
 
-nnoremap H ^
-nnoremap L $
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
 
 nnoremap <silent> gs :buffer#<CR>
 nnoremap <silent> Q :exec 'bdelete ' . bufnr()<CR>
