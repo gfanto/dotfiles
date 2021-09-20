@@ -183,6 +183,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'spywhere/detect-language.nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
