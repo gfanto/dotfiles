@@ -180,6 +180,7 @@ packadd termdebug
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
