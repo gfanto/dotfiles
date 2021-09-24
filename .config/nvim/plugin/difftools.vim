@@ -59,6 +59,7 @@ function! s:open_diff()
 	let b:diff_bnr = l:diff_bnr
 	nnoremap <buffer><silent> q :execute bufwinnr(b:diff_bnr) . 'q'<CR>
 	diffthis
+	wincmd p
 endfunction
 
 function! s:close_diff()
@@ -84,4 +85,3 @@ endfunction
 command! -nargs=0 DiffOrig call s:open_diff()
 
 " vim: set ts=2 sw=2 tw=80 noet :
-
