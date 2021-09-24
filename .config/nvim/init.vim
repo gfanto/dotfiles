@@ -208,6 +208,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-obsession'
+Plug 'junegunn/goyo.vim'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'mbbill/undotree'
@@ -247,16 +248,11 @@ nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
 " nnoremap Q <NOP>
-nnoremap H ^
-nnoremap L $
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv
 xnoremap > >gv
 vnoremap $ $h
-
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
 
 nnoremap <silent> gs :buffer#<CR>
 nnoremap <silent> Q :exec 'bdelete ' . bufnr()<CR>
