@@ -154,9 +154,6 @@ endif
 
 let g:floaterm_autoclose = 2
 
-let g:nvim_tree_follow = 0
-let g:nvim_tree_auto_close = 0
-
 let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
 let g:fzf_lsp_colors = 'bg+:-1'
