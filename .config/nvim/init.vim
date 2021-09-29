@@ -139,6 +139,8 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+let g:did_load_filetypes = 1
+
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_italic = 1
@@ -193,6 +195,7 @@ Plug 'hrsh7th/cmp-calc'
 Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
 
+Plug 'nathom/filetype.nvim'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-sensible'
