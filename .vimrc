@@ -44,6 +44,7 @@ set background=dark
 colorscheme gruvbox
 hi Normal ctermbg=none
 hi Visual ctermbg=237 cterm=none
+hi debugPC ctermbg=24 guibg=#076678
 
 nnoremap <C-l> :noh<CR>
 nnoremap K <NOP>
