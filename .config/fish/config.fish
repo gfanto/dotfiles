@@ -272,7 +272,7 @@ end
 
 function fgh -d "Git stashes"
   if set stash (git stash list | fzf --delimiter=":" --preview="git stash show -p {1} | delta --no-gitconfig")
-    echo $stash | awk -F ":" '{print $1}' | xargs | git stash show -p
+    echo $stash | awk -F ":" '{print $1}' | xargs git stash show -p
   end
 end
 
