@@ -271,8 +271,14 @@ function fgl -d "Git commit history"
 end
 
 function fgh -d "Git stashes"
+  argparse s/show -- $argv
+
   if set stash (git stash list | fzf --delimiter=":" --preview="git stash show -p {1} | delta --no-gitconfig")
-    echo $stash | awk -F ":" '{print $1}' | xargs git stash show -p
+    if set -q _flag_show
+      echo $stash | awk -F ":" '{print $1}' | xargs git stash show -p
+    else
+      echo $stash | awk -F ":" '{print $1}' | xargs git stash pop
+    end
   end
 end
 
