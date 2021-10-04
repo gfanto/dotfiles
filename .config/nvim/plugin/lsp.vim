@@ -3,10 +3,10 @@ if exists('g:loaded_lsp')
 endif
 let g:loaded_lsp = 1
 
-call sign_define('LspDiagnosticsSignError', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextError'})
-call sign_define('LspDiagnosticsSignWarning', {'text' : '', 'texthl' : 'LspDiagnosticsVirtualTextWarning'})
-call sign_define('LspDiagnosticsSignInformation', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextInformation'})
-call sign_define('LspDiagnosticsSignHint', {'text' : '>>', 'texthl' : 'LspDiagnosticsVirtualTextHint'})
+call sign_define('DiagnosticSignError', {'text' : '>>', 'texthl' : 'DiagnosticSignError'})
+call sign_define('DiagnosticSignWarn', {'text' : '', 'texthl' : 'DiagnosticSignWarn'})
+call sign_define('DiagnosticSignInfo', {'text' : '>>', 'texthl' : 'DiagnosticSignInfo'})
+call sign_define('DiagnosticSignHint', {'text' : '>>', 'texthl' : 'DiagnosticSignHint'})
 
 com Format lua vim.lsp.buf.formatting_sync(nil, 5000)
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
