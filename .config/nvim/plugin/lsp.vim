@@ -11,16 +11,16 @@ call sign_define('DiagnosticSignHint', {'text' : '>>', 'texthl' : 'DiagnosticSig
 com Format lua vim.lsp.buf.formatting_sync(nil, 5000)
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
 
-nmap <silent> gd <cmd>lua if #vim.lsp.buf_get_clients() > 0 then
+nnoremap <silent> gd <cmd>lua if #vim.lsp.buf_get_clients() > 0 then
   \ vim.lsp.buf.definition() else
   \ vim.api.nvim_command("norm! gd")
   \ end<CR>
-nmap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nmap <silent> cr <cmd>lua vim.lsp.buf.rename()<CR>
-nmap <silent> [e <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
-nmap <silent> ]e <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
+nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> [e <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
+nnoremap <silent> ]e <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
 
+nnoremap <leader>c <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>

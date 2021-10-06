@@ -208,6 +208,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-abolish'
 Plug 'junegunn/goyo.vim'
 Plug 'michaeljsmith/vim-indent-object'
 
