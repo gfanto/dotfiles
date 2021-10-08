@@ -66,23 +66,32 @@ lua << EOF
     local ok, lsp_signature = pcall(require, "lsp_signature")
     if ok then
       lsp_signature.on_attach({
+        floating_window_above_cur_line = true,
+        hint_enable = false,
         handler_opts = {
-          border = "none"
+          border = "none",
         },
       }, bufnr)
     end
   end
 
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+  if ok then
+    capabilities = cmp_lsp.update_capabilities(capabilities)
+  end
+
   local lsp = require"lspconfig"
-  lsp.tsserver.setup{ on_attach = on_attach }
-  lsp.html.setup{ on_attach = on_attach }
-  lsp.cssls.setup{ on_attach = on_attach }
-  lsp.gopls.setup{ on_attach = on_attach }
-  lsp.clangd.setup{ on_attach = on_attach }
-  lsp.vimls.setup{ on_attach = on_attach }
-  lsp.sumneko_lua.setup{ on_attach = on_attach, cmd = { "lua-language-server" } }
+  lsp.tsserver.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.html.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.cssls.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.gopls.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.clangd.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.vimls.setup{ on_attach = on_attach, capabilities = capabilities }
+  lsp.sumneko_lua.setup{ on_attach = on_attach, capabilities = capabilities, cmd = { "lua-language-server" } }
   lsp.pyright.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
     root_dir = function(fname)
       return vim.fn.getcwd()
     end,
@@ -102,7 +111,7 @@ lua << EOF
   }
   lsp.rust_analyzer.setup{
     on_attach = on_attach,
-    capabilities = vim.tbl_extend("keep", lsp.rust_analyzer.capabilities or {}, lsp_status.capabilities or {}),
+    capabilities = vim.tbl_extend("keep", capabilities, lsp.rust_analyzer.capabilities or {}),
   }
 EOF
 
