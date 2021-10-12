@@ -81,17 +81,19 @@ lua << EOF
     capabilities = cmp_lsp.update_capabilities(capabilities)
   end
 
+  local flags = { debounce_text_changes = 150 }
   local lsp = require"lspconfig"
-  lsp.tsserver.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.html.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.cssls.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.gopls.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.clangd.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.vimls.setup{ on_attach = on_attach, capabilities = capabilities }
-  lsp.sumneko_lua.setup{ on_attach = on_attach, capabilities = capabilities, cmd = { "lua-language-server" } }
+  lsp.tsserver.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.html.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.cssls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.gopls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.clangd.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.vimls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
+  lsp.sumneko_lua.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags, cmd = { "lua-language-server" } }
   lsp.pyright.setup{
     on_attach = on_attach,
     capabilities = capabilities,
+    flags = flags,
     root_dir = function(fname)
       return vim.fn.getcwd()
     end,
@@ -112,6 +114,7 @@ lua << EOF
   lsp.rust_analyzer.setup{
     on_attach = on_attach,
     capabilities = vim.tbl_extend("keep", capabilities, lsp.rust_analyzer.capabilities or {}),
+    flags = flags,
   }
 EOF
 
