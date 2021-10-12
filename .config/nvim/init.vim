@@ -265,7 +265,7 @@ nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>
-nnoremap <leader>u <cmd>UndotreeToggle<BAR>wincmd p<CR>
+nnoremap <leader>u <cmd>UndotreeToggle<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
 
