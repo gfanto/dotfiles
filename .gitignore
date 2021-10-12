@@ -1,5 +1,6 @@
 .config/nvim/plugged/
 .config/nvim/undodir/
+.config/nvim/viewdir/
 .config/nvim/sys_init.vim
 .config/nvim/.netrwhist
 .config/fish/fish_variables

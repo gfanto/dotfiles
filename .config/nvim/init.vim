@@ -146,8 +146,6 @@ let g:gruvbox_invert_selection = 0
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 
-let g:indentLine_bufTypeExclude = ['terminal', 'help']
-
 if executable('rg')
   set grepformat=%f:%l:%m
   let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
@@ -155,6 +153,10 @@ if executable('rg')
 endif
 
 let g:floaterm_autoclose = 2
+
+let g:indent_blankline_show_first_indent_level = 0
+let g:indent_blankline_buftype_exclude = ['terminal', 'help']
+let g:indent_blankline_char = "¦"
 
 let g:fzf_lsp_layout = { 'down': '30%' }
 let g:fzf_lsp_preview_window = 'right:50%:noborder'
@@ -177,7 +179,6 @@ packadd cfilter
 packadd termdebug
 
 call plug#begin('~/.config/nvim/plugged')
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/lsp-status.nvim'
@@ -212,7 +213,6 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'michaeljsmith/vim-indent-object'
 
-Plug 'junegunn/goyo.vim'
 Plug 'mbbill/undotree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -222,7 +222,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
 
-Plug 'Yggdroot/indentLine'
+Plug 'junegunn/goyo.vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
 call plug#end()
