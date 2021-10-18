@@ -154,7 +154,7 @@ endif
 
 let g:floaterm_autoclose = 2
 
-let g:indent_blankline_show_first_indent_level = 0
+let g:indent_blankline_show_first_indent_level = v:false
 let g:indent_blankline_buftype_exclude = ['terminal', 'help']
 let g:indent_blankline_char = "¦"
 
