@@ -7,6 +7,11 @@ let g:note_folder = get(g:, "note_folder", "~/notes")
 let g:note_fileending = get(g:, "note_fileending", ".md")
 let g:note_set_keybindings = get(g:, "note_set_keybindings", 1)
 
+function! s:note_new()
+  let name = input("New note name: ")
+  execute 'edit ' . g:note_folder . '/' . name
+endfunction
+
 function! s:note_handler(lines)
   if len(a:lines) < 1 | return | endif
 
@@ -77,7 +82,10 @@ command! -bang -nargs=* FindNotesWithPreview
   \ 0,
   \ )
 
+command! NewNote call s:note_new()
+
 if g:note_set_keybindings
+  nmap <silent> <leader>ne :NewNote<CR>
   nmap <silent> <leader>nn :Notes<CR>
   nmap <silent> <leader>nf :FindNotes<CR>
   nmap <silent> <leader>nw :FindNotesWithPreview<CR>

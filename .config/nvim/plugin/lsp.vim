@@ -17,8 +17,8 @@ nnoremap <silent> gd <cmd>lua if #vim.lsp.buf_get_clients() > 0 then
   \ end<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> [e <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>
-nnoremap <silent> ]e <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>
+nnoremap <silent> [e <cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = true })<CR>
+nnoremap <silent> ]e <cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = true })<CR>
 
 nnoremap <leader>c <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
