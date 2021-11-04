@@ -34,7 +34,7 @@ set isfname-==
 set number
 set relativenumber
 set guicursor=
-set signcolumn=no
+set signcolumn=yes
 set scrolloff=8
 set sidescroll=0
 set shortmess+=c
@@ -179,18 +179,21 @@ packadd cfilter
 packadd termdebug
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'spywhere/detect-language.nvim'
+Plug 'glepnir/lspsaga.nvim'
+
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'spywhere/detect-language.nvim'
-Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
 Plug 'hrsh7th/cmp-emoji'
 Plug 'hrsh7th/cmp-calc'
 Plug 'onsails/lspkind-nvim'

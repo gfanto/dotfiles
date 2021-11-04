@@ -4,11 +4,14 @@ endif
 let g:loaded_ts = 1
 
 lua << EOF
-  local ok, treesitter_config = pcall(require, "nvim-treesitter.configs")
+  local ok, ts_config = pcall(require, "nvim-treesitter.configs")
   if ok then
-    treesitter_config.setup {
+    ts_config.setup {
       ensure_installed = "maintained",
-      highlight = { enable = true },
+	  highlight = {
+		enable = true,
+		use_languagetree = true,
+	  },
       indent = { enable = true },
     }
   end
