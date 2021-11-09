@@ -217,6 +217,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'michaeljsmith/vim-indent-object'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'ThePrimeagen/harpoon'
 Plug 'mbbill/undotree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -273,6 +275,11 @@ nnoremap <Leader>q <cmd>FloatermToggle<CR>
 nnoremap <leader>u <cmd>UndotreeToggle<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
+nnoremap <leader>h :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>H :lua require("harpoon.ui").toggle_quick_menu()<CR>
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  exec 'nnoremap <leader>'.i.' :lua require("harpoon.ui").nav_file('.i.')<CR>'
+endfor
 
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
