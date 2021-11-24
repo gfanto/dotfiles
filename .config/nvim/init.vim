@@ -146,6 +146,8 @@ let g:gruvbox_invert_selection = 0
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 
+let g:golden_ratio_autocommand = 0
+
 if executable('rg')
   set grepformat=%f:%l:%m
   let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
@@ -228,6 +230,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
 
+Plug 'roman/golden-ratio'
 Plug 'junegunn/goyo.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'vim-airline/vim-airline'
@@ -250,13 +253,13 @@ nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-q> :tabclose<CR>
 
-nnoremap <silent> Y y$
+nnoremap <silent> Y yg$
 nnoremap <silent> S "_S
 nnoremap <silent> x "_x
 nnoremap <silent> s "_s
 vnoremap <silent> X "_d
 
-" nnoremap Q <NOP>
+nnoremap Q @q
 nnoremap k gk
 nnoremap j gj
 xnoremap < <gv
@@ -264,17 +267,16 @@ xnoremap > >gv
 vnoremap $ $h
 
 nnoremap <silent> gs :buffer#<CR>
-nnoremap <silent> Q :exec 'bdelete ' . bufnr()<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-nnoremap <leader>G :gr! <C-r><C-w><CR>
-nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>
 nnoremap <leader>u <cmd>UndotreeToggle<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
 nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
+nnoremap <leader>g <cmd>Rg<CR>
+nnoremap <leader>G :gr! <C-r><C-w><CR>
 nnoremap <leader>h :lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>H :lua require("harpoon.ui").toggle_quick_menu()<CR>
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -286,6 +288,7 @@ map <silent> <A-n> <C-w><C-w>
 map <silent> <A-p> <C-w><S-w>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
+map <silent> <A-m> :GoldenRatioResize<CR>
 
 nnoremap <right> :diffget //2<CR>
 nnoremap <left> :diffget //3<CR>
