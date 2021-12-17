@@ -253,7 +253,7 @@ nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-q> :tabclose<CR>
 
-nnoremap <silent> Y yg$
+nnoremap <silent> Y y$
 nnoremap <silent> S "_S
 nnoremap <silent> x "_x
 nnoremap <silent> s "_s
