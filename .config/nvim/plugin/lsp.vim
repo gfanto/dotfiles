@@ -11,7 +11,7 @@ call sign_define('DiagnosticSignHint', {'text' : '>>', 'texthl' : 'DiagnosticSig
 com Format lua vim.lsp.buf.formatting_sync(nil, 5000)
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
 
-nnoremap <silent> gd <cmd>lua if #vim.lsp.buf_get_clients() > 0 then
+nnoremap <silent> gd <cmd>lua if #vim.tbl_keys(vim.lsp.buf_get_clients()) > 0 then
   \ vim.lsp.buf.definition() else
   \ vim.api.nvim_command("norm! gd")
   \ end<CR>
