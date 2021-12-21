@@ -24,7 +24,7 @@ nnoremap <leader>c <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <leader>w <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>d <cmd>lua vim.diagnostic.open_float()<CR>
 
 lua << EOF
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
