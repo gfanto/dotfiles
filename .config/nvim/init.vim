@@ -111,8 +111,8 @@ set updatetime=100
 
 " Folds {{{
 set foldenable
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=syntax
+" set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 " }}}
 
@@ -181,9 +181,9 @@ packadd cfilter
 packadd termdebug
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'spywhere/detect-language.nvim'
-Plug 'glepnir/lspsaga.nvim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'spywhere/detect-language.nvim'
+" Plug 'tami5/lspsaga.nvim'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
