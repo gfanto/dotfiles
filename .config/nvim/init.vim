@@ -56,7 +56,7 @@ set shiftround
 
 set nowrap
 set breakindentopt=shift:4,min:20
-set formatoptions+=1
+set formatoptions-=1
 set formatoptions-=o
 set formatoptions+=j
 
@@ -217,6 +217,7 @@ Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-vinegar'
 Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'nvim-lua/plenary.nvim'
@@ -229,6 +230,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
+Plug 'jubnzv/virtual-types.nvim'
 
 Plug 'roman/golden-ratio'
 Plug 'junegunn/goyo.vim'

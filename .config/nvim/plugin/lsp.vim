@@ -63,6 +63,11 @@ lua << EOF
       lsp_status.on_attach(client, bufnr)
     end
 
+    local ok, virtualtypes = pcall(require, "virtualtypes")
+    if ok then
+      virtualtypes.on_attach(client, bufnr)
+    end
+
     local ok, lsp_signature = pcall(require, "lsp_signature")
     if ok then
       lsp_signature.on_attach({

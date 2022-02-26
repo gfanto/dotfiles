@@ -54,7 +54,7 @@ nnoremap ]a :next<CR>
 nnoremap [q :cp<CR>
 nnoremap ]q :cn<CR>
 
-nnoremap <silent> Y yg$
+nnoremap <silent> Y y$
 nnoremap <silent> S "_S
 nnoremap <silent> x "_x
 nnoremap <silent> s "_s
