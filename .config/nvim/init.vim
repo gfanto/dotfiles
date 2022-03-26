@@ -167,11 +167,12 @@ let g:fzf_lsp_colors = 'bg+:-1'
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
 com! CopyNam let @+ = expand('%:t')
+com! TermT :term fish
 com! -bang Term execute (<bang>0 ?
   \ 'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
   \ :
   \ 'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
-  \)
+  \ )
 " }}}
 
 " Plugins {{{
@@ -186,7 +187,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Plug 'tami5/lspsaga.nvim'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'hrsh7th/nvim-cmp'
@@ -292,8 +293,8 @@ map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
 map <silent> <A-m> :GoldenRatioResize<CR>
 
-nnoremap <right> :diffget //2<CR>
-nnoremap <left> :diffget //3<CR>
+nnoremap <right> :FloatermNext<CR>
+nnoremap <left> :FloatermPrev<CR>
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
