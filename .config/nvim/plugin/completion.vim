@@ -14,6 +14,33 @@ if ok then
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
 
+  local cmp_format = function(entry, vim_item)
+    -- Kind icons
+    vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+    -- Source
+    vim_item.menu = ({
+      buffer = "[Buffer]",
+      nvim_lsp = "[LSP]",
+      luasnip = "[LuaSnip]",
+      nvim_lua = "[Lua]",
+      latex_symbols = "[LaTeX]",
+    })[entry.source.name]
+    return vim_item
+  end
+  local ok, lspkind = pcall(require, "lspkind")
+  if ok then
+    cmp_format = lspkind.cmp_format({
+      mode = "symbol_text",
+      menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[LuaSnip]",
+        nvim_lua = "[Lua]",
+        latex_symbols = "[Latex]",
+      })
+    })
+  end
+
   cmp.setup {
     snippet = {
       expand = function(args)
@@ -44,22 +71,7 @@ if ok then
       { name = "emoji" },
     },
     formatting = {
-      format = function(entry, vim_item)
-        local ok, lspkind = pcall(require, "lspkind")
-  	  if ok then
-          vim_item.kind = lspkind.presets.default[vim_item.kind]
-            .. " "
-            .. vim_item.kind
-  	  end
-        vim_item.menu = ({
-          buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
-          luasnip = "[LuaSnip]",
-          nvim_lua = "[Lua]",
-          latex_symbols = "[Latex]",
-        })[entry.source.name]
-        return vim_item
-      end,
+      format = cmp_format,
     },
   }
 end
