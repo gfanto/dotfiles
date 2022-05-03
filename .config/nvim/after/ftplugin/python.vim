@@ -1,3 +1,3 @@
 setl foldmethod=indent
 
-compiler mypy
+" compiler mypy

@@ -64,6 +64,7 @@
     tags = tag -l
     branches = branch -a
     remotes = remote -v
+    cfiles = diff --name-status
 
 [push]
     default = current

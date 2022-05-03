@@ -170,10 +170,10 @@ com! CopyAbs let @+ = expand('%:p')
 com! CopyNam let @+ = expand('%:t')
 com! TermT :term fish
 com! -bang Term execute (<bang>0 ?
-  \ 'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
-  \ :
-  \ 'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
-  \ )
+  \'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
+  \:
+  \'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
+  \)
 " }}}
 
 " Plugins {{{
@@ -220,13 +220,16 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-vinegar'
-Plug 'michaeljsmith/vim-indent-object'
 
+Plug 'rhysd/conflict-marker.vim'
+Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'mbbill/undotree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'ygm2/rooter.nvim'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -273,6 +276,7 @@ vnoremap $ $h
 nnoremap <silent> gs :buffer#<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+nnoremap <leader><leader> :w<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>

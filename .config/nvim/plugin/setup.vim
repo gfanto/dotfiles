@@ -13,3 +13,11 @@ if ok then
   })
 end
 EOF
+
+if get(g:, 'loaded_conflict_marker')
+  hi! ConflictMarkerBegin guibg=#2f7366
+  hi! ConflictMarkerOurs guibg=#2e5049
+  hi! ConflictMarkerTheirs guibg=#344f69
+  hi! ConflictMarkerEnd guibg=#2f628e
+  hi! ConflictMarkerCommonAncestorsHunk guibg=#754a81
+end

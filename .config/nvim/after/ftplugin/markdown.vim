@@ -1,3 +1,3 @@
 setl textwidth=80
 setl wrap
-setl spell spelllang=it,en
+setl spell spelllang=it,en,programming
