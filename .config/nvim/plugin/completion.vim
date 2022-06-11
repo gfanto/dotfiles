@@ -58,11 +58,10 @@ if ok then
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       }),
-      ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+      -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+      -- ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
     },
     sources = {
-	  { name = 'nvim_lsp_document_symbol' },
       { name = "nvim_lsp" },
       { name = "buffer" },
       { name = "vsnip" },
@@ -74,5 +73,20 @@ if ok then
       format = cmp_format,
     },
   }
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'nvim_lsp_document_symbol' },
+      { name = 'buffer' }
+    }
+  })
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
 end
 EOF
