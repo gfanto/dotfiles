@@ -14,11 +14,11 @@ endif
 
 
 if get(g:, 'loaded_lspsaga')
-  nmap <silent> K  <cmd>Lspsaga hover_doc<CR>
-  nmap <silent> cr <cmd>Lspsaga rename<CR>
-  nmap <silent> cd <cmd>Lspsaga preview_definition<CR>
-  nmap <silent> [e <cmd>Lspsaga diagnostic_jump_prev<CR>
-  nmap <silent> ]e <cmd>Lspsaga diagnostic_jump_next<CR>
+  nnoremap <silent> K  <cmd>Lspsaga hover_doc<CR>
+  nnoremap <silent> cr <cmd>Lspsaga rename<CR>
+  nnoremap <silent> cd <cmd>Lspsaga preview_definition<CR>
+  nnoremap <silent> [e <cmd>Lspsaga diagnostic_jump_prev<CR>
+  nnoremap <silent> ]e <cmd>Lspsaga diagnostic_jump_next<CR>
 
   nnoremap <leader>a <cmd>Lspsaga code_action<CR>
   nnoremap <leader>d <cmd>Lspsaga show_line_diagnostics<CR>
