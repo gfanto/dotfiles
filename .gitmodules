@@ -13,3 +13,6 @@
 [submodule ".vim/pack/plugins/start/vim-fugitive"]
 	path = .vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".config/tmux/plugins/tmux-fuzzback"]
+	path = .config/tmux/plugins/tmux-fuzzback
+	url = https://github.com/roosta/tmux-fuzzback
