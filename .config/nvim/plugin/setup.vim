@@ -12,6 +12,17 @@ if ok then
     },
   })
 end
+
+local ok, filetype = pcall(require, "filetype")
+if ok then
+  filetype.setup({
+    overrides = {
+      complex = {
+        ["Dockerfile.*"] = "dockerfile",
+      },
+    }
+  })
+end
 EOF
 
 if get(g:, 'loaded_conflict_marker')
