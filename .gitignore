@@ -9,3 +9,4 @@
 .vim/.netrwhist
 .vim/sys_init.vim
 .config/tmux/sys_tmux.conf
+.config/tmux/plugins

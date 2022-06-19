@@ -235,7 +235,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
-Plug 'jubnzv/virtual-types.nvim'
 
 Plug 'roman/golden-ratio'
 Plug 'junegunn/goyo.vim'
