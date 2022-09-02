@@ -15,4 +15,8 @@ lua << EOF
       indent = { enable = true },
     }
   end
+  local ok, ts_context = pcall(require, "treesitter-context")
+  if ok then
+    ts_context.setup()
+  end
 EOF

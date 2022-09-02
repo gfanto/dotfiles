@@ -183,6 +183,7 @@ packadd termdebug
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 " Plug 'spywhere/detect-language.nvim'
 " Plug 'glepnir/lspsaga.nvim'
 
