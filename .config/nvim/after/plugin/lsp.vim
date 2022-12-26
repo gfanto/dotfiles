@@ -1,4 +1,4 @@
-if get(g:, 'loaded_airline')
+if get(g:, 'loaded_airline') && luaeval("pcall(require, 'lsp-status')")
   fun! LspStatus() abort
     if luaeval('#vim.lsp.buf_get_clients() > 0')
         return airline#util#shorten(luaeval("require('lsp-status').status()"), 91, 9)
