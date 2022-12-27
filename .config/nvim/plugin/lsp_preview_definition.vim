@@ -18,8 +18,9 @@ lua <<EOF
       result = result[1]
     end
 
-    result["range"]["start"]["line"] = result["range"]["start"]["line"]
-    result["range"]["end"]["line"] = result["range"]["end"]["line"] + 64
+    if result["range"] ~= nil and result["range"]["start"]["line"] == result["range"]["end"]["line"] then
+      result["range"]["end"]["line"] = result["range"]["end"]["line"] + 64
+    end
     vim.lsp.util.preview_location(result, {})
   end
 
