@@ -184,13 +184,15 @@ packadd termdebug
 call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " Plug 'spywhere/detect-language.nvim'
-" Plug 'glepnir/lspsaga.nvim'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-vsnip'
@@ -230,7 +232,7 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'mbbill/undotree'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'ygm2/rooter.nvim'
+Plug 'ahmedkhalf/project.nvim'
 Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

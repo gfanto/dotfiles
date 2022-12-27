@@ -42,11 +42,6 @@ lua << EOF
     fzf_lsp.setup()
   end
 
-  -- local ok, saga = pcall(require, "lspsaga")
-  -- if ok then
-  --   saga.init_lsp_saga()
-  -- end
-
   local ok, lsp_status = pcall(require, "lsp-status")
   if ok then
     lsp_status.register_progress()
@@ -81,55 +76,55 @@ lua << EOF
     capabilities = cmp_lsp.default_capabilities(capabilities)
   end
 
+  local servers = {
+    clangd = {},
+    gopls = {},
+    pyright = {},
+    rust_analyzer = {},
+    tsserver = {},
+    vimls = {},
+    pyright = {},
+    sumneko_lua = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
+    },
+  }
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  if ok then
+    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+  end
   local flags = { debounce_text_changes = 150 }
-  local lsp = require"lspconfig"
-  lsp.tsserver.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.html.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.cssls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.gopls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.clangd.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.vimls.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags }
-  lsp.sumneko_lua.setup{ on_attach = on_attach, capabilities = capabilities, flags = flags, cmd = { "lua-language-server" } }
-  lsp.pyright.setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = flags,
-    root_dir = function(fname)
-      return vim.fn.getcwd()
-    end,
-    settings = {
-      python = {
-        formatting = { provider = "black" },
-        linting = { enabled = true, mypyEnabled = true, },
-        analysis = {
-          autoImportCompletions = true,
-          autoSearchPaths = true,
-          diagnosticMode = "openFilesOnly",
-          typeCheckingMode = "basic",
-          useLibraryCodeForTypes = true,
-        }
-      }
+
+  local ok, mason = pcall(require, "mason")
+  if ok then
+    mason.setup()
+  end
+
+  local ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+  if ok then
+    mason_lspconfig.setup {
+      ensure_installed = vim.tbl_keys(servers),
     }
-  }
-  lsp.rust_analyzer.setup{
-    on_attach = on_attach,
-    capabilities = vim.tbl_extend("keep", capabilities, lsp.rust_analyzer.capabilities or {}),
-    flags = flags,
-  }
+
+    local lspconfig = require"lspconfig"
+    mason_lspconfig.setup_handlers {
+      function(server_name)
+        lspconfig[server_name].setup {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = servers[server_name],
+          flags=flags,
+        }
+      end,
+    }
+  end
 EOF
 
-fun! s:lsp_extensions()
-  lua local ok, ext = pcall(require, "lsp_extensions"); if ok then ext.inlay_hints{
-  \ aligned = flase,
-  \ only_current_line = true,
-  \ prefix = '     » ',
-  \ highlight = 'NonText'
-  \ }
-  \ end
-endfun
-
 augroup plugin_lsp
-  autocmd CursorHold,CursorHoldI *.rs call s:lsp_extensions()
   autocmd FileType go,typescript*,javascript,rust,python,html,css,less,c,cc,cpp,h,hpp,vim,lua
     \ setlocal omnifunc=v:lua.vim.lsp.omnifunc
 augroup END
