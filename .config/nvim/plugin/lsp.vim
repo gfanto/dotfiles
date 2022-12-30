@@ -122,6 +122,17 @@ lua << EOF
       end,
     }
   end
+
+  local ok, null_ls = pcall(require, "null-ls")
+  if ok then
+    null_ls.setup({
+      sources = {
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.diagnostics.staticcheck,
+        null_ls.builtins.completion.spell,
+      },
+    })
+  end
 EOF
 
 augroup plugin_lsp
