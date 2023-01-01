@@ -3,10 +3,10 @@ if exists('g:loaded_lsp')
 endif
 let g:loaded_lsp = 1
 
-call sign_define('DiagnosticSignError', {'text' : '>>', 'texthl' : 'DiagnosticSignError'})
-call sign_define('DiagnosticSignWarn', {'text' : '', 'texthl' : 'DiagnosticSignWarn'})
-call sign_define('DiagnosticSignInfo', {'text' : '>>', 'texthl' : 'DiagnosticSignInfo'})
-call sign_define('DiagnosticSignHint', {'text' : '>>', 'texthl' : 'DiagnosticSignHint'})
+call sign_define('DiagnosticSignError', {'text': '>>', 'texthl': 'DiagnosticSignError'})
+call sign_define('DiagnosticSignWarn', {'text': '', 'texthl': 'DiagnosticSignWarn'})
+call sign_define('DiagnosticSignInfo', {'text': '>>', 'texthl': 'DiagnosticSignInfo'})
+call sign_define('DiagnosticSignHint', {'text': '>>', 'texthl': 'DiagnosticSignHint'})
 
 com Format lua vim.lsp.buf.format(nil, 5000)
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
@@ -134,11 +134,6 @@ lua << EOF
         null_ls.builtins.completion.spell,
       },
     })
-  end
-
-  local ok, dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
-  if ok then
-    dap_virtual_text.setup()
   end
 EOF
 
