@@ -128,10 +128,17 @@ lua << EOF
     null_ls.setup({
       sources = {
         null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.prettier,
         null_ls.builtins.diagnostics.staticcheck,
+        null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.completion.spell,
       },
     })
+  end
+
+  local ok, dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
+  if ok then
+    dap_virtual_text.setup()
   end
 EOF
 
