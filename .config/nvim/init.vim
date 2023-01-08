@@ -242,7 +242,6 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'gfanto/fzf-lsp.nvim'
 
 Plug 'roman/golden-ratio'
-Plug 'junegunn/goyo.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
