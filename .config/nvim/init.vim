@@ -124,7 +124,7 @@ set diffopt+=indent-heuristic
 
 " Globals {{{
 let $SHELL = '/bin/bash'
-let $FZF_DEFAULT_OPTS = '--reverse'
+let $FZF_DEFAULT_OPTS = '--reverse --no-separator'
 
 let g:mapleader = "\<Space>"
 
