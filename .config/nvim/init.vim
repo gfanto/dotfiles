@@ -258,8 +258,6 @@ hi link FloatermBorder GruvboxFg4
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap <C-p> :call execute(isdirectory('.git') ? ':GFiles' : ':Files')<CR>
-nnoremap <C-b> :tabprevious<CR>
-nnoremap <C-n> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-q> :tabclose<CR>
 
