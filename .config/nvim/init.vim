@@ -124,6 +124,7 @@ set diffopt+=indent-heuristic
 
 " Globals {{{
 let $SHELL = '/bin/bash'
+let $BAT_THEME = 'gruvbox-dark'
 let $FZF_DEFAULT_OPTS = '--reverse --no-separator'
 
 let g:mapleader = "\<Space>"
@@ -251,7 +252,6 @@ call plug#end()
 " Colors {{{
 set background=dark
 colorscheme gruvbox
-hi link FloatermBorder GruvboxFg4
 " }}}
 
 " Key bindings {{{

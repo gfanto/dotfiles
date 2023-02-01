@@ -328,7 +328,22 @@ function __history_previous_command_arguments
   end
 end
 
-set -gx FZF_DEFAULT_OPTS "--reverse --height=90%"
+set -gx FZF_THEME "
+--color=fg:#ebdbb2 \
+--color=bg:#1d2021 \
+--color=hl:#fabd2f \
+--color=fg+:bold:#ebdbb2 \
+--color=bg+:#3c3836 \
+--color=hl+:#fabd2f \
+--color=info:#83a598 \
+--color=prompt:#a89984 \
+--color=spinner:#fabd2f \
+--color=pointer:bold:#83a598 \
+--color=marker:#fe8019 \
+--color=header:#665c54 \
+"
+set -gx FZF_DEFAULT_OPTS "--reverse --height=90% $FZF_THEME"
+set -gx BAT_THEME "gruvbox-dark"
 set -gx GOPATH "$HOME/.go"
 set -gx GOROOT "/opt/go"
 set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
