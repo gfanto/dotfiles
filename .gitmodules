@@ -16,3 +16,30 @@
 [submodule ".vim/pack/plugins/start/vim-sensible"]
 	path = .vim/pack/plugins/start/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
+[submodule ".vim/pack/plugins/start/vim-commentary"]
+	path = .vim/pack/plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule ".vim/pack/plugins/start/vim-dispatch"]
+	path = .vim/pack/plugins/start/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
+[submodule ".vim/pack/plugins/start/vim-unimpaired"]
+	path = .vim/pack/plugins/start/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule ".vim/pack/plugins/start/vim-eunuch"]
+	path = .vim/pack/plugins/start/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch
+[submodule ".vim/pack/plugins/start/vim-characterize"]
+	path = .vim/pack/plugins/start/vim-characterize
+	url = https://github.com/tpope/vim-characterize
+[submodule ".vim/pack/plugins/start/vim-obsession"]
+	path = .vim/pack/plugins/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession
+[submodule ".vim/pack/plugins/start/vim-abolish"]
+	path = .vim/pack/plugins/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish
+[submodule ".vim/pack/plugins/start/vim-sleuth"]
+	path = .vim/pack/plugins/start/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth
+[submodule ".vim/pack/plugins/start/vim-vinegar"]
+	path = .vim/pack/plugins/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
