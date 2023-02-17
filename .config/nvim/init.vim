@@ -226,6 +226,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-speeddating'
 
 Plug 'rhysd/conflict-marker.vim'
 Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
@@ -279,7 +280,7 @@ nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap <leader><leader> :w<CR>
 nnoremap <leader>f <cmd>BLines<CR>
-nnoremap <Leader>t <cmd>FloatermNew env fish<CR>
+nnoremap <Leader>t <cmd>FloatermNew --height=0.8 --width=0.8 env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>
 nnoremap <leader>u <cmd>UndotreeToggle<CR>
 nnoremap <leader>e <cmd>NvimTreeToggle<CR>
