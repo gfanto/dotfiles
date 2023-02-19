@@ -171,9 +171,9 @@ com! CopyAbs let @+ = expand('%:p')
 com! CopyNam let @+ = expand('%:t')
 com! TermT :term fish
 com! -bang Term execute (<bang>0 ?
-  \'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
-  \:
   \'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
+  \:
+  \'FloatermNew --height=0.4 --position=bottom --wintype=split --name=term fish'
   \)
 " }}}
 
@@ -228,7 +228,6 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-speeddating'
 
 Plug 'rhysd/conflict-marker.vim'
 Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
