@@ -111,21 +111,20 @@ alias dkc "docker-compose"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
 alias cargo "env CARGO_NET_GIT_FETCH_WITH_CLI=true cargo"
-alias lcargo "env CARGO_TARGET_DIR=./target cargo"
 
 abbr s "sudo"
 abbr md "mkdir"
 abbr ul "unlink"
 
-abbr k "docker"
-abbr kps "docker ps -a"
-abbr krun "docker run --rm -it"
-abbr kexc "docker exec -it"
-abbr klog "docker logs"
-abbr kvol "docker volume"
-abbr kkll "docker kill"
-abbr kimg "docker image"
-abbr kcls "docker system prune"
+abbr d "docker"
+abbr dps "docker ps -a"
+abbr drun "docker run --rm -it"
+abbr dexc "docker exec -it"
+abbr dlog "docker logs"
+abbr dvol "docker volume"
+abbr dkll "docker kill"
+abbr dimg "docker image"
+abbr dcls "docker system prune"
 
 abbr g "git"
 abbr ga "git add"
@@ -180,16 +179,6 @@ function new -d"Create new file"
   else
     echo "Not enought arguments, you must specify the file name"
   end
-end
-
-function copyfull -d"copy file path to clipboard"
-  set file (fzf)
-  echo (pwd)/$file | c2c
-end
-
-function copyrel -d"copy relative file path to clipboard"
-  set file (fzf)
-  echo $file | c2c
 end
 
 function ctrlp -d "ctrlp for shell"
