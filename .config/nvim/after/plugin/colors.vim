@@ -11,3 +11,7 @@ if luaeval('pcall(require, "harpoon")')
   hi! link HarpoonBorder GruvboxFg4
   execute printf('hi! HarpoonWindow guibg=%s guifg=%s', g:terminal_color_0, g:terminal_color_15)
 endif
+
+if luaeval('pcall(require, "lsp-inlayhints")')
+  hi! link LspInlayHint Comment
+endif

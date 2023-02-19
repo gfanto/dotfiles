@@ -118,6 +118,7 @@ set foldlevelstart=99
 
 " Diffs {{{
 set diffopt+=iwhite
+set diffopt+=linematch:60
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
 " }}}
@@ -208,6 +209,7 @@ Plug 'hrsh7th/cmp-calc'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'lvimuser/lsp-inlayhints.nvim'
 
 Plug 'nathom/filetype.nvim'
 Plug 'sheerun/vim-polyglot'

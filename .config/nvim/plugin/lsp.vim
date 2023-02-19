@@ -52,10 +52,32 @@ lua << EOF
     lsp_status = {}
   end
 
+  local ok, lsp_inlayhints = pcall(require, "lsp-inlayhints")
+  if ok then
+    lsp_inlayhints.setup({
+      inlay_hints = {
+        parameter_hints = {
+          prefix = "» ",
+          remove_colon_start = true,
+        },
+        type_hints = {
+          prefix = "» ",
+          remove_colon_start = true,
+        },
+        only_current_line = true,
+      },
+    })
+  end
+
   local on_attach = function(client, bufnr)
     local ok, lsp_status = pcall(require, "lsp-status")
     if ok then
       lsp_status.on_attach(client, bufnr)
+    end
+
+    local ok, lsp_inlayhints = pcall(require, "lsp-inlayhints")
+    if ok then
+      lsp_inlayhints.on_attach(client, bufnr)
     end
 
     local ok, lsp_signature = pcall(require, "lsp_signature")
