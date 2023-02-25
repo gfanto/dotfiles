@@ -181,6 +181,20 @@ function new -d"Create new file"
   end
 end
 
+function snip -d"Load snippet into clipboard"
+  set file (command ls "$SNIPPETS" | fzf-tmux)
+  cat "$SNIPPETS/$file" | command $CLIPBOARD
+end
+
+function notes -d"Open o create a note file"
+  set file (command ls "$NOTES" | fzf-tmux -- --print-query)
+  if test $status = 0
+    command $EDITOR "$NOTES/$file[2]"
+  else
+    command $EDITOR "$NOTES/$file[1]"
+  end
+end
+
 function ctrlp -d "ctrlp for shell"
   if set file (fzf --preview="bat --color=always --style=plain {}" --reverse)
     switch $file
@@ -337,6 +351,9 @@ set -gx GOPATH "$HOME/.go"
 set -gx GOROOT "/opt/go"
 set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+set -gx NOTES "$HOME/notes"
+set -gx SNIPPETS "$HOME/snippets"
+set -gx CLIPBOARD "xclip -selection c"
 
 set PATH $PATH /usr/local/bin
 set PATH $PATH /opt/node/bin
@@ -372,6 +389,16 @@ if status --is-interactive
   bind \cf ctrlf
   if bind -M insert > /dev/null 2>&1
     bind -M insert \cp ctrlf
+  end
+
+  bind \cs snip
+  if bind -M insert > /dev/null 2>&1
+    bind -M insert \cs snip
+  end
+
+  bind \cn notes
+  if bind -M insert > /dev/null 2>&1
+    bind -M insert \cn snip
   end
 
   bind ! __history_previous_command
