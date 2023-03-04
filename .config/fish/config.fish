@@ -183,7 +183,7 @@ end
 
 function snip -d"Load snippet into clipboard"
   set file (command ls "$SNIPPETS" | fzf-tmux)
-  cat "$SNIPPETS/$file" | command $CLIPBOARD
+  cat "$SNIPPETS/$file" | $CLIPBOARD
 end
 
 function notes -d"Open o create a note file"
@@ -353,7 +353,7 @@ set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx NOTES "$HOME/notes"
 set -gx SNIPPETS "$HOME/snippets"
-set -gx CLIPBOARD "xclip -selection c"
+set -gx CLIPBOARD "c2c"
 
 set PATH $PATH /usr/local/bin
 set PATH $PATH /opt/node/bin
