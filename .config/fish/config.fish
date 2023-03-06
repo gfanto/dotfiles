@@ -149,10 +149,6 @@ abbr gs "git status"
 abbr gsp "git squash"
 abbr gsq "git rebase -i @~"
 
-function show_colors -d"Show color codes"
-  echo 'for COLOR in {1..255}; do echo -en "\e[38;5;${COLOR}m${COLOR} "; done; echo;' | bash
-end
-
 function weather -d"Get weather prevision"
   if count $argv > /dev/null
     set location (string join "+" $argv)
