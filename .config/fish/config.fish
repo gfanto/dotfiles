@@ -359,7 +359,6 @@ set PATH $PATH /usr/local/bin
 set PATH $PATH /opt/node/bin
 set PATH $PATH $HOME/.local/bin
 set PATH $PATH $HOME/.cargo/bin
-set PATH $PATH $HOME/.poetry/bin
 set PATH $PATH $HOME/.bin
 set PATH $PATH $GOPATH/bin
 set -gx PATH $PATH
