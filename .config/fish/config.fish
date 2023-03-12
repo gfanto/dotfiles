@@ -106,7 +106,7 @@ alias listdirs "ll -d */"
 alias listfiles "ll -p | grep -v /"
 alias serve "python -m http.server --bind 0.0.0.0"
 alias sha1 "sha1sum | awk '{print \$1}'"
-alias c2c "xclip -selection c"
+alias c2c "eval $CLIPBOARD"
 alias dkc "docker-compose"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
@@ -349,7 +349,7 @@ set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx NOTES "$HOME/notes"
 set -gx SNIPPETS "$HOME/snippets"
-set -gx CLIPBOARD "c2c"
+set -gx CLIPBOARD "xclip -selection c"
 
 set PATH $PATH /usr/local/bin
 set PATH $PATH /opt/node/bin
