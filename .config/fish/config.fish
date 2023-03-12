@@ -349,7 +349,11 @@ set -gx CARGO_TARGET_DIR "$HOME/.cache/cargo"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx NOTES "$HOME/notes"
 set -gx SNIPPETS "$HOME/snippets"
-set -gx CLIPBOARD "xclip -selection c"
+if set -q WSLENV
+  set -gx CLIPBOARD "clip.exe"
+else
+  set -gx CLIPBOARD "xclip -selection c"
+end
 
 set PATH $PATH /usr/local/bin
 set PATH $PATH /opt/node/bin
