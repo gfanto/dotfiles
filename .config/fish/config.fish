@@ -179,7 +179,7 @@ end
 
 function snip -d"Load snippet into clipboard"
   set file (command ls "$SNIPPETS" | fzf-tmux)
-  cat "$SNIPPETS/$file" | $CLIPBOARD
+  cat "$SNIPPETS/$file" | c2c
 end
 
 function notes -d"Open o create a note file"
