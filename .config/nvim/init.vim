@@ -296,7 +296,7 @@ vnoremap $ $h
 nnoremap <silent> gs :buffer#<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-nnoremap <leader><leader> :w ++p<CR>
+nnoremap <leader><leader> <cmd>w ++p<CR>
 nnoremap <leader>f <cmd>BLines<CR>
 nnoremap <Leader>t <cmd>FloatermNew --height=0.8 --width=0.8 env fish<CR>
 nnoremap <Leader>q <cmd>FloatermToggle<CR>
