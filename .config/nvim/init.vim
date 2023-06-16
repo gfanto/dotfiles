@@ -186,7 +186,6 @@ let g:fzf_lsp_colors = 'bg+:-1'
 com! CopyRel let @+ = expand('%')
 com! CopyAbs let @+ = expand('%:p')
 com! CopyNam let @+ = expand('%:t')
-com! TermT :term fish
 com! -bang Term execute (<bang>0 ?
   \'FloatermNew --width=0.5 --position=right --wintype=vsplit --name=term fish'
   \:
@@ -221,8 +220,6 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
-Plug 'hrsh7th/cmp-emoji'
-Plug 'hrsh7th/cmp-calc'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
@@ -307,7 +304,7 @@ nnoremap <leader>g <cmd>Rg<CR>
 nnoremap <leader>G :gr! <C-r><C-w><CR>
 nnoremap <leader>h :lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>H :lua require("harpoon.ui").toggle_quick_menu()<CR>
-for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   exec 'nnoremap <leader>'.i.' :lua require("harpoon.ui").nav_file('.i.')<CR>'
 endfor
 

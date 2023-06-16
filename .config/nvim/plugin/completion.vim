@@ -66,8 +66,6 @@ if ok then
       { name = "buffer" },
       { name = "vsnip" },
       { name = "path" },
-      { name = "calc" },
-      { name = "emoji" },
     },
     formatting = {
       format = cmp_format,
