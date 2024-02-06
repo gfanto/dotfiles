@@ -268,6 +268,8 @@ call plug#end()
 " Colors {{{
 set background=dark
 colorscheme gruvbox
+hi! link WinSeparator VertSplit
+hi! link NormalFloat Pmenu
 " }}}
 
 " Key bindings {{{
