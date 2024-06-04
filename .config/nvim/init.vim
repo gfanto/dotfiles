@@ -293,11 +293,11 @@ xnoremap > >gv
 vnoremap $ $h
 
 nnoremap <silent> gs :buffer#<CR>
-nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap <silent><expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-nnoremap <leader><leader> <cmd>w ++p<CR>
-nnoremap <leader>f <cmd>BLines<CR>
-nnoremap <Leader>t <cmd>FloatermNew --height=0.8 --width=0.8 env fish<CR>
+nnoremap <silent><leader><leader> <cmd>w ++p<CR>
+nnoremap <silent><leader>f <cmd>BLines<CR>
+nnoremap <silent><Leader>t <cmd>FloatermNew --height=0.8 --width=0.8 env fish<CR>
 function s:term()
   if floaterm#buflist#curr() > 0
     FloatermToggle
@@ -305,17 +305,19 @@ function s:term()
     FloatermNew --height=0.8 --width=0.8 env fish
   endif
 endfun
-nnoremap <Leader>q <cmd>call <SID>term()<CR>
-nnoremap <leader>u <cmd>UndotreeToggle<CR>
-nnoremap <leader>e <cmd>NvimTreeToggle<CR>
-nnoremap <leader>E <cmd>NvimTreeFindFile<CR>
-nnoremap <leader>g <cmd>Rg<CR>
-nnoremap <leader>G :gr! <C-r><C-w><CR>
-nnoremap <leader>h :lua require("harpoon.mark").add_file()<CR>
-nnoremap <leader>H :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <silent><Leader>q <cmd>call <SID>term()<CR>
+nnoremap <silent><leader>u <cmd>UndotreeToggle<CR>
+nnoremap <silent><leader>e <cmd>NvimTreeToggle<CR>
+nnoremap <silent><leader>E <cmd>NvimTreeFindFile<CR>
+nnoremap <silent><leader>g <cmd>Rg<CR>
+nnoremap <silent><leader>G :gr! <C-r><C-w><CR>:bo copen<CR><C-w><C-w>
+nnoremap <silent><leader>h :lua require("harpoon.mark").add_file()<CR>
+nnoremap <silent><leader>H :lua require("harpoon.ui").toggle_quick_menu()<CR>
 for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  exec 'nnoremap <leader>'.i.' :lua require("harpoon.ui").nav_file('.i.')<CR>'
+  exec 'nnoremap <silent> <leader>'.i.' :lua require("harpoon.ui").nav_file('.i.')<CR>'
 endfor
+nnoremap <silent><leader>D <cmd>DiagnosticsAll<CR>
+nnoremap <silent><leader>n <cmd>e /dev/null<CR>
 
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
@@ -323,9 +325,8 @@ map <silent> <A-p> <C-w><S-w>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
 map <silent> <A-m> :GoldenRatioResize<CR>
-
-nnoremap <right> :FloatermNext<CR>
-nnoremap <left> :FloatermPrev<CR>
+map <right>  :FloatermNext<CR><Esc>:stopinsert<CR>
+map <left>   :FloatermPrev<CR><Esc>:stopinsert<CR>
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
