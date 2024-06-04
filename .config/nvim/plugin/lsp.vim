@@ -8,7 +8,7 @@ call sign_define('DiagnosticSignWarn', {'text': '', 'texthl': 'DiagnosticSign
 call sign_define('DiagnosticSignInfo', {'text': '>>', 'texthl': 'DiagnosticSignInfo'})
 call sign_define('DiagnosticSignHint', {'text': '>>', 'texthl': 'DiagnosticSignHint'})
 
-com Format lua vim.lsp.buf.format(nil, 5000)
+com Format lua vim.lsp.buf.format{timeout_ms = 5000}
 com Diagnostics lua vim.lsp.diagnostic.set_loclist();vim.api.nvim_command("wincmd p")
 
 nnoremap <silent> gd <cmd>lua if #vim.tbl_keys(vim.lsp.buf_get_clients()) > 0 then
