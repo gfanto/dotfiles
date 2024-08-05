@@ -23,6 +23,11 @@ if ok then
     }
   })
 end
+
+local ok, markview pcall(require, "markview")
+if ok then
+  markview.setup({})
+end
 EOF
 
 if get(g:, 'loaded_conflict_marker')
