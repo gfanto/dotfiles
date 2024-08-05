@@ -225,10 +225,6 @@ Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'lvimuser/lsp-inlayhints.nvim'
 
-Plug 'nathom/filetype.nvim'
-Plug 'sheerun/vim-polyglot'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
