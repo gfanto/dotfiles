@@ -53,7 +53,7 @@ style = "Block"
 size = 13.0
 
 [font.normal]
-family = "FiraCode Nerd Font"
+family = "Ubuntu Nerd Font"
 
 [[keyboard.bindings]]
 action = "SearchForward"
