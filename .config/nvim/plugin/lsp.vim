@@ -103,7 +103,7 @@ lua << EOF
     gopls = {},
     pyright = {},
     rust_analyzer = {},
-    tsserver = {},
+    ts_ls = {},
     vimls = {},
     pyright = {},
     lua_ls = {
