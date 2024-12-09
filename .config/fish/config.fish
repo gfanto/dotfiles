@@ -111,6 +111,7 @@ alias dkc "docker-compose"
 alias lua "rlwrap lua"
 alias luajit "rlwrap luajit"
 alias cargo "env CARGO_NET_GIT_FETCH_WITH_CLI=true cargo"
+alias filter_ansi "sed -e 's/\x1b\[[0-9;]*m//g'"
 
 abbr s "sudo"
 abbr md "mkdir"
