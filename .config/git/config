@@ -12,7 +12,6 @@
 
 [core]
     editor = nvim
-    pager = delta
     autocrlf = input
     ;safecrlf = warn
 
