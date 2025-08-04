@@ -238,9 +238,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-dadbod'
 
-Plug 'OXY2DEV/markview.nvim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
 Plug 'michaeljsmith/vim-indent-object'
