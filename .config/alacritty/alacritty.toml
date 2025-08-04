@@ -76,9 +76,11 @@ hide_when_typing = true
 [selection]
 save_to_clipboard = true
 
-[shell]
+[terminal.shell]
 program = "tmux"
 
 [window]
 decorations = "none"
 startup_mode = "Maximized"
+
+[terminal]
