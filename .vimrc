@@ -1,11 +1,36 @@
 unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+try
+  source $VIMRUNTIME/defaults.vim
+catch /.*/
+  if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+    set fileencodings=ucs-bom,utf-8,latin1
+  endif
+
+  set nocompatible
+  set bs=indent,eol,start
+  set history=50
+  set ruler
+
+  if &t_Co > 2 || has("gui_running")
+    syntax on
+    set hlsearch
+  endif
+
+  filetype plugin on
+
+  if &term=="xterm"
+      set t_Co=8
+      set t_Sb=m
+      set t_Sf=m
+  endif
+
+  let &guicursor = &guicursor . ",a:blinkon0"
+endtry
 
 let g:mapleader = "\<Space>"
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_keepj = ""
-let g:gruvbox_contrast_dark = 'hard'
 
 set path=.,**
 set wildmenu
@@ -28,6 +53,7 @@ set softtabstop=-1
 set shiftround
 set ignorecase
 set noswapfile
+set hlsearch
 
 set ve=block
 set scrolloff=8
@@ -39,12 +65,17 @@ set ttimeoutlen=10
 set foldmethod=manual
 set foldlevelstart=99
 
-set background=dark
+try
+  let g:gruvbox_contrast_dark = 'hard'
+  set background=dark
 
-colorscheme gruvbox
-hi Normal ctermbg=none
-hi Visual ctermbg=237 cterm=none
-hi debugPC ctermbg=24 guibg=#076678
+  colorscheme gruvbox
+  hi Normal ctermbg=none
+  hi Visual ctermbg=237 cterm=none
+  hi debugPC ctermbg=24 guibg=#076678
+catch /.*/
+  colorscheme desert
+endtry
 
 nnoremap <C-l> :noh<CR>
 nnoremap K <NOP>
