@@ -1,1 +1,0 @@
-let termdebugger = "rust-gdb"
