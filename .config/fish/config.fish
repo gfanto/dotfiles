@@ -150,6 +150,7 @@ abbr gr "git rebase -i"
 abbr gs "git status"
 abbr gsp "git squash"
 abbr gsq "git rebase -i @~"
+abbr gy "git apply --ignore-space-change --ignore-whitespace"
 
 function weather -d"Get weather prevision"
   if count $argv > /dev/null
