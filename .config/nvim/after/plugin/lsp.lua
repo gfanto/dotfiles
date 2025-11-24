@@ -56,6 +56,7 @@ local function on_attach(client, bufnr)
   map("n", "]e", function()
     vim.diagnostic.jump({ count = 1, float = true })
   end, "Next diagnostic")
+  map("n", "<leader>D", function() vim.cmd("DiagnosticsAll") end, "Workspace diagnostic")
 
   -- performance improvements
   if client.name == "ts_ls" or client.name == "pyright" then
@@ -89,8 +90,6 @@ require("mason-lspconfig").setup({
 -------------------------------------------------
 -- LSPCONFIG (STABLE API)
 -------------------------------------------------
-local lspconfig = require("lspconfig")
-
 local servers = {
   ts_ls = {},
   pyright = {},
