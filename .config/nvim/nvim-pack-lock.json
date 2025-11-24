@@ -16,6 +16,10 @@
       "rev": "3b4a5d13adeb33f387d744b6ed777bb5401cba94",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
+    "git-conflict.nvim": {
+      "rev": "a1badcd070d176172940eb55d9d59029dad1c5a6",
+      "src": "https://github.com/akinsho/git-conflict.nvim"
+    },
     "golden-ratio": {
       "rev": "636b8a1ea6bfe18296e61a8ac271b0101cb2ad3b",
       "src": "https://github.com/roman/golden-ratio"
@@ -87,8 +91,7 @@
     },
     "toggleterm.nvim": {
       "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
-      "src": "https://github.com/akinsho/toggleterm.nvim",
-      "version": "'*'"
+      "src": "https://github.com/akinsho/toggleterm.nvim"
     },
     "vim-abolish": {
       "rev": "dcbfe065297d31823561ba787f51056c147aa682",
