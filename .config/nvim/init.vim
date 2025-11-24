@@ -320,8 +320,8 @@ map <silent> <A-p> <C-w><S-w>
 map <silent> <A-s> :split<CR>
 map <silent> <A-v> :vsplit<CR>
 map <silent> <A-m> :GoldenRatioResize<CR>
-map <right>  :FloatermNext<CR><Esc>:stopinsert<CR>
-map <left>   :FloatermPrev<CR><Esc>:stopinsert<CR>
+map <leader><right> :FloatermNext<CR><Esc>:stopinsert<CR>
+map <leader><left>  :FloatermPrev<CR><Esc>:stopinsert<CR>
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
