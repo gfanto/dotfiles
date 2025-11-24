@@ -294,7 +294,7 @@ map(win_modes, "<A-v>", ":vsplit<CR>", { silent = true })
 map(win_modes, "<A-m>", ":GoldenRatioResize<CR>", { silent = true })
 
 -- ============
--- Command utils
+-- Commands and autocommands
 -- ============
 
 vim.api.nvim_create_user_command("CopyRel", function()
@@ -308,6 +308,13 @@ end, {})
 vim.api.nvim_create_user_command("CopyNam", function()
   vim.fn.setreg("+", vim.fn.expand("%:t"))
 end, {})
+
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+    pattern = "*",
+    callback = function ()
+        require("vim.hl").on_yank()
+    end
+})
 
 -- ============
 -- Local system setting
