@@ -10,9 +10,9 @@ fzf.setup({
 
   lsp = {
     winopts = {
-      width  = 1.00,
-      row    = 1.00,
-      height = 0.40,
+      width   = 1.00,
+      row     = 1.00,
+      height  = 0.40,
       preview = {
         layout     = "horizontal",
         horizontal = "right:40%",
@@ -22,9 +22,9 @@ fzf.setup({
 
   quickfix = {
     winopts = {
-      width  = 1.00,
-      row    = 1.00,
-      height = 0.40,
+      width   = 1.00,
+      row     = 1.00,
+      height  = 0.40,
       preview = {
         layout     = "horizontal",
         horizontal = "right:40%",
@@ -48,4 +48,12 @@ map("n", "<leader>G", function()
 end)
 map("n", "<leader>b", fzf.buffers, { silent = true })
 map("n", "<leader>p", fzf.files, { silent = true })
-map("n", "<leader>Q", ":cclose<CR>:FzfLua quickfix<CR>", { silent = true })
+map("n", "<leader>Q", function()
+  if #vim.fn.getqflist() > 0 then
+    vim.cmd("cclose")
+    vim.cmd("FzfLua quickfix")
+  elseif #vim.fn.getloclist(0) > 0 then
+    vim.cmd("lclose")
+    vim.cmd("FzfLua loclist")
+  end
+end, { silent = true })
