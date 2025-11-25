@@ -14,14 +14,14 @@ blink.setup({
   },
 
   keymap = {
-      preset = "default",
+    preset = "default",
 
-      ["<C-n>"] = { "select_next", "fallback" },
-      ["<C-p>"] = { "select_prev", "fallback" },
-      ["<CR>"] = { "accept", "fallback" },
+    ["<C-n>"] = { "select_next", "fallback" },
+    ["<C-p>"] = { "select_prev", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
 
-      ["<C-Space>"] = { "show" },
-      ["<C-e>"] = { "hide" },
+    ["<C-Space>"] = { "show" },
+    ["<C-e>"] = { "hide" },
   },
 
   sources = {
@@ -29,12 +29,12 @@ blink.setup({
   },
 
   snippets = {
-      expand = function(args)
+    expand = function(args)
       luasnip.lsp_expand(args)
-      end,
-      active = function()
+    end,
+    active = function()
       return luasnip.expand_or_jumpable()
-      end,
+    end,
   },
 
   cmdline = {
@@ -43,14 +43,6 @@ blink.setup({
       menu = { auto_show = true },
       list = { selection = { preselect = false, auto_insert = true } },
     },
-    keymap = {
-      ["<CR>"] = { "accept", "fallback" },
-      ["<Esc>"] = { "hide", "fallback" },
-      ["<Tab>"] = { "select_next", "fallback" },
-      ["<S-Tab>"] = { "select_prev", "fallback" },
-      ["<C-e>"] = { "cancel", "fallback" },
-      ["<C-y>"] = { "select_and_accept" },
-    }
   },
 
   completion = {
