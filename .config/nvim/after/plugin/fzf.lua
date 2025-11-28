@@ -18,6 +18,18 @@ fzf.setup({
         horizontal = "right:40%",
       },
     },
+
+    code_actions = {
+      winopts = {
+        width   = 1.00,
+        row     = 1.00,
+        height  = 0.40,
+        preview = {
+          layout     = "horizontal",
+          horizontal = "right:40%",
+        },
+      },
+    },
   },
 
   quickfix = {
