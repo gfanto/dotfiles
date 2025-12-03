@@ -86,7 +86,7 @@ blink.setup({
       auto_show = true,
       auto_show_delay_ms = 100,
     },
-    ghost_text = { enabled = true },
+    ghost_text = { enabled = false },
   },
 
   signature = { enabled = true },
