@@ -209,3 +209,85 @@ vim.diagnostic.config({
     border = "single",
   },
 })
+
+------------------------------------------------
+-- Preview plugin
+------------------------------------------------
+
+local function open_definition_popup(location)
+  local uri = location.uri or location.targetUri
+  if not uri then
+    return
+  end
+
+  local bufnr = vim.uri_to_bufnr(uri)
+  if not vim.api.nvim_buf_is_loaded(bufnr) then
+    vim.fn.bufload(bufnr)
+  end
+
+  local range = location.range or location.targetRange
+  if not range or not range.start or not range["end"] then
+    return
+  end
+
+  local start_line = math.max(range.start.line - 2, 0)
+  local end_line = math.min(
+    range["end"].line + 8,
+    vim.api.nvim_buf_line_count(bufnr)
+  )
+
+  local lines = vim.api.nvim_buf_get_lines(bufnr, start_line, end_line, false)
+
+  local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+
+  local win_buf, win = vim.lsp.util.open_floating_preview(
+    lines,
+    ft,
+    {
+      border = "single",
+      max_width = 80,
+      max_height = 20,
+      focusable = false,
+      close_events = { "CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre" },
+      anchor = "NW",
+      relative = "cursor",
+      row = 1,
+      col = 1,
+    }
+  )
+
+  return win_buf, win
+end
+
+local function preview_location_callback(err, result, ctx, _)
+  if err then
+    vim.notify("LSP Error: " .. tostring(err), vim.log.levels.ERROR)
+    return
+  end
+
+  if not result or vim.tbl_isempty(result) then
+    vim.notify("No definition found", vim.log.levels.INFO)
+    return
+  end
+
+  if vim.islist(result) then
+    result = result[1]
+  end
+
+  open_definition_popup(result)
+end
+
+local function preview_definition()
+  local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+  local enc = client and client.offset_encoding or "utf-16"
+
+  local params = vim.lsp.util.make_position_params(0, enc)
+
+  vim.lsp.buf_request(0, "textDocument/definition", params, preview_location_callback)
+end
+
+vim.lsp.buf.preview_definition = preview_definition
+vim.keymap.set("n", "cd", preview_definition, {
+  silent = true,
+  desc = "Preview definition (popup)",
+})
