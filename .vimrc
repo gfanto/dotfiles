@@ -68,6 +68,7 @@ vnoremap $ $h
 
 nnoremap <silent> gs :buffer#<CR>
 nnoremap <expr> gy '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap <C-w>t :tabnew<CR>
 
 autocmd InsertLeave * set nopaste
 
