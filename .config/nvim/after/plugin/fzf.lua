@@ -69,3 +69,5 @@ map("n", "<leader>Q", function()
     vim.cmd("FzfLua loclist")
   end
 end, { silent = true })
+
+vim.cmd("FzfLua register_ui_select")
