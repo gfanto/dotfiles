@@ -283,7 +283,6 @@ end, { expr = true, silent = true })
 
 map("n", "<leader><leader>", ":w ++p<CR>", { silent = true })
 map("n", "<leader>n", ":e /dev/null<CR>", { silent = true })
-map("n", "<leader>G", [[:gr! <C-r><C-w><CR>:bo copen<CR><C-w><C-w>]], { silent = true })
 map("n", "<C-w>t", ":tabnew<CR>", { silent = true })
 
 local win_modes = { "n", "v", "o" }
