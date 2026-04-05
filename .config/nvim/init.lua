@@ -232,7 +232,7 @@ vim.pack.add({
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
 
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = 'main', lazy = false, build = ":TSUpdate" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 
